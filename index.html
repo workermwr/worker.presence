@@ -23,11 +23,17 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Latar Belakang Utama Mawar Misterius */
+        /* Latar Belakang Utama Mawar dengan Efek Bernapas */
         .background-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(1, 0, 0, 0.98)), url('mawar.jpg') no-repeat center center;
+            background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(1, 0, 0, 0.93)), url('mawar.jpg') no-repeat center center;
             background-size: cover; z-index: 1;
+            animation: rose-breath 8s ease-in-out infinite alternate; /* Mawar menjadi hidup & bernapas */
+        }
+
+        @keyframes rose-breath {
+            0% { filter: contrast(1) brightness(0.9); }
+            100% { filter: contrast(1.2) brightness(1.2); }
         }
 
         /* ==================== INTRO GERBANG CYBER MEKANIS ==================== */
@@ -36,30 +42,28 @@
             z-index: 999; display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
 
-        /* Pembagian Bilah Gerbang Fisik Kiri & Kanan */
         .gate-half {
             position: absolute; top: 0; width: 50%; height: 100%;
             background: radial-gradient(circle at center, #0a0103 0%, #010000 100%);
             border: 1px solid #110103; box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
             transition: transform 1.6s cubic-bezier(0.85, 0, 0.15, 1); z-index: 998;
         }
-        .gate-left { left: 0; border-right: 1px solid #4a050e; }
-        .gate-right { right: 0; border-left: 1px solid #4a050e; }
+        .gate-left { left: 0; border-right: 2px solid #55020f; }
+        .gate-right { right: 0; border-left: 2px solid #55020f; }
 
         #intro-container.gate-open .gate-left { transform: translateX(-100%); }
         #intro-container.gate-open .gate-right { transform: translateX(100%); }
 
-        /* Kontainer Utama Efek Animasi Guguran Kelopak Mawar Murni CSS */
         .petal-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 996; overflow: hidden;
         }
 
-        /* Kelopak Organik Buatan CSS (Dijamin Bebas Kotak Putih Gambar) */
+        /* Kelopak Organik Buatan CSS */
         .rose-petal {
             position: absolute;
             background: radial-gradient(circle at 30% 30%, #ff1a40 0%, #800016 70%, #3a0007 100%);
-            border-radius: 50% 0 50% 50%; /* Membuat bentuk kelopak asimetris alami */
+            border-radius: 50% 0 50% 50%;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             pointer-events: none;
             animation: fall-animation linear infinite;
@@ -72,7 +76,6 @@
             100% { transform: translateY(105vh) translateX(150px) rotate(540deg) scale(0.5); opacity: 0; }
         }
 
-        /* Kontainer Papan Logo Tengah */
         .megah-scan-box {
             position: absolute; width: 600px; height: 250px;
             display: flex; justify-content: center; align-items: center;
@@ -80,7 +83,6 @@
         }
         #intro-container.gate-open .megah-scan-box { opacity: 0; pointer-events: none; }
 
-        /* Logo MWTT Emas Premium */
         .logo-mwtt-gold {
             font-family: 'Cinzel', serif; font-size: 125px; font-weight: 900; letter-spacing: 6px; line-height: 1;
             background: linear-gradient(135deg, #fff3d1 0%, #ffd700 25%, #d4af37 50%, #aa7c11 75%, #f3e5ab 100%);
@@ -95,10 +97,7 @@
             animation: laser-scan-intense 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
         }
 
-        @keyframes laser-scan-intense {
-            0% { top: 10%; opacity: 0.3; }
-            100% { top: 90%; opacity: 0.3; }
-        }
+        @keyframes laser-scan-intense { 0% { top: 10%; opacity: 0.3; } 100% { top: 90%; opacity: 0.3; } }
 
         .flash-bang {
             position: absolute; width: 100%; height: 100%; background: #ff0033;
@@ -106,55 +105,58 @@
         }
         @keyframes flash { 0% { opacity: 0.4; } 100% { opacity: 0; } }
 
-        /* ==================== ANTARMUKA UTAMA JAM DIGITAL ==================== */
+        /* ==================== ANTARMUKA UTAMA DENGAN SASIS INDUSTRIAL TEBAL ==================== */
         .main-interface {
             position: relative; z-index: 2; width: 100%; max-width: 1250px; 
-            padding: 60px 40px; text-align: center;
+            padding: 70px 50px; text-align: center;
             opacity: 0; transform: scale(0.98) translateY(5px);
             transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
             
-            border: 1px solid rgba(255, 0, 51, 0.08);
-            background: linear-gradient(180deg, rgba(10, 1, 2, 0.4) 0%, rgba(2, 0, 0, 0.7) 100%);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(255, 0, 51, 0.02);
-            border-radius: 4px;
+            /* Sasis Tebal Premium Korporat Ganda */
+            border: 3px solid rgba(255, 0, 51, 0.15);
+            background: linear-gradient(180deg, rgba(8, 0, 2, 0.6) 0%, rgba(2, 0, 0, 0.85) 100%);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), inset 0 0 65px rgba(255, 0, 51, 0.04);
+            border-radius: 6px;
         }
         .main-interface.visible { opacity: 1; transform: scale(1) translateY(0); }
 
-        /* Aksen Sudut Sasis Bingkai Premium */
+        /* Aksen Sudut Sasis Tebal & Menyala Agresif */
         .main-interface::before, .main-interface::after {
-            content: ''; position: absolute; width: 14px; height: 14px; border-color: rgba(255, 0, 51, 0.4); border-style: solid; pointer-events: none;
+            content: ''; position: absolute; width: 22px; height: 22px; border-color: #ff0033; border-style: solid; pointer-events: none;
+            filter: drop-shadow(0 0 6px #ff0033);
         }
-        .main-interface::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-        .main-interface::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+        .main-interface::before { top: -3px; left: -3px; border-width: 4px 0 0 4px; }
+        .main-interface::after { bottom: -3px; right: -3px; border-width: 0 4px 4px 0; }
 
-        .corporate-header { font-size: 12px; text-transform: uppercase; letter-spacing: 8px; color: #777777; margin-bottom: 45px; display: flex; justify-content: center; align-items: center; gap: 15px; }
-        .network-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(5, 0, 1, 0.8); border: 1px solid #220104; border-radius: 2px; font-size: 9px; letter-spacing: 2px; }
+        .corporate-header { font-size: 12px; text-transform: uppercase; letter-spacing: 8px; color: #888888; margin-bottom: 45px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .network-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(5, 0, 1, 0.9); border: 1px solid #44020a; border-radius: 2px; font-size: 9px; letter-spacing: 2px; }
         .status-dot { width: 6px; height: 6px; border-radius: 50%; }
         
-        .online .status-dot { background-color: #00ff66; box-shadow: 0 0 8px #00ff66; }
-        .online { color: #828e87; }
+        .online .status-dot { background-color: #00ff66; box-shadow: 0 0 10px #00ff66; }
+        .online { color: #9bb5a6; }
         
         .offline .status-dot { background-color: #ff0033; animation: fast-blink 0.4s infinite alternate; }
-        .offline { color: #ff3344; border-color: #55010d; box-shadow: 0 0 15px rgba(255, 0, 51, 0.1); }
+        .offline { color: #ff3344; border-color: #880115; box-shadow: 0 0 15px rgba(255, 0, 51, 0.2); }
         @keyframes fast-blink { 0% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* Layout Jam Rapat Solid ala Time.is */
+        /* Jam Rapat Solid ala Time.is (Pendaran Crimson Diperkuat) */
         .clock-row { display: flex; justify-content: center; align-items: baseline; font-variant-numeric: tabular-nums; margin-bottom: 25px; }
         .time-main { 
-            font-size: 150px; font-weight: 900; color: #eaeeef; letter-spacing: -5px; 
-            text-shadow: 0 0 35px rgba(255, 0, 51, 0.4), 0 0 10px rgba(212, 175, 55, 0.15), 0 0 2px #ffffff; 
+            font-size: 155px; font-weight: 900; color: #ffffff; letter-spacing: -5px; 
+            text-shadow: 0 0 45px rgba(255, 0, 51, 0.6), 0 0 15px rgba(212, 175, 55, 0.2), 0 0 3px #ffffff; 
         }
         
-        .colon { padding: 0 3px; color: #eaeeef; letter-spacing: -3px; }
-        .time-seconds { font-size: 72px; font-weight: 300; color: #cc1e3d; margin-left: 12px; letter-spacing: -2px; text-shadow: 0 0 15px rgba(204, 30, 61, 0.35); }
-        .time-zone { font-size: 26px; font-weight: 800; color: #3d3d3d; margin-left: 18px; letter-spacing: 1px; }
+        .colon { padding: 0 3px; color: #ffffff; letter-spacing: -3px; text-shadow: 0 0 20px rgba(255, 0, 51, 0.6); }
 
-        .divider-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #55020f 20%, #ff0033 50%, #55020f 80%, transparent); margin-bottom: 35px; }
-        .date-display { font-size: 36px; font-weight: 900; letter-spacing: 6px; color: #c8c8c8; text-transform: uppercase; margin-bottom: 35px; }
+        .time-seconds { font-size: 75px; font-weight: 300; color: #e6193c; margin-left: 12px; letter-spacing: -2px; text-shadow: 0 0 20px rgba(230, 25, 60, 0.5); }
+        .time-zone { font-size: 26px; font-weight: 800; color: #555555; margin-left: 18px; letter-spacing: 1px; }
+
+        .divider-line { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #880215 20%, #ff0033 50%, #880215 80%, transparent); box-shadow: 0 0 10px rgba(255, 0, 51, 0.4); margin-bottom: 35px; }
+        .date-display { font-size: 38px; font-weight: 900; letter-spacing: 6px; color: #e1e1e1; text-transform: uppercase; margin-bottom: 35px; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
 
         /* Panel Metadata Source */
-        .source-metadata-box { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 9px; letter-spacing: 2px; color: #444444; text-transform: uppercase; }
-        .meta-link { text-decoration: none; color: #771426; font-weight: 600; border-bottom: 1px dotted #33070e; padding-bottom: 2px; transition: all 0.3s ease; }
+        .source-metadata-box { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 9px; letter-spacing: 2px; color: #555555; text-transform: uppercase; }
+        .meta-link { text-decoration: none; color: #9e1b32; font-weight: 600; border-bottom: 1px dotted #550c19; padding-bottom: 2px; transition: all 0.3s ease; }
         .meta-link:hover { color: #ff0033; border-bottom: 1px solid #ff0033; text-shadow: 0 0 8px rgba(255, 0, 51, 0.6); }
     </style>
 </head>
@@ -169,7 +171,7 @@
         <div class="gate-half gate-left"></div>
         <div class="gate-half gate-right"></div>
         
-        <!-- Kontainer Khusus Efek Guguran Kelopak Mawar Murni CSS -->
+        <!-- Kontainer Efek Guguran Kelopak Mawar Murni CSS -->
         <div class="petal-container" id="petal-zone"></div>
         
         <!-- Kontainer Scan Tengah Menampilkan Logo Mandiri -->
@@ -179,7 +181,7 @@
         </div>
     </div>
 
-    <!-- Antarmuka Utama Jam Digital (Dengan Sasis Bingkai Premium) -->
+    <!-- Antarmuka Utama Jam Digital (Dengan Sasis Bingkai Tebal & Aksen Sudut Menyala) -->
     <div class="main-interface" id="main-ui">
         <div class="corporate-header">
             <span>Mawar Grup — Official Attendance Record</span>
@@ -217,22 +219,18 @@
         // 1. Generator Kelopak Mawar Organik Murni CSS (Anti-Kotak Putih Gambar)
         function spawnRosePetals() {
             const petalZone = document.getElementById('petal-zone');
-            const totalPetals = 35; // Meningkatkan kerapatan agar efek guguran lebih dramatis
+            const totalPetals = 35; 
 
             for (let i = 0; i < totalPetals; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'rose-petal';
                 
-                // Variasi Ukuran Acak yang Elegan
-                const size = Math.random() * 20 + 15; // Ukuran antara 15px - 35px
+                const size = Math.random() * 20 + 15; 
                 petal.style.width = `${size}px`;
                 petal.style.height = `${size}px`;
                 
-                // Variasi Posisi Horizontal awal dan Rotasi 3D Acak
                 petal.style.left = `${Math.random() * 100}%`;
-                
-                // Variasi Kecepatan Jatuh (Durasi) & Jeda Awal (Delay) agar tidak turun bersamaan
-                petal.style.animationDuration = `${Math.random() * 3 + 3.5}s`; // 3.5s hingga 6.5s
+                petal.style.animationDuration = `${Math.random() * 3 + 3.5}s`; 
                 petal.style.animationDelay = `${Math.random() * 4}s`;
                 
                 petalZone.appendChild(petal);
