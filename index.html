@@ -11,7 +11,7 @@
         }
 
         body {
-            background-color: #080808;
+            background-color: #050505;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             height: 100vh;
@@ -19,10 +19,28 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Kontainer Utama - Struktur Monokromatik & Maskulin */
+        /* MEMANGGIL GAMBAR MAWAR HITAM MISTERIUS YANG ANDA UNGGAH MANUAL */
+        .rose-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            /* Lapisan gelap pekat + memanggil file gambar mawar.jpg */
+            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0.98) 85%), 
+                              url('mawar.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
         .workspace-panel {
+            position: relative;
+            z-index: 2;
             text-align: center;
             width: 100%;
             max-width: 80vw;
@@ -33,7 +51,6 @@
             justify-content: center;
         }
 
-        /* Identitas Formal Perusahaan - Tegas & Berwibawa */
         .corporate-header {
             font-size: 2.8vh;
             font-weight: 800;
@@ -43,17 +60,15 @@
             margin-bottom: 12px;
         }
 
-        /* Sub-Header Penanda Ruang Kerja Aktif */
         .corporate-sub {
             font-size: 1.6vh;
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 6px;
-            color: #bd1e2c; /* Warna Merah Mawar Grup Solid */
+            color: #bd1e2c; 
             margin-bottom: 6vh;
         }
 
-        /* Box Waktu Utama */
         .time-container {
             display: flex;
             flex-direction: column;
@@ -62,33 +77,31 @@
             margin-bottom: 6vh;
         }
 
-        /* Jam & Menit - Putih Solid, Tajam, & Presisi */
         #clock-hm {
             font-size: 24vh;
             font-weight: 200;
             letter-spacing: -2px;
             color: #ffffff;
             font-variant-numeric: tabular-nums;
+            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.9));
         }
 
-        /* Detik - Terpisah Tipis di Bawah */
         #clock-s {
             font-size: 5vh;
             font-weight: 300;
-            color: #555555; /* Abu-abu baja */
+            color: #555555; 
             letter-spacing: 4px;
             margin-top: 2vh;
             font-variant-numeric: tabular-nums;
         }
 
-        /* Tanggal DIUBAH TOTAL: Ukuran Diperbesar & Sangat Jelas */
         #date {
-            font-size: 3.2vh; /* Diperbesar signifikan agar langsung terlihat */
+            font-size: 3.2vh; 
             font-weight: 500;
             color: #e0e0e0;
             letter-spacing: 4px;
             text-transform: uppercase;
-            border-top: 2px solid #bd1e2c; /* Garis pembatas Merah Mawar Grup */
+            border-top: 2px solid #bd1e2c; 
             padding-top: 3vh;
             width: 60%;
             display: inline-block;
@@ -97,8 +110,9 @@
 </head>
 <body>
 
+    <div class="rose-background"></div>
+
     <div class="workspace-panel">
-        <!-- Identitas Baru: Menghilangkan kesan alay dan diganti penanda resmi -->
         <div class="corporate-header">Mawar Grup</div>
         <div class="corporate-sub">Official Workspace</div>
         
@@ -113,7 +127,6 @@
     <script>
         function updateClock() {
             const now = new Date();
-            
             let hours = String(now.getHours()).padStart(2, '0');
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
@@ -121,11 +134,9 @@
             document.getElementById('clock-hm').textContent = `${hours}:${minutes}`;
             document.getElementById('clock-s').textContent = `${seconds} SEC`;
             
-            // Format Tanggal Internasional yang Bersih
             const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
         }
-
         setInterval(updateClock, 1000);
         updateClock();
     </script>
