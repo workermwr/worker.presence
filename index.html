@@ -11,7 +11,8 @@
         }
 
         body {
-            background-color: #030303;
+            /* Latar belakang gradasi merah mawar gelap sinematik untuk memunculkan efek kaca */
+            background: linear-gradient(135deg, #050001 0%, #1a0003 35%, #380208 70%, #0d0002 100%);
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
             height: 100vh;
@@ -22,63 +23,67 @@
             position: relative;
         }
 
-        /* Vektor Mawar Merah Gelap Sinematik — DIJAMIN 100% PASTI MUNCUL */
-        .rose-full-background {
+        /* Pendaran cahaya mawar tambahan di latar belakang */
+        .ambient-glow {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(189, 30, 44, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 20%;
+            left: 20%;
             z-index: 1;
             pointer-events: none;
+            filter: blur(80px);
         }
 
-        /* Panel Kaca iOS Nyata dengan Peningkatan Kontras Komponen */
+        /* Panel Kaca iOS Premium dengan Kontras Tinggi */
         .clock-display-wrapper {
             position: relative;
             z-index: 2;
             text-align: center;
             width: 100%;
-            max-width: 50vw;
+            max-width: 55vw;
             padding: 6vh 4vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             
-            /* Formula Efek Kaca iOS Frosted Premium */
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(35px) saturate(160%);
-            -webkit-backdrop-filter: blur(35px) saturate(160%);
-            border-radius: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 
-                        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            /* Formula Efek Kaca Frosted Glass Transparan ala Apple */
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            
+            /* Garis tepi kaca dan bayangan tebal agar terlihat melayang */
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.25);
             
             animation: iOSFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Tulisan sambung premium dengan kejelasan tinggi */
+        /* Tulisan sambung mewah premium */
         .welcome-cursive {
             font-family: 'Georgia', 'Playfair Display', cursive, serif;
             font-style: italic;
-            font-size: 5.8vh;
+            font-size: 6vh;
             font-weight: 300;
-            color: #fff2db; 
-            margin-bottom: 0.5vh;
+            color: #fff1d6; 
+            margin-bottom: 0.8vh;
             letter-spacing: 1px;
             text-shadow: 0px 3px 15px rgba(0, 0, 0, 0.6);
         }
 
         .status-pill {
-            font-size: 1.4vh;
+            font-size: 1.5vh;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 12px;
-            color: #ff3b30; /* Warna Merah Sistem iOS Murni */
-            margin-bottom: 4vh;
+            color: #ff453a; /* Merah iOS Terang */
+            margin-bottom: 4.5vh;
             display: block;
-            text-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+            text-shadow: 0 2px 8px rgba(255, 69, 58, 0.4);
         }
 
         .time-box {
@@ -86,36 +91,36 @@
             flex-direction: column;
             align-items: center;
             line-height: 0.85;
-            margin-bottom: 4vh;
+            margin-bottom: 4.5vh;
         }
 
-        /* Desain Jam Putih Neon Lembut Khas Layar Kunci iPhone */
+        /* Angka Jam Putih iOS Minimalis */
         .time-row {
-            font-size: 21vh;
+            font-size: 22vh;
             font-weight: 200; 
-            letter-spacing: -1px;
+            letter-spacing: -2px;
             color: #ffffff;
             font-variant-numeric: tabular-nums;
-            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.35)) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.25)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
         }
 
         .seconds-row {
-            font-size: 4.8vh;
+            font-size: 5vh;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.6); 
+            color: rgba(255, 255, 255, 0.55); 
             letter-spacing: 3px;
-            margin-top: 1.5vh;
+            margin-top: 1.8vh;
             font-variant-numeric: tabular-nums;
         }
 
         #date {
-            font-size: 1.9vh;
+            font-size: 2vh;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.75);
             letter-spacing: 5px;
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding-top: 2vh;
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            padding-top: 2.5vh;
             width: 85%;
             display: inline-block;
         }
@@ -128,28 +133,10 @@
 </head>
 <body>
 
-    <!-- Latar Belakang Mawar Kode Internal Kejelasan Tinggi (Anti-Gagal Memuat) -->
-    <div class="rose-full-background">
-        <svg xmlns="http://w3.org" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-            <rect width="1920" height="1080" fill="#060606"/>
-            <radialGradient id="bg-glow" cx="50%" cy="50%" r="70%">
-                <stop offset="0%" stop-color="#4a0006" stop-opacity="0.6"/>
-                <stop offset="60%" stop-color="#140002" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="#030303" stop-opacity="0"/>
-            </radialGradient>
-            <rect width="1920" height="1080" fill="url(#bg-glow)"/>
-            <!-- Komposisi Seni Mawar Merah Tengah Layar -->
-            <g transform="translate(960, 540) scale(2.2)" opacity="0.65">
-                <path d="M0,-80 C120,-180 250,-100 250,30 C250,160 120,240 0,240 C-120,240 -250,160 -250,30 C-250,-100 -120,-180 0,-80 Z" fill="#1c0003"/>
-                <path d="M0,-50 C80,-120 170,-70 170,20 C170,110 80,160 0,160 C-80,160 -170,110 -170,20 C-170,-70 -80,-120 0,-50 Z" fill="#3d0107"/>
-                <path d="M0,-20 C50,-70 100,-40 100,10 C100,60 50,100 0,100 C-50,100 -100,60 -100,10 C-100,-40 -50,-70 0,-20 Z" fill="#6e020d"/>
-                <path d="M0,0 C30,-40 60,-20 60,5 C60,30 30,50 0,50 C-30,50 -60,30 -60,5 C-60,-20 -30,-40 0,0 Z" fill="#a80514"/>
-                <path d="M0,10 C15,-15 30,-5 30,10 C30,25 15,35 0,35 C-15,35 -30,25 -30,10 C-30,-5 -15,-15 0,10 Z" fill="#e61228"/>
-            </g>
-        </svg>
-    </div>
+    <!-- Pendaran Cahaya Merah Mawar di Belakang Kaca -->
+    <div class="ambient-glow"></div>
 
-    <!-- Tampilan Antarmuka Kaca iOS -->
+    <!-- Tampilan Utama Kaca iOS -->
     <div class="clock-display-wrapper">
         <div class="welcome-cursive">Welcome back, Abdul</div>
         <span class="status-pill">Absolute Precision Broadcast</span>
