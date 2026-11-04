@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Mawar Grup — Executive Workspace Chronograph</title>
+    <title>Mawar Grup — Official Enterprise Clock</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,8 +11,7 @@
         }
 
         body {
-            /* Latar belakang korporat modern dengan pendaran merah marun Mawar Grup */
-            background: linear-gradient(135deg, #020202 0%, #0d0103 40%, #1f0205 75%, #050001 100%) !important;
+            background-color: #080808;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             height: 100vh;
@@ -20,159 +19,92 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            position: relative;
         }
 
-        /* Efek pencahayaan studio formal di latar belakang */
-        .ambient-corporate {
-            position: absolute;
-            width: 70vw;
-            height: 70vh;
-            background: radial-gradient(circle, rgba(163, 29, 39, 0.15) 0%, rgba(0, 0, 0, 0) 70%) !important;
-            top: 15%;
-            left: 15%;
-            z-index: 1;
-            pointer-events: none;
-            filter: blur(100px);
-        }
-
-        /* Dasbor Transparan Premium Mawar Grup */
-        .clock-display-wrapper {
-            position: relative;
-            z-index: 2;
+        /* Kontainer Utama - Struktur Monokromatik & Maskulin */
+        .workspace-panel {
             text-align: center;
             width: 100%;
-            max-width: 60vw;
-            padding: 7vh 4vw;
+            max-width: 80vw;
+            padding: 40px;
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            
-            /* Kaca Transparan Tipis Berteknologi Tinggi */
-            background: rgba(255, 255, 255, 0.03) !important;
-            backdrop-filter: blur(30px) saturate(140%) !important;
-            -webkit-backdrop-filter: blur(30px) saturate(140%) !important;
-            
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9), 
-                        inset 0 1px 0px rgba(255, 255, 255, 0.15) !important;
-            
-            animation: corporateFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Tulisan Sambung Dibuang, Diganti Font Bold Formal & Profesional */
-        .welcome-corporate {
-            font-size: 4.5vh;
-            font-weight: 700;
+        /* Identitas Formal Perusahaan - Tegas & Berwibawa */
+        .corporate-header {
+            font-size: 2.8vh;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #ffffff; 
-            margin-bottom: 1vh;
-            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 12px;
+            color: #ffffff;
+            margin-bottom: 12px;
         }
 
-        .sub-welcome {
-            font-size: 2.2vh;
-            font-weight: 300;
-            color: #cccccc;
-            letter-spacing: 2px;
-            margin-bottom: 4vh;
-        }
-
-        .status-pill {
-            font-size: 1.4vh;
-            font-weight: 600;
+        /* Sub-Header Penanda Ruang Kerja Aktif */
+        .corporate-sub {
+            font-size: 1.6vh;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 14px;
-            color: #a31d27; /* Merah Identitas Mawar Grup */
-            margin-bottom: 4.5vh;
-            display: block;
+            letter-spacing: 6px;
+            color: #bd1e2c; /* Warna Merah Mawar Grup Solid */
+            margin-bottom: 6vh;
         }
 
-        .time-box {
+        /* Box Waktu Utama */
+        .time-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-            margin-bottom: 4.5vh;
+            line-height: 0.85;
+            margin-bottom: 6vh;
         }
 
-        /* SVG Jam Kaca Cair yang Diselaraskan dengan Tema Korporat */
-        .liquid-glass-svg {
-            width: 100%;
-            height: 22vh;
-        }
-
-        .liquid-text {
-            font-size: 22vh;
-            font-weight: 100; /* Tipis, Bersih, dan Presisi Tinggi */
+        /* Jam & Menit - Putih Solid, Tajam, & Presisi */
+        #clock-hm {
+            font-size: 24vh;
+            font-weight: 200;
             letter-spacing: -2px;
+            color: #ffffff;
             font-variant-numeric: tabular-nums;
-            text-anchor: middle;
-            fill: url(#corporate-liquid-gradient);
-            filter: drop-shadow(0 2px 2px rgba(255, 255, 255, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.8));
         }
 
-        .seconds-row {
-            font-size: 4.8vh;
+        /* Detik - Terpisah Tipis di Bawah */
+        #clock-s {
+            font-size: 5vh;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.4); 
+            color: #555555; /* Abu-abu baja */
             letter-spacing: 4px;
-            margin-top: 1vh;
+            margin-top: 2vh;
             font-variant-numeric: tabular-nums;
         }
 
+        /* Tanggal DIUBAH TOTAL: Ukuran Diperbesar & Sangat Jelas */
         #date {
-            font-size: 2vh;
-            font-weight: 400;
-            color: #8c8c8c;
-            letter-spacing: 6px;
+            font-size: 3.2vh; /* Diperbesar signifikan agar langsung terlihat */
+            font-weight: 500;
+            color: #e0e0e0;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 2.5vh;
-            width: 90%;
+            border-top: 2px solid #bd1e2c; /* Garis pembatas Merah Mawar Grup */
+            padding-top: 3vh;
+            width: 60%;
             display: inline-block;
-        }
-
-        @keyframes corporateFadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cahaya Latar Belakang Korporat -->
-    <div class="ambient-corporate"></div>
-
-    <!-- Kontainer Utama Dasbor Kerja Mawar Grup -->
-    <div class="clock-display-wrapper">
-        <div class="welcome-corporate">Welcome, Mawar Grup Personnel</div>
-        <div class="sub-welcome">Enjoy Your Workspace</div>
+    <div class="workspace-panel">
+        <!-- Identitas Baru: Menghilangkan kesan alay dan diganti penanda resmi -->
+        <div class="corporate-header">Mawar Grup</div>
+        <div class="corporate-sub">Official Workspace</div>
         
-        <span class="status-pill">Official Enterprise Timepiece</span>
-        
-        <div class="time-box">
-            <svg class="liquid-glass-svg">
-                <defs>
-                    <linearGradient id="corporate-liquid-gradient" x1="0%" y1="0%" x2="200%" y2="0%">
-                        <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
-                        <stop offset="25%" stop-color="rgba(240,240,240,0.6)"/>
-                        <stop offset="50%" stop-color="rgba(180,180,180,0.3)"/>
-                        <stop offset="55%" stop-color="rgba(255,255,255,0.9)"/>
-                        <stop offset="75%" stop-color="rgba(230,230,230,0.6)"/>
-                        <stop offset="100%" stop-color="rgba(255,255,255,0.95)"/>
-                        
-                        <animate attributeName="x1" from="0%" to="-100%" dur="9s" repeatCount="indefinite" />
-                        <animate attributeName="x2" from="200%" to="100%" dur="9s" repeatCount="indefinite" />
-                    </linearGradient>
-                </defs>
-                <text id="hm-clock" x="50%" y="85%" class="liquid-text">00:00</text>
-            </svg>
-            
-            <div id="s-clock" class="seconds-row">00 SEC</div>
+        <div class="time-container">
+            <div id="clock-hm">00:00</div>
+            <div id="clock-s">00 SEC</div>
         </div>
         
         <div id="date">Loading...</div>
@@ -186,9 +118,10 @@
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
             
-            document.getElementById('hm-clock').textContent = `${hours}:${minutes}`;
-            document.getElementById('s-clock').textContent = `${seconds} SEC`;
+            document.getElementById('clock-hm').textContent = `${hours}:${minutes}`;
+            document.getElementById('clock-s').textContent = `${seconds} SEC`;
             
+            // Format Tanggal Internasional yang Bersih
             const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
         }
