@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Mawar Grup — Attendance Timepiece</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mawar Grup — Enterprise Chronograph Dashboard</title>
     <style>
+        :root {
+            --bg-primary: #050505;
+            --brand-red: #bd1e2c;
+            --text-primary: #ffffff;
+            --text-muted: #d6d6d6;
+            --text-dark: #666666;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -11,9 +20,9 @@
         }
 
         body {
-            background-color: #050505;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             height: 100vh;
             display: flex;
             align-items: center;
@@ -22,7 +31,8 @@
             position: relative;
         }
 
-        .rose-background {
+        /* Memanggil gambar mawar hitam misterius yang Anda unggah manual */
+        .rose-infrastructure-bg {
             position: absolute;
             top: 0;
             left: 0;
@@ -36,153 +46,202 @@
             background-position: center;
         }
 
-        .workspace-panel {
+        /* Kompleksitas Arsitektur Grid/Flex Penunjuk Waktu */
+        .workspace-master-panel {
             position: relative;
             z-index: 2;
             text-align: center;
             width: 100%;
-            max-width: 80vw;
-            padding: 40px;
+            max-width: 85vw;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-branding-group {
+            margin-bottom: 5vh;
         }
 
         .corporate-header {
             font-size: 3vh;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 12px;
-            color: #e0e0e0;
-            margin-bottom: 8px;
+            letter-spacing: 14px;
+            color: #e5e5e5;
+            margin-bottom: 6px;
         }
 
         .corporate-sub {
-            font-size: 1.6vh;
+            font-size: 1.5vh;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            color: #bd1e2c; 
-            margin-bottom: 5vh;
+            letter-spacing: 7px;
+            color: var(--brand-red); 
         }
 
-        .time-container {
+        /* KELOMPOK WAKTU: Menggabungkan seluruh komponen dalam satu baris linier */
+        .chronograph-stream-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 0.85;
-            margin-bottom: 5vh;
+            flex-direction: row;
+            align-items: baseline; /* Menyeimbangkan posisi bawah tulisan */
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 6vh;
+            font-variant-numeric: tabular-nums;
         }
 
-        #clock-hm {
+        /* Jam dan Menit */
+        .primary-time-digits {
             font-size: 24vh;
-            font-weight: 300;
+            font-weight: 200;
             letter-spacing: -2px;
-            color: #d6d6d6; 
-            font-variant-numeric: tabular-nums;
-            filter: drop-shadow(0 0 15px rgba(189, 30, 44, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.9));
+            color: var(--text-muted);
+            line-height: 1;
+            filter: drop-shadow(0 0 15px rgba(189, 30, 44, 0.4)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
         }
 
-        /* ANIMASI KEDIP UNTUK TITIK DUA JAM */
-        .colon-blink {
-            animation: blinkEffect 1s step-start infinite;
+        /* Animasi kedip canggih pada pemisah jam */
+        .digital-colon {
+            animation: hardwareBlink 1s step-start infinite;
+            font-weight: 200;
         }
 
-        @keyframes blinkEffect {
-            50% { opacity: 0; }
+        @keyframes hardwareBlink {
+            50% { opacity: 0.15; }
         }
 
-        #clock-s {
-            font-size: 5.5vh;
-            font-weight: 500;
-            color: #ffffff; 
-            letter-spacing: 4px;
-            margin-top: 2.5vh;
-            font-variant-numeric: tabular-nums;
+        /* DETIK: Berada di baris yang sama dengan ukuran lebih kecil dan tipis */
+        .auxiliary-seconds-digits {
+            font-size: 8vh; /* Ukuran font lebih kecil secara proporsional */
+            font-weight: 200; /* Lebih tipis agar artistik */
+            color: var(--brand-red); /* Warna merah mawar grup yang tegas */
+            margin-left: 25px; /* Jarak aman dari angka menit */
+            letter-spacing: 1px;
+            line-height: 1;
+            align-self: flex-end; /* Memaksa detik sejajar di sisi bawah jam utama */
+            padding-bottom: 2vh; /* Kalibrasi vertikal garis bawah */
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        #date {
-            font-size: 3.5vh; 
-            font-weight: 600;
-            color: #ffffff;
-            letter-spacing: 3px;
+        /* Penanda Zona Waktu Resmi */
+        .timezone-badge {
+            font-size: 2.2vh;
+            font-weight: 400;
+            color: #888888;
+            letter-spacing: 4px;
+            margin-left: 15px;
             text-transform: uppercase;
-            border-top: 2px solid #bd1e2c; 
-            padding-top: 2.5vh;
-            width: 65%;
-            display: inline-block;
-            margin-bottom: 3vh;
+            align-self: flex-end;
+            padding-bottom: 2vh;
         }
 
-        /* INDIKATOR STATUS SISTEM AKTIF */
-        .status-indicator {
+        /* Blok Data Kalender */
+        .metadata-calendar-block {
+            width: 65%;
+            border-top: 2px solid var(--brand-red);
+            padding-top: 3vh;
+            margin-bottom: 3.5vh;
+            display: inline-block;
+        }
+
+        #date-display {
+            font-size: 3.5vh; 
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Modul Status Keamanan Sistem */
+        .system-telemetry-status {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 1.4vh;
             font-weight: 600;
             letter-spacing: 3px;
-            color: #888888;
+            color: var(--text-dark);
             text-transform: uppercase;
         }
 
-        .green-dot {
+        .telemetry-pulse-node {
             width: 8px;
             height: 8px;
-            background-color: #30d158; /* Hijau iOS/Apple System */
+            background-color: #30d158; 
             border-radius: 50%;
             box-shadow: 0 0 8px #30d158;
-            animation: pulseDot 2s infinite alternate;
+            animation: telemetryPulse 2.5s infinite alternate;
         }
 
-        @keyframes pulseDot {
-            0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px #30d158; }
+        @keyframes telemetryPulse {
+            0% { transform: scale(0.9); opacity: 0.5; box-shadow: 0 0 4px #30d158; }
             100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 12px #30d158; }
         }
     </style>
 </head>
 <body>
 
-    <div class="rose-background"></div>
+    <!-- Infrastruktur Latar Belakang Gambar -->
+    <div class="rose-infrastructure-bg"></div>
 
-    <div class="workspace-panel">
-        <div class="corporate-header">Mawar Grup</div>
-        <div class="corporate-sub">Official Attendance Record</div>
+    <!-- Sistem Panel Utama -->
+    <div class="workspace-master-panel">
         
-        <div class="time-container">
-            <!-- Tempat merender Jam, Menit, dan Titik Dua Berkedip -->
-            <div id="clock-hm">00<span class="colon-blink">:</span>00</div>
-            <div id="clock-s">00 SEC • LOCAL TIME</div>
+        <div class="header-branding-group">
+            <div class="corporate-header">Mawar Grup</div>
+            <div class="corporate-sub">Official Attendance Record</div>
         </div>
         
-        <div id="date">Loading System...</div>
+        <!-- Aliran Waktu Satu Baris Linier Sesuai Permintaan -->
+        <div class="chronograph-stream-container">
+            <!-- Jam dan Menit -->
+            <div id="main-time" class="primary-time-digits">00<span class="digital-colon">:</span>00</div>
+            <!-- Detik (Kecil) -->
+            <div id="seconds-stream" class="auxiliary-seconds-digits">00</div>
+            <!-- Zona Waktu -->
+            <div id="timezone-stream" class="timezone-badge">WIB</div>
+        </div>
         
-        <!-- Tambahan status operasional live agar terverifikasi resmi -->
-        <div class="status-indicator">
-            <div class="green-dot"></div>
+        <div class="metadata-calendar-block">
+            <div id="date-display">Loading System...</div>
+        </div>
+        
+        <div class="system-telemetry-status">
+            <div class="telemetry-pulse-node"></div>
             <span>System Secure & Active</span>
         </div>
+        
     </div>
 
     <script>
-        function updateClock() {
-            const now = new Date();
+        (function() {
+            'use strict';
             
-            let hours = String(now.getHours()).padStart(2, '0');
-            let minutes = String(now.getMinutes()).padStart(2, '0');
-            let seconds = String(now.getSeconds()).padStart(2, '0');
-            
-            const timeZoneString = now.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
-            
-            // Merender angka dengan titik dua berkedip tetap terjaga di tengah
-            document.getElementById('clock-hm').innerHTML = `${hours}<span class="colon-blink">:</span>${minutes}`;
-            document.getElementById('clock-s').textContent = `${seconds} SEC • ${timeZoneString}`;
-            
-            const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-            document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
-        }
+            function executeChronographUpdate() {
+                const currentTimeObj = new Date();
+                
+                let hoursStr = String(currentTimeObj.getHours()).padStart(2, '0');
+                let minutesStr = String(currentTimeObj.getMinutes()).padStart(2, '0');
+                let secondsStr = String(currentTimeObj.getSeconds()).padStart(2, '0');
+                
+                const calculatedZone = currentTimeObj.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
+                
+                // Sinkronisasi data ke struktur DOM HTML secara presisi
+                document.getElementById('main-time').innerHTML = `${hoursStr}<span class="digital-colon">:</span>${minutesStr}`;
+                document.getElementById('seconds-stream').textContent = secondsStr;
+                document.getElementById('timezone-stream').textContent = calculatedZone;
+                
+                const calendarOptions = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+                document.getElementById('date-display').textContent = currentTimeObj.toLocaleDateString('en-US', calendarOptions);
+            }
 
-        setInterval(updateClock, 1000);
-        updateClock();
+            // Inisialisasi loop sinkronisasi internal
+            setInterval(executeChronographUpdate, 1000);
+            executeChronographUpdate();
+        })();
     </script>
 </body>
 </html>
