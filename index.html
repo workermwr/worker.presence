@@ -18,18 +18,18 @@
 
         body, html {
             width: 100%; height: 100%; overflow: hidden;
-            background-color: #020000; color: #e5e5e5;
+            background-color: #010000; color: #eaeeef;
             display: flex; justify-content: center; align-items: center;
             font-family: 'Inter', sans-serif;
         }
 
         .background-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.88), rgba(2, 0, 0, 0.98)), url('mawar.jpg') no-repeat center center;
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(1, 0, 0, 0.98)), url('mawar.jpg') no-repeat center center;
             background-size: cover; z-index: 1;
         }
 
-        /* ==================== INTRO GERBANG CYBER MEKANIS ==================== */
+        /* ==================== INTRO GERBANG CYBER UTAMA ==================== */
         #intro-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 999; display: flex; justify-content: center; align-items: center; overflow: hidden;
@@ -37,12 +37,12 @@
 
         .gate-half {
             position: absolute; top: 0; width: 50%; height: 100%;
-            background: radial-gradient(circle at center, #0d0204 0%, #030000 100%);
-            border: 1px solid #1a0205; box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
-            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1); z-index: 998;
+            background: radial-gradient(circle at center, #0a0103 0%, #010000 100%);
+            border: 1px solid #110103; box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
+            transition: transform 1.6s cubic-bezier(0.85, 0, 0.15, 1); z-index: 998;
         }
-        .gate-left { left: 0; border-right: 2px solid #3d050c; }
-        .gate-right { right: 0; border-left: 2px solid #3d050c; }
+        .gate-left { left: 0; border-right: 1px solid #4a050e; }
+        .gate-right { right: 0; border-left: 1px solid #4a050e; }
 
         #intro-container.gate-open .gate-left { transform: translateX(-100%); }
         #intro-container.gate-open .gate-right { transform: translateX(100%); }
@@ -50,93 +50,99 @@
         .intro-video-bg {
             position: absolute; top: 50%; left: 50%; width: 100%; height: 100%;
             object-fit: cover; transform: translate(-50%, -50%);
-            mix-blend-mode: screen; opacity: 0.55; z-index: 996; pointer-events: none;
+            mix-blend-mode: screen; opacity: 0.5; z-index: 996; pointer-events: none;
         }
 
         .megah-scan-box {
-            position: absolute; width: 500px; height: 350px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 999; transition: opacity 1s ease-in-out;
+            position: absolute; width: 600px; height: 250px;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 999; transition: opacity 0.8s ease-in-out;
         }
         #intro-container.gate-open .megah-scan-box { opacity: 0; pointer-events: none; }
 
-        /* Logo MWTT Emas Premium Berpendar Crimson */
+        /* Logo MWTT Emas Premium Berpendar Crimson Tanpa Subtitle */
         .logo-mwtt-gold {
-            font-family: 'Cinzel', serif; font-size: 110px; font-weight: 900; letter-spacing: 4px; line-height: 1;
+            font-family: 'Cinzel', serif; font-size: 125px; font-weight: 900; letter-spacing: 6px; line-height: 1;
             background: linear-gradient(135deg, #fff3d1 0%, #ffd700 25%, #d4af37 50%, #aa7c11 75%, #f3e5ab 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            position: relative; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.95));
-            animation: logo-glow-pulse 3.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes logo-glow-pulse {
-            0% { filter: drop-shadow(0 0 10px rgba(255, 0, 51, 0.3)) drop-shadow(2px 4px 6px rgba(0,0,0,0.95)); }
-            100% { filter: drop-shadow(0 0 35px rgba(255, 0, 51, 0.85)) drop-shadow(2px 4px 6px rgba(0,0,0,0.95)); }
+            position: relative; filter: drop-shadow(0 0 25px rgba(255, 0, 51, 0.45)) drop-shadow(2px 4px 8px rgba(0,0,0,0.95));
         }
 
         .laser-line-megah {
-            position: absolute; left: -10%; width: 120%; height: 3px;
+            position: absolute; left: -5%; width: 110%; height: 2px;
             background: linear-gradient(90deg, transparent, #ff0033 20%, #ffffff 50%, #ff0033 80%, transparent);
-            box-shadow: 0 0 25px #ff0033, 0 0 50px #ff0033, 0 0 100px #ff0033;
-            animation: laser-scan-intense 1.75s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+            box-shadow: 0 0 30px #ff0033, 0 0 60px #ff0033;
+            animation: laser-scan-intense 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
         }
 
         @keyframes laser-scan-intense {
-            0% { top: 15%; opacity: 0.4; transform: scaleX(0.9); }
-            50% { opacity: 1; transform: scaleX(1.05); }
-            100% { top: 75%; opacity: 0.4; transform: scaleX(0.9); }
-        }
-
-        .intro-subtitle {
-            font-family: 'Cinzel', serif; font-size: 11px; text-transform: uppercase;
-            letter-spacing: 14px; color: #777; margin-top: 25px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.9); text-indent: 14px;
+            0% { top: 10%; opacity: 0.3; }
+            100% { top: 90%; opacity: 0.3; }
         }
 
         .flash-bang {
             position: absolute; width: 100%; height: 100%; background: #ff0033;
-            opacity: 0; z-index: 1000; pointer-events: none; animation: flash 0.7s ease-out forwards;
+            opacity: 0; z-index: 1000; pointer-events: none; animation: flash 0.6s ease-out forwards;
         }
-        @keyframes flash { 0% { opacity: 0.6; } 100% { opacity: 0; } }
+        @keyframes flash { 0% { opacity: 0.4; } 100% { opacity: 0; } }
 
-        /* ==================== ANTARMUKA JAM DIGITAL ==================== */
+        /* ==================== ANTARMUKA UTAMA JAM DIGITAL ==================== */
         .main-interface {
-            position: relative; z-index: 2; width: 100%; max-width: 1200px; padding: 40px; text-align: center;
-            opacity: 0; transform: scale(0.96) translateY(10px);
+            position: relative; z-index: 2; width: 100%; max-width: 1250px; 
+            padding: 60px 40px; text-align: center;
+            opacity: 0; transform: scale(0.98) translateY(5px);
             transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Sasis Bingkai Premium Formal */
+            border: 1px solid rgba(255, 0, 51, 0.08);
+            background: linear-gradient(180deg, rgba(10, 1, 2, 0.4) 0%, rgba(2, 0, 0, 0.7) 100%);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(255, 0, 51, 0.02);
+            border-radius: 4px;
         }
         .main-interface.visible { opacity: 1; transform: scale(1) translateY(0); }
 
-        .corporate-header { font-size: 13px; text-transform: uppercase; letter-spacing: 7px; color: #888888; margin-bottom: 40px; display: flex; justify-content: center; align-items: center; gap: 15px; }
-        .network-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(15, 0, 0, 0.6); border: 1px solid #2a0005; border-radius: 3px; font-size: 10px; letter-spacing: 2px; }
-        .status-dot { width: 7px; height: 7px; border-radius: 50%; }
+        /* Aksen Sudut Sasis Korporat */
+        .main-interface::before, .main-interface::after {
+            content: ''; position: absolute; width: 14px; height: 14px; border-color: rgba(255, 0, 51, 0.4); border-style: solid; pointer-events: none;
+        }
+        .main-interface::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        .main-interface::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+        .corporate-header { font-size: 12px; text-transform: uppercase; letter-spacing: 8px; color: #777777; margin-bottom: 45px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .network-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(5, 0, 1, 0.8); border: 1px solid #220104; border-radius: 2px; font-size: 9px; letter-spacing: 2px; }
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; }
         .online .status-dot { background-color: #00ff66; box-shadow: 0 0 8px #00ff66; }
-        .online { color: #8a9990; }
+        .online { color: #828e87; }
         .offline .status-dot { background-color: #ff0033; animation: fast-blink 0.4s infinite alternate; }
-        .offline { color: #ff3344; border-color: #660011; box-shadow: 0 0 15px rgba(255, 0, 51, 0.1); }
-        @keyframes fast-blink { 0% { opacity: 0.2; box-shadow: 0 0px #ff0033; } 100% { opacity: 1; box-shadow: 0 0 10px #ff0033; } }
+        .offline { color: #ff3344; border-color: #55010d; box-shadow: 0 0 15px rgba(255, 0, 51, 0.1); }
+        @keyframes fast-blink { 0% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* Layout Jam Solid, Tebal, Rapat Terinspirasi Kerapatan Font Time.is */
-        .clock-row { display: flex; justify-content: center; align-items: baseline; font-variant-numeric: tabular-nums; margin-bottom: 20px; }
-        .time-main { font-size: 145px; font-weight: 900; color: #eaeeef; letter-spacing: -4px; text-shadow: 0 0 30px rgba(255, 0, 51, 0.45), 0 0 2px rgba(255, 255, 255, 0.95); }
-        .colon { animation: slow-blink 1s infinite steps(1, start); padding: 0 2px; color: #eaeeef; letter-spacing: -2px; }
-        @keyframes slow-blink { 0%, 100% { opacity: 0.1; } 50% { opacity: 1; } }
-        .time-seconds { font-size: 70px; font-weight: 300; color: #cc1e3d; margin-left: 10px; letter-spacing: -2px; text-shadow: 0 0 15px rgba(204, 30, 61, 0.4); }
-        .time-zone { font-size: 26px; font-weight: 800; color: #444444; margin-left: 15px; letter-spacing: 1px; }
+        /* Jam Rapat Solid ala Time.is */
+        .clock-row { display: flex; justify-content: center; align-items: baseline; font-variant-numeric: tabular-nums; margin-bottom: 25px; }
+        .time-main { 
+            font-size: 150px; font-weight: 900; color: #eaeeef; letter-spacing: -5px; 
+            text-shadow: 0 0 35px rgba(255, 0, 51, 0.4), 0 0 10px rgba(212, 175, 55, 0.15), 0 0 2px #ffffff; 
+        }
+        
+        /* Titik Dua Diam, Tegas & Elegan */
+        .colon { padding: 0 3px; color: #eaeeef; letter-spacing: -3px; }
 
-        .divider-line { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #800016 15%, #ff0033 50%, #800016 85%, transparent); box-shadow: 0 0 12px rgba(255, 0, 51, 0.6); margin-bottom: 30px; }
-        .date-display { font-size: 36px; font-weight: 900; letter-spacing: 6px; color: #d4d4d4; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.6); margin-bottom: 30px; }
+        .time-seconds { font-size: 72px; font-weight: 300; color: #cc1e3d; margin-left: 12px; letter-spacing: -2px; text-shadow: 0 0 15px rgba(204, 30, 61, 0.35); }
+        .time-zone { font-size: 26px; font-weight: 800; color: #3d3d3d; margin-left: 18px; letter-spacing: 1px; }
+
+        .divider-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #55020f 20%, #ff0033 50%, #55020f 80%, transparent); margin-bottom: 35px; }
+        .date-display { font-size: 36px; font-weight: 900; letter-spacing: 6px; color: #c8c8c8; text-transform: uppercase; margin-bottom: 35px; }
 
         /* Panel Metadata Source */
-        .source-metadata-box { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 10px; letter-spacing: 2px; color: #555555; text-transform: uppercase; }
-        .meta-link { text-decoration: none; color: #88182c; font-weight: 600; border-bottom: 1px dotted #440a14; padding-bottom: 2px; transition: all 0.3s ease; }
+        .source-metadata-box { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 9px; letter-spacing: 2px; color: #444444; text-transform: uppercase; }
+        .meta-link { text-decoration: none; color: #771426; font-weight: 600; border-bottom: 1px dotted #33070e; padding-bottom: 2px; transition: all 0.3s ease; }
         .meta-link:hover { color: #ff0033; border-bottom: 1px solid #ff0033; text-shadow: 0 0 8px rgba(255, 0, 51, 0.6); }
     </style>
 </head>
 <body>
     <div class="background-overlay"></div>
 
-    <!-- Modul Intro Sinematik Gerbang Cyber Mekanis -->
+    <!-- Modul Intro Sinematik Gerbang Cyber Mekanis Premium -->
     <div id="intro-container">
         <div class="flash-bang"></div>
         
@@ -144,20 +150,19 @@
         <div class="gate-half gate-left"></div>
         <div class="gate-half gate-right"></div>
         
-        <!-- Video Kelopak Mawar Sinematik Tersemat di Area Gerbang -->
+        <!-- Video Kelopak Mawar Sinematik -->
         <video class="intro-video-bg" autoplay muted loop playsinline>
             <source src="https://pixabay.com" type="video/mp4">
         </video>
         
-        <!-- Panel Konten Scan Tengah -->
+        <!-- Kontainer Scan Tengah Menampilkan Logo Mandiri -->
         <div class="megah-scan-box">
             <div class="laser-line-megah"></div>
             <div class="logo-mwtt-gold">MWTT</div>
-            <div class="intro-subtitle">Mawar Grup Secure System</div>
         </div>
     </div>
 
-    <!-- Antarmuka Utama Jam Digital -->
+    <!-- Antarmuka Utama Jam Digital (Dengan Sasis Bingkai Premium) -->
     <div class="main-interface" id="main-ui">
         <div class="corporate-header">
             <span>Mawar Grup — Official Attendance Record</span>
@@ -167,7 +172,7 @@
             </div>
         </div>
 
-        <!-- Baris Jam Horizontal Tunggal (Font Solid Rapat) -->
+        <!-- Baris Jam Horizontal Tunggal (Font Solid Rapat & Titik Dua Diam) -->
         <div class="clock-row">
             <span class="time-main" id="clock-main">00<span class="colon">:</span>00</span>
             <span class="time-seconds" id="clock-seconds">00</span>
@@ -179,12 +184,12 @@
         <!-- Tanggal Besar & Tebal -->
         <div class="date-display" id="date-display">KAMIS, 01 JANUARI 1970</div>
 
-        <!-- Panel Informasi Source Terbuka (Link Menuju Time.is) -->
+        <!-- Panel Informasi Source Terbuka (Tautan Valid Menuju Time.is) -->
         <div class="source-metadata-box">
             <div class="meta-item">
                 TIME REF: <a href="https://time.is" target="_blank" rel="noopener noreferrer" class="meta-link" id="meta-server">GLOBAL NTP SERVER</a>
             </div>
-            <div class="meta-item" style="color: #555555;">SECURE LOG: <strong id="meta-status" style="font-weight: 600; color: #8a9990;">SYNCED WITH HTTPS NETWORK</strong></div>
+            <div class="meta-item">SECURE LOG: <strong id="meta-status" style="font-weight: 600; color: #8a9990;">SYNCED WITH HTTPS NETWORK</strong></div>
         </div>
     </div>
 
@@ -195,17 +200,17 @@
                 const intro = document.getElementById('intro-container');
                 const mainUi = document.getElementById('main-ui');
                 
-                // Trigger kelas CSS untuk menggerakkan gerbang ke kiri & kanan
+                // Memicu pergeseran gerbang ke kiri & kanan
                 intro.classList.add('gate-open');
                 
                 setTimeout(() => {
                     intro.style.display = 'none';
                     mainUi.classList.add('visible');
-                }, 1500); // Sinkronisasi durasi animasi gerbang terbuka
+                }, 1600); // Sinkronisasi penuh durasi pergeseran
             }, 3500); // Durasi pemindaian laser logo
         });
 
-        // Detektor Status Jaringan Real-Time & Integrasi Link
+        // Detektor Status Jaringan Real-Time & Pembaruan Tautan
         function updateNetworkStatus() {
             const indicator = document.getElementById('net-indicator');
             const text = document.getElementById('net-text');
@@ -235,7 +240,7 @@
         window.addEventListener('offline', updateNetworkStatus);
         updateNetworkStatus();
 
-        // Sistem Pembaruan Waktu Jam & Tanggal Teroptimasi
+        // Sistem Pembaruan Waktu Jam & Tanggal
         function updateClock() {
             const now = new Date();
 
@@ -246,6 +251,7 @@
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
             
+            // Render jam dengan titik dua tetap (tidak berkedip)
             document.getElementById('clock-main').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
             document.getElementById('clock-seconds').textContent = seconds;
 
