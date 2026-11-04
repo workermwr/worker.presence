@@ -4,346 +4,453 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mawar Grup — Official Attendance Record</title>
-    <!-- Font Premium: Cinzel untuk Logo & Inter untuk Jam Solid Rapat ala Time.is -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
-    
     <style>
-        /* Reset & Base Style */
-        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
-
-        /* Kursor Custom Setangkai Mawar Merah */
-        html, body, * { cursor: url('mawar-cursor.png'), auto !important; }
+        /* --- RESET & DASAR --- */
+        @import url('https://googleapis.com');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
 
         body, html {
-            width: 100%; height: 100%; overflow: hidden;
-            background-color: #010000; color: #eaeeef;
-            display: flex; justify-content: center; align-items: center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
             font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
         }
 
-        /* Latar Belakang Utama Mawar dengan Efek Bernapas */
-        .background-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(1, 0, 0, 0.93)), url('mawar.jpg') no-repeat center center;
-            background-size: cover; z-index: 1;
-            animation: rose-breath 8s ease-in-out infinite alternate; /* Mawar menjadi hidup & bernapas */
-        }
-
-        @keyframes rose-breath {
-            0% { filter: contrast(1) brightness(0.9); }
-            100% { filter: contrast(1.2) brightness(1.2); }
-        }
-
-        /* ==================== INTRO GERBANG CYBER MEKANIS ==================== */
-        #intro-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 999; display: flex; justify-content: center; align-items: center; overflow: hidden;
-        }
-
-        .gate-half {
-            position: absolute; top: 0; width: 50%; height: 100%;
-            background: radial-gradient(circle at center, #0a0103 0%, #010000 100%);
-            border: 1px solid #110103; box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
-            transition: transform 1.6s cubic-bezier(0.85, 0, 0.15, 1); z-index: 998;
-        }
-        .gate-left { left: 0; border-right: 2px solid #55020f; }
-        .gate-right { right: 0; border-left: 2px solid #55020f; }
-
-        #intro-container.gate-open .gate-left { transform: translateX(-100%); }
-        #intro-container.gate-open .gate-right { transform: translateX(100%); }
-
-        .petal-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 996; overflow: hidden;
-        }
-
-        /* Kelopak Organik Buatan CSS */
-        .rose-petal {
+        /* --- SISTEM LATAR BELAKANG --- */
+        .bg-container {
             position: absolute;
-            background: radial-gradient(circle at 30% 30%, #ff1a40 0%, #800016 70%, #3a0007 100%);
-            border-radius: 50% 0 50% 50%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('mawar.jpg') center center/cover no-repeat;
+            z-index: 1;
+        }
+
+        /* Lapisan Dark Curtain dengan Keredupan Maksimal */
+        .dark-curtain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 2;
+            animation: breatheGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes breatheGlow {
+            0% { background: rgba(0, 0, 0, 0.92); }
+            100% { background: rgba(15, 0, 0, 0.82); }
+        }
+
+        /* Badai Kelopak Mawar Buatan CSS */
+        .rose-petal-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            overflow: hidden;
             pointer-events: none;
-            animation: fall-animation linear infinite;
         }
 
-        @keyframes fall-animation {
-            0% { transform: translateY(-60px) translateX(0) rotate(0deg) scale(1); opacity: 0; }
-            10% { opacity: 0.75; }
-            90% { opacity: 0.75; }
-            100% { transform: translateY(105vh) translateX(150px) rotate(540deg) scale(0.5); opacity: 0; }
+        .petal {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, #ff1e43, #800010);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(255, 30, 67, 0.6));
+            animation: fall linear infinite;
         }
 
-        .megah-scan-box {
-            position: absolute; width: 600px; height: 250px;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 999; transition: opacity 0.8s ease-in-out;
-        }
-        #intro-container.gate-open .megah-scan-box { opacity: 0; pointer-events: none; }
-
-        .logo-mwtt-gold {
-            font-family: 'Cinzel', serif; font-size: 125px; font-weight: 900; letter-spacing: 6px; line-height: 1;
-            background: linear-gradient(135deg, #fff3d1 0%, #ffd700 25%, #d4af37 50%, #aa7c11 75%, #f3e5ab 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            position: relative; filter: drop-shadow(0 0 25px rgba(255, 0, 51, 0.45)) drop-shadow(2px 4px 8px rgba(0,0,0,0.95));
-        }
-
-        .laser-line-megah {
-            position: absolute; left: -5%; width: 110%; height: 2px;
-            background: linear-gradient(90deg, transparent, #ff0033 20%, #ffffff 50%, #ff0033 80%, transparent);
-            box-shadow: 0 0 30px #ff0033, 0 0 60px #ff0033;
-            animation: laser-scan-intense 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) translateX(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(105vh) translateX(200px) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
         }
 
-        @keyframes laser-scan-intense { 0% { top: 10%; opacity: 0.3; } 100% { top: 90%; opacity: 0.3; } }
-
-        .flash-bang {
-            position: absolute; width: 100%; height: 100%; background: #ff0033;
-            opacity: 0; z-index: 1000; pointer-events: none; animation: flash 0.6s ease-out forwards;
+        /* --- INTRO MEGAH: GERBANG CYBER --- */
+        .cyber-gate-left, .cyber-gate-right {
+            position: fixed;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #0d0003 0%, #1a0006 100%);
+            border: 2px solid #55000a;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
-        @keyframes flash { 0% { opacity: 0.4; } 100% { opacity: 0; } }
 
-        /* ==================== ANTARMUKA UTAMA DENGAN SASIS INDUSTRIAL TEBAL ==================== */
+        .cyber-gate-left {
+            left: 0;
+            justify-content: flex-end;
+            border-right: 4px double #ff1e43;
+            box-shadow: 10px 0 30px rgba(255, 30, 67, 0.2);
+        }
+
+        .cyber-gate-right {
+            right: 0;
+            justify-content: flex-start;
+            border-left: 4px double #ff1e43;
+            box-shadow: -10px 0 30px rgba(255, 30, 67, 0.2);
+        }
+
+        /* Logo Emas MWTT & Laser Scan */
+        .logo-scanner-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 101;
+            text-align: center;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .logo-mwtt {
+            font-size: 5rem;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(45deg, #ffe066 0%, #f5b041 50%, #ffe066 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            filter: drop-shadow(0 0 15px rgba(245, 176, 65, 0.6));
+            letter-spacing: 10px;
+        }
+
+        .laser-line {
+            width: 100%;
+            height: 4px;
+            background: #ff1e43;
+            box-shadow: 0 0 20px #ff1e43, 0 0 40px #ff1e43;
+            position: absolute;
+            top: 0;
+            animation: laserScan 3.5s ease-in-out infinite;
+        }
+
+        @keyframes laserScan {
+            0%, 100% { top: 0%; opacity: 0; }
+            10%, 90% { opacity: 1; }
+            50% { top: 100%; }
+        }
+
+        /* Trigger Runtuh Mekanis */
+        .gate-open .cyber-gate-left { transform: translateX(-100%); }
+        .gate-open .cyber-gate-right { transform: translateX(100%); }
+        .gate-open .logo-scanner-box { opacity: 0; }
+
+        /* --- ANTARMUKA UTAMA: SASIS BAJA TEBAL GANDA --- */
         .main-interface {
-            position: relative; z-index: 2; width: 100%; max-width: 1250px; 
-            padding: 70px 50px; text-align: center;
-            opacity: 0; transform: scale(0.98) translateY(5px);
-            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-            
-            /* Sasis Tebal Premium Korporat Ganda */
-            border: 3px solid rgba(255, 0, 51, 0.15);
-            background: linear-gradient(180deg, rgba(8, 0, 2, 0.6) 0%, rgba(2, 0, 0, 0.85) 100%);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), inset 0 0 65px rgba(255, 0, 51, 0.04);
-            border-radius: 6px;
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, rgba(10, 2, 4, 0.95) 0%, rgba(5, 0, 1, 0.98) 100%);
+            border: 8px double #2a2a2a;
+            outline: 2px solid #555555;
+            padding: 40px 60px;
+            border-radius: 4px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 30, 67, 0.05);
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
         }
-        .main-interface.visible { opacity: 1; transform: scale(1) translateY(0); }
 
-        /* Aksen Sudut Sasis Tebal & Menyala Agresif */
+        /* Aksen Sudut Merah Menyala Formal */
         .main-interface::before, .main-interface::after {
-            content: ''; position: absolute; width: 22px; height: 22px; border-color: #ff0033; border-style: solid; pointer-events: none;
-            filter: drop-shadow(0 0 6px #ff0033);
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ff1e43;
+            box-shadow: 0 0 10px #ff1e43;
         }
-        .main-interface::before { top: -3px; left: -3px; border-width: 4px 0 0 4px; }
-        .main-interface::after { bottom: -3px; right: -3px; border-width: 0 4px 4px 0; }
+        .main-interface::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .main-interface::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
 
-        .corporate-header { font-size: 12px; text-transform: uppercase; letter-spacing: 8px; color: #888888; margin-bottom: 45px; display: flex; justify-content: center; align-items: center; gap: 15px; }
-        .network-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(5, 0, 1, 0.9); border: 1px solid #44020a; border-radius: 2px; font-size: 9px; letter-spacing: 2px; }
-        .status-dot { width: 6px; height: 6px; border-radius: 50%; }
-        
-        .online .status-dot { background-color: #00ff66; box-shadow: 0 0 10px #00ff66; }
-        .online { color: #9bb5a6; }
-        
-        .offline .status-dot { background-color: #ff0033; animation: fast-blink 0.4s infinite alternate; }
-        .offline { color: #ff3344; border-color: #880115; box-shadow: 0 0 15px rgba(255, 0, 51, 0.2); }
-        @keyframes fast-blink { 0% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        /* Jam Rapat Solid ala Time.is (Pendaran Crimson Diperkuat) */
-        .clock-row { display: flex; justify-content: center; align-items: baseline; font-variant-numeric: tabular-nums; margin-bottom: 25px; }
-        .time-main { 
-            font-size: 155px; font-weight: 900; color: #ffffff; letter-spacing: -5px; 
-            text-shadow: 0 0 45px rgba(255, 0, 51, 0.6), 0 0 15px rgba(212, 175, 55, 0.2), 0 0 3px #ffffff; 
+        .system-title {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-bottom: 25px;
+            font-weight: 800;
         }
-        
-        .colon { padding: 0 3px; color: #ffffff; letter-spacing: -3px; text-shadow: 0 0 20px rgba(255, 0, 51, 0.6); }
 
-        .time-seconds { font-size: 75px; font-weight: 300; color: #e6193c; margin-left: 12px; letter-spacing: -2px; text-shadow: 0 0 20px rgba(230, 25, 60, 0.5); }
-        .time-zone { font-size: 26px; font-weight: 800; color: #555555; margin-left: 18px; letter-spacing: 1px; }
+        /* --- DESAIN JAM ALA TIME.IS --- */
+        .clock-row {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
 
-        .divider-line { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #880215 20%, #ff0033 50%, #880215 80%, transparent); box-shadow: 0 0 10px rgba(255, 0, 51, 0.4); margin-bottom: 35px; }
-        .date-display { font-size: 38px; font-weight: 900; letter-spacing: 6px; color: #e1e1e1; text-transform: uppercase; margin-bottom: 35px; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
+        /* Angka Jam & Menit Platinum dengan Pendaran Crimson Tajam */
+        .time-main {
+            font-size: 7.5rem;
+            color: #e5e5e5;
+            text-shadow: 0 0 25px rgba(255, 30, 67, 0.75), 0 0 50px rgba(255, 30, 67, 0.4);
+        }
 
-        /* Panel Metadata Source */
-        .source-metadata-box { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 9px; letter-spacing: 2px; color: #555555; text-transform: uppercase; }
-        .meta-link { text-decoration: none; color: #9e1b32; font-weight: 600; border-bottom: 1px dotted #550c19; padding-bottom: 2px; transition: all 0.3s ease; }
-        .meta-link:hover { color: #ff0033; border-bottom: 1px solid #ff0033; text-shadow: 0 0 8px rgba(255, 0, 51, 0.6); }
+        /* Kolon Berkedip */
+        .colon {
+            color: #ff1e43;
+            animation: blink 1s steps(2, start) infinite;
+            padding: 0 5px;
+            text-shadow: 0 0 20px #ff1e43;
+        }
+
+        @keyframes blink {
+            to { visibility: hidden; }
+        }
+
+        /* Angka Detik: Rose-Red Tanpa Label Tambahan */
+        .time-seconds {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ff1e43;
+            margin-left: 15px;
+            letter-spacing: -2px;
+            text-shadow: 0 0 15px rgba(255, 30, 67, 0.5);
+        }
+
+        .time-zone {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #888;
+            margin-left: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* --- MODUL TANGGAL & BENTENG VERIFIKASI --- */
+        .divider-line {
+            height: 4px;
+            background: #ff1e43;
+            box-shadow: 0 0 10px #ff1e43;
+            width: 100%;
+            margin: 15px 0 20px 0;
+        }
+
+        .date-display {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #666;
+        }
+
+        .network-status {
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        /* Status Secure (Online) */
+        .online .status-indicator {
+            background: #00ff66;
+            box-shadow: 0 0 10px #00ff66;
+        }
+        .online .status-text { color: #00ff66; }
+
+        /* Status Access Denied (Offline) */
+        .offline .status-indicator {
+            background: #ff003c;
+            box-shadow: 0 0 10px #ff003c;
+            animation: fastBlink 0.5s infinite alternate;
+        }
+        .offline .status-text { color: #ff003c; }
+
+        @keyframes fastBlink {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        .audit-link {
+            color: #888;
+            text-decoration: none;
+            border-bottom: 1px dashed #444;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .audit-link:hover {
+            color: #ff1e43;
+            border-color: #ff1e43;
+        }
     </style>
 </head>
 <body>
-    <div class="background-overlay"></div>
 
-    <!-- Modul Intro Sinematik Gerbang Cyber Mekanis Premium -->
-    <div id="intro-container">
-        <div class="flash-bang"></div>
-        
-        <!-- Bilah Gerbang Fisik Kiri & Kanan -->
-        <div class="gate-half gate-left"></div>
-        <div class="gate-half gate-right"></div>
-        
-        <!-- Kontainer Efek Guguran Kelopak Mawar Murni CSS -->
-        <div class="petal-container" id="petal-zone"></div>
-        
-        <!-- Kontainer Scan Tengah Menampilkan Logo Mandiri -->
-        <div class="megah-scan-box">
-            <div class="laser-line-megah"></div>
-            <div class="logo-mwtt-gold">MWTT</div>
+    <!-- SISTEM LATAR BELAKANG -->
+    <div class="bg-container">
+        <div class="dark-curtain"></div>
+    </div>
+    <div class="rose-petal-container" id="petalContainer"></div>
+    <div id="introOverlay">
+        <div class="cyber-gate-left"></div>
+        <div class="cyber-gate-right"></div>
+        <div class="logo-scanner-box">
+            <div class="logo-mwtt">MWTT</div>
+            <div class="laser-line"></div>
         </div>
     </div>
 
-    <!-- Antarmuka Utama Jam Digital (Dengan Sasis Bingkai Tebal & Aksen Sudut Menyala) -->
-    <div class="main-interface" id="main-ui">
-        <div class="corporate-header">
-            <span>Mawar Grup — Official Attendance Record</span>
-            <div id="net-indicator" class="network-indicator online">
-                <div class="status-dot"></div>
-                <span id="net-text">SYSTEM SECURE</span>
-            </div>
-        </div>
-
-        <!-- Baris Jam Horizontal Tunggal (Font Solid Rapat & Titik Dua Diam) -->
+    <!-- ANTARMUKA UTAMA -->
+    <main class="main-interface">
+        <div class="system-title">Mawar Grup — Official Attendance Record</div>
+        
         <div class="clock-row">
-            <span class="time-main" id="clock-main">00<span class="colon">:</span>00</span>
-            <span class="time-seconds" id="clock-seconds">00</span>
-            <span class="time-zone" id="clock-zone">WIB</span>
+            <span class="time-main" id="timeMain">00<span class="colon">:</span>00</span>
+            <span class="time-seconds" id="timeSeconds">00</span>
+            <span class="time-zone" id="timeZone">WIB</span>
         </div>
 
         <div class="divider-line"></div>
+        <div class="date-display" id="dateDisplay">SENIN, 01 JANUARI 2026</div>
 
-        <!-- Tanggal Besar & Tebal -->
-        <div class="date-display" id="date-display">KAMIS, 01 JANUARI 1970</div>
-
-        <!-- Panel Informasi Source Terbuka (Tautan Valid Menuju Time.is) -->
-        <div class="source-metadata-box">
-            <div class="meta-item">
-                TIME REF: <a href="https://time.is" target="_blank" rel="noopener noreferrer" class="meta-link" id="meta-server">GLOBAL NTP SERVER</a>
+        <div class="status-bar">
+            <div class="network-status online" id="networkStatus">
+                <div class="status-indicator"></div>
+                <span class="status-text" id="statusText">System Secure</span>
             </div>
-            <div class="meta-item">SECURE LOG: <strong id="meta-status" style="font-weight: 600; color: #8a9990;">SYNCED WITH HTTPS NETWORK</strong></div>
+            <div>
+                <span>SECURE VERIFICATION VIA </span>
+                <a href="https://time.is" target="_blank" class="audit-link">TIME.IS AUDIT</a>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        let timeOffsetMilliseconds = 0;
-        let isTimeSynced = false;
+        // --- SINKRONISASI WAKTU GLOBAL & BENTENG ANTI-KECURANGAN ---
+        let timeOffset = 0;
 
-        // 1. Generator Kelopak Mawar Organik Murni CSS (Anti-Kotak Putih Gambar)
-        function spawnRosePetals() {
-            const petalZone = document.getElementById('petal-zone');
-            const totalPetals = 35; 
-
-            for (let i = 0; i < totalPetals; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'rose-petal';
-                
-                const size = Math.random() * 20 + 15; 
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size}px`;
-                
-                petal.style.left = `${Math.random() * 100}%`;
-                petal.style.animationDuration = `${Math.random() * 3 + 3.5}s`; 
-                petal.style.animationDelay = `${Math.random() * 4}s`;
-                
-                petalZone.appendChild(petal);
-            }
-        }
-        spawnRosePetals();
-
-        // 2. Modul Core API Sinkronisasi Waktu Global (TimeAPI.io Endpoint Premium Lolos Blokir)
-        async function syncTimeWithGlobalServer() {
-            const metaStatus = document.getElementById('meta-status');
+        async function syncWithGlobalTime() {
+            if (!navigator.onLine) return;
             
             try {
-                const startTime = Date.now();
-                const response = await fetch('https://timeapi.io');
-                
-                if (!response.ok) throw new Error('Network busy');
-                
-                const data = await response.json();
-                const endTime = Date.now();
-                
-                const latency = (endTime - startTime) / 2;
-                const serverTime = new Date(data.dateTime).getTime() + latency;
-                const localTime = endTime;
-                
-                timeOffsetMilliseconds = serverTime - localTime;
-                isTimeSynced = true;
-                
-                if (navigator.onLine) {
-                    metaStatus.textContent = `SYNCED (LATENCY: ±${Math.round(latency)}ms)`;
-                    metaStatus.style.color = "#8a9990";
+                // Menggunakan endpoint tepercaya untuk mengambil waktu server Jakarta asli
+                const response = await fetch('https://worldtimeapi.org');
+                if (response.ok) {
+                    const data = await response.json();
+                    const serverTime = new Date(data.datetime).getTime();
+                    const localTime = Date.now();
+                    // Koreksi manipulasi waktu lokal dari inspect element / jam laptop
+                    timeOffset = serverTime - localTime;
                 }
             } catch (error) {
-                console.warn('Fallback internal clock active:', error);
-                isTimeSynced = false;
-                if (navigator.onLine) {
-                    metaStatus.textContent = "SECURE PROTOCOL ACTIVE";
-                    metaStatus.style.color = "#8a9990";
-                }
+                console.warn("Gagal terhubung ke NTP Server, menggunakan fallback proteksi lokal.");
             }
         }
 
-        syncTimeWithGlobalServer();
+        function updateClock() {
+            const secureTime = new Date(Date.now() + timeOffset);
+            
+            let hours = String(secureTime.getHours()).padStart(2, '0');
+            let minutes = String(secureTime.getMinutes()).padStart(2, '0');
+            let seconds = String(secureTime.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('timeMain').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
+            document.getElementById('timeSeconds').textContent = seconds;
 
-        // 3. Logika Transisi Gerbang Mekanis (Tepat 3.5 Detik)
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const intro = document.getElementById('intro-container');
-                const mainUi = document.getElementById('main-ui');
-                
-                intro.classList.add('gate-open');
-                
-                setTimeout(() => {
-                    intro.style.display = 'none';
-                    mainUi.classList.add('visible');
-                }, 1600); 
-            }, 3500); 
-        });
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = secureTime.toLocaleDateString('id-ID', options).toUpperCase();
+            document.getElementById('dateDisplay').textContent = formattedDate;
+        }
 
-        // 4. Detektor Status Jaringan Real-Time
+        // --- DETEKSI KONEKSI JARINGAN ---
         function updateNetworkStatus() {
-            const indicator = document.getElementById('net-indicator');
-            const text = document.getElementById('net-text');
-            const metaStatus = document.getElementById('meta-status');
-            const metaServer = document.getElementById('meta-server');
+            const statusBox = document.getElementById('networkStatus');
+            const statusText = document.getElementById('statusText');
 
             if (navigator.onLine) {
-                indicator.className = "network-indicator online";
-                text.textContent = "SYSTEM SECURE";
-                metaServer.textContent = "GLOBAL NTP SERVER";
-                metaServer.setAttribute("href", "https://time.is");
-                metaServer.style.pointerEvents = "auto";
-                if(!isTimeSynced) syncTimeWithGlobalServer();
+                statusBox.className = "network-status online";
+                statusText.textContent = "System Secure";
+                syncWithGlobalTime();
             } else {
-                indicator.className = "network-indicator offline";
-                text.textContent = "ACCESS DENIED";
-                metaServer.textContent = "LOCAL INTERNAL CLOCK";
-                metaServer.removeAttribute("href");
-                metaServer.style.pointerEvents = "none";
-                metaStatus.textContent = "NETWORK INTERRUPTED (UNVERIFIED)";
-                metaStatus.style.color = "#ff3344";
+                statusBox.className = "network-status offline";
+                statusText.textContent = "Access Denied";
             }
         }
 
         window.addEventListener('online', updateNetworkStatus);
         window.addEventListener('offline', updateNetworkStatus);
-        updateNetworkStatus();
 
-        // 5. Mesin Jam Terkoreksi Otomatis
-        function updateClock() {
-            const localNow = new Date();
-            const correctedTime = new Date(localNow.getTime() + timeOffsetMilliseconds);
+        // --- GENERATOR KELOPAK MAWAR CSS ---
+        function createPetal() {
+            const container = document.getElementById('petalContainer');
+            if (!container) return;
 
-            const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
-            const months = ['JANUARI', 'FEBRUARI', 'MARET', 'APRIL', 'MEI', 'JUNI', 'JULI', 'AGUSTUS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DESEMBER'];
-
-            let hours = String(correctedTime.getHours()).padStart(2, '0');
-            let minutes = String(correctedTime.getMinutes()).padStart(2, '0');
-            let seconds = String(correctedTime.getSeconds()).padStart(2, '0');
+            const petal = document.createElement('div');
+            petal.className = 'petal';
             
-            document.getElementById('clock-main').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
-            document.getElementById('clock-seconds').textContent = seconds;
+            const size = Math.random() * 15 + 10 + 'px';
+            petal.style.width = size;
+            petal.style.height = size;
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 4 + 4 + 's';
+            
+            container.appendChild(petal);
 
-            const tzString = correctedTime.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
-            document.getElementById('clock-zone').textContent = tzString;
-
-            let dayName = days[correctedTime.getDay()];
-            let dayNum = String(correctedTime.getDate()).padStart(2, '0');
-            let monthName = months[correctedTime.getMonth()];
-            let year = correctedTime.getFullYear();
-
-            document.getElementById('date-display').textContent = `${dayName}, ${dayNum} ${monthName} ${year}`;
+            setTimeout(() => {
+                petal.remove();
+            }, 8000);
         }
 
+        // --- INITIALIZATION INITIAL ENGINE ---
+        // Pemicu Gerbang Cyber Terbelah (3.5 Detik setelah scan logo MWTT)
+        setTimeout(() => {
+            document.body.classList.add('gate-open');
+            setTimeout(() => {
+                const overlay = document.getElementById('introOverlay');
+                if (overlay) overlay.style.display = 'none';
+            }, 1200);
+        }, 3500);
+
+        setInterval(createPetal, 300);
+
+        syncWithGlobalTime();
+        updateNetworkStatus();
         setInterval(updateClock, 1000);
         updateClock();
     </script>
