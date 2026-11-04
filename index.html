@@ -22,7 +22,6 @@
             position: relative;
         }
 
-        /* Memanggil gambar mawar hitam misterius yang sudah Anda unggah */
         .rose-background {
             position: absolute;
             top: 0;
@@ -31,7 +30,7 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0.98) 85%), 
+            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.4) 0%, rgba(5, 5, 5, 0.98) 85%), 
                               url('mawar.jpg');
             background-size: cover;
             background-position: center;
@@ -60,7 +59,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 6px;
-            color: #bd1e2c; /* Merah Mawar Grup */
+            color: #bd1e2c; 
             margin-bottom: 5vh;
         }
 
@@ -72,7 +71,6 @@
             margin-bottom: 5vh;
         }
 
-        /* Dibuat abu-abu platinum tajam dengan glow merah mawar */
         #clock-hm {
             font-size: 24vh;
             font-weight: 300;
@@ -82,18 +80,25 @@
             filter: drop-shadow(0 0 15px rgba(189, 30, 44, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.9));
         }
 
-        /* PERUBAHAN: Detik diperjelas agar sah saat di-screenshot */
+        /* ANIMASI KEDIP UNTUK TITIK DUA JAM */
+        .colon-blink {
+            animation: blinkEffect 1s step-start infinite;
+        }
+
+        @keyframes blinkEffect {
+            50% { opacity: 0; }
+        }
+
         #clock-s {
             font-size: 5.5vh;
             font-weight: 500;
-            color: #ffffff; /* Diubah ke putih terang */
+            color: #ffffff; 
             letter-spacing: 4px;
             margin-top: 2.5vh;
             font-variant-numeric: tabular-nums;
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        /* Tanggal besar, tebal, dan sangat terbaca */
         #date {
             font-size: 3.5vh; 
             font-weight: 600;
@@ -104,6 +109,34 @@
             padding-top: 2.5vh;
             width: 65%;
             display: inline-block;
+            margin-bottom: 3vh;
+        }
+
+        /* INDIKATOR STATUS SISTEM AKTIF */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.4vh;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #888888;
+            text-transform: uppercase;
+        }
+
+        .green-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #30d158; /* Hijau iOS/Apple System */
+            border-radius: 50%;
+            box-shadow: 0 0 8px #30d158;
+            animation: pulseDot 2s infinite alternate;
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px #30d158; }
+            100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 12px #30d158; }
         }
     </style>
 </head>
@@ -116,11 +149,18 @@
         <div class="corporate-sub">Official Attendance Record</div>
         
         <div class="time-container">
-            <div id="clock-hm">00:00</div>
+            <!-- Tempat merender Jam, Menit, dan Titik Dua Berkedip -->
+            <div id="clock-hm">00<span class="colon-blink">:</span>00</div>
             <div id="clock-s">00 SEC • LOCAL TIME</div>
         </div>
         
         <div id="date">Loading System...</div>
+        
+        <!-- Tambahan status operasional live agar terverifikasi resmi -->
+        <div class="status-indicator">
+            <div class="green-dot"></div>
+            <span>System Secure & Active</span>
+        </div>
     </div>
 
     <script>
@@ -131,10 +171,10 @@
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
             
-            // Mendapatkan inisial zona waktu resmi perangkat (misal: WIB, WITA, WIT)
             const timeZoneString = now.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
             
-            document.getElementById('clock-hm').textContent = `${hours}:${minutes}`;
+            // Merender angka dengan titik dua berkedip tetap terjaga di tengah
+            document.getElementById('clock-hm').innerHTML = `${hours}<span class="colon-blink">:</span>${minutes}`;
             document.getElementById('clock-s').textContent = `${seconds} SEC • ${timeZoneString}`;
             
             const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
