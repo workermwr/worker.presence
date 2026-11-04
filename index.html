@@ -195,7 +195,7 @@
         .divider-line { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #800016 15%, #ff0033 50%, #800016 85%, transparent); box-shadow: 0 0 12px rgba(255, 0, 51, 0.6); margin-bottom: 30px; }
         .date-display { font-size: 34px; font-weight: 700; letter-spacing: 7px; color: #d4d4d4; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.6); margin-bottom: 25px; }
 
-        /* ==================== PANEL METADATA SOURCE KREDIBEL ==================== */
+        /* PANEL METADATA SOURCE KREDIBEL DENGAN HYPERLINK INTERAKTIF */
         .source-metadata-box {
             display: flex;
             justify-content: center;
@@ -207,9 +207,22 @@
             color: #555555;
             text-transform: uppercase;
         }
-        .meta-item strong {
+        
+        /* Gaya Tautan Hyperlink Jam Original */
+        .meta-link {
+            text-decoration: none;
             color: #88182c;
             font-weight: 600;
+            border-bottom: 1px dotted #440a14;
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Efek Menyala Saat Disentuh Mouse */
+        .meta-link:hover {
+            color: #ff0033;
+            border-bottom: 1px solid #ff0033;
+            text-shadow: 0 0 8px rgba(255, 0, 51, 0.6);
         }
     </style>
 </head>
@@ -251,10 +264,12 @@
         <!-- Tanggal Besar & Tebal -->
         <div class="date-display" id="date-display">KAMIS, 01 JANUARI 1970</div>
 
-        <!-- Panel Informasi Source Terbuka (Tampak di Layar) -->
+        <!-- Panel Informasi Source Terbuka (Tampak di Layar dengan Hyperlink) -->
         <div class="source-metadata-box">
-            <div class="meta-item">TIME REF: <strong id="meta-server">GLOBAL NTP SERVER</strong></div>
-            <div class="meta-item">SECURE LOG: <strong id="meta-status">SYNCED WITH HTTPS NETWORK</strong></div>
+            <div class="meta-item">
+                TIME REF: <a href="https://ntppool.org" target="_blank" rel="noopener noreferrer" class="meta-link" id="meta-server">GLOBAL NTP SERVER</a>
+            </div>
+            <div class="meta-item" style="color: #555555;">SECURE LOG: <strong id="meta-status" style="font-weight: 600; color: #8a9990;">SYNCED WITH HTTPS NETWORK</strong></div>
         </div>
     </div>
 
@@ -273,7 +288,7 @@
             }, 3500); 
         });
 
-        // Detektor Status Jaringan Real-Time & Pembaruan Sumber Informasi
+        // Detektor Status Jaringan Real-Time & Pembaruan Link Sumber
         function updateNetworkStatus() {
             const indicator = document.getElementById('net-indicator');
             const text = document.getElementById('net-text');
@@ -283,15 +298,21 @@
             if (navigator.onLine) {
                 indicator.className = "network-indicator online";
                 text.textContent = "SYSTEM SECURE";
+                
+                // Kembalikan ke Tautan Server Resmi Global saat Online
                 metaServer.textContent = "GLOBAL NTP SERVER";
-                metaServer.style.color = "#ff0033";
+                metaServer.setAttribute("href", "https://ntppool.org");
+                metaServer.style.pointerEvents = "auto"; // Bisa diklik
                 metaStatus.textContent = "SYNCED WITH HTTPS NETWORK";
                 metaStatus.style.color = "#8a9990";
             } else {
                 indicator.className = "network-indicator offline";
                 text.textContent = "ACCESS DENIED";
+                
+                // Ubah menjadi status Waktu Lokal Komputer saat Offline
                 metaServer.textContent = "LOCAL INTERNAL CLOCK";
-                metaServer.style.color = "#ff3344";
+                metaServer.removeAttribute("href"); // Hilangkan link saat tidak ada koneksi
+                metaServer.style.pointerEvents = "none"; // Nonaktifkan klik
                 metaStatus.textContent = "NETWORK INTERRUPTED (UNVERIFIED)";
                 metaStatus.style.color = "#ff3344";
             }
