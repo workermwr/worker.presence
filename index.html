@@ -49,25 +49,27 @@
         #intro-container.gate-open .gate-left { transform: translateX(-100%); }
         #intro-container.gate-open .gate-right { transform: translateX(100%); }
 
-        /* Kontainer Utama Efek Animasi Guguran Kelopak Mawar PNG */
+        /* Kontainer Utama Efek Animasi Guguran Kelopak Mawar Murni CSS */
         .petal-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 996; overflow: hidden;
         }
 
+        /* Kelopak Organik Buatan CSS (Dijamin Bebas Kotak Putih Gambar) */
         .rose-petal {
             position: absolute;
-            background-size: contain;
-            background-repeat: no-repeat;
+            background: radial-gradient(circle at 30% 30%, #ff1a40 0%, #800016 70%, #3a0007 100%);
+            border-radius: 50% 0 50% 50%; /* Membuat bentuk kelopak asimetris alami */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             pointer-events: none;
             animation: fall-animation linear infinite;
         }
 
         @keyframes fall-animation {
-            0% { transform: translateY(-60px) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { transform: translateY(105vh) translateX(120px) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(-60px) translateX(0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 0.75; }
+            90% { opacity: 0.75; }
+            100% { transform: translateY(105vh) translateX(150px) rotate(540deg) scale(0.5); opacity: 0; }
         }
 
         /* Kontainer Papan Logo Tengah */
@@ -167,7 +169,7 @@
         <div class="gate-half gate-left"></div>
         <div class="gate-half gate-right"></div>
         
-        <!-- Kontainer Efek Guguran Kelopak Mawar PNG Asli -->
+        <!-- Kontainer Khusus Efek Guguran Kelopak Mawar Murni CSS -->
         <div class="petal-container" id="petal-zone"></div>
         
         <!-- Kontainer Scan Tengah Menampilkan Logo Mandiri -->
@@ -212,35 +214,38 @@
         let timeOffsetMilliseconds = 0;
         let isTimeSynced = false;
 
-        // 1. Generator Kelopak Mawar PNG Jatuh Organik pada Modul Intro
+        // 1. Generator Kelopak Mawar Organik Murni CSS (Anti-Kotak Putih Gambar)
         function spawnRosePetals() {
             const petalZone = document.getElementById('petal-zone');
-            const totalPetals = 25; 
+            const totalPetals = 35; // Meningkatkan kerapatan agar efek guguran lebih dramatis
 
             for (let i = 0; i < totalPetals; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'rose-petal';
-                petal.style.backgroundImage = "url('kelopak-mawar.png')";
                 
-                const size = Math.random() * 25 + 20; 
+                // Variasi Ukuran Acak yang Elegan
+                const size = Math.random() * 20 + 15; // Ukuran antara 15px - 35px
                 petal.style.width = `${size}px`;
                 petal.style.height = `${size}px`;
+                
+                // Variasi Posisi Horizontal awal dan Rotasi 3D Acak
                 petal.style.left = `${Math.random() * 100}%`;
-                petal.style.animationDuration = `${Math.random() * 3 + 3}s`; 
-                petal.style.animationDelay = `${Math.random() * 3.5}s`;
+                
+                // Variasi Kecepatan Jatuh (Durasi) & Jeda Awal (Delay) agar tidak turun bersamaan
+                petal.style.animationDuration = `${Math.random() * 3 + 3.5}s`; // 3.5s hingga 6.5s
+                petal.style.animationDelay = `${Math.random() * 4}s`;
                 
                 petalZone.appendChild(petal);
             }
         }
         spawnRosePetals();
 
-        // 2. Modul Core API Sinkronisasi Waktu Global (Menggunakan Google Time-Server Endpoint yang Super Aman)
+        // 2. Modul Core API Sinkronisasi Waktu Global (TimeAPI.io Endpoint Premium Lolos Blokir)
         async function syncTimeWithGlobalServer() {
             const metaStatus = document.getElementById('meta-status');
             
             try {
                 const startTime = Date.now();
-                // Menggunakan endpoint tepercaya bebas blokir GitHub Actions
                 const response = await fetch('https://timeapi.io');
                 
                 if (!response.ok) throw new Error('Network busy');
@@ -271,7 +276,7 @@
 
         syncTimeWithGlobalServer();
 
-        // 3. Logika Transisi Gerbang Mekanis (3.5 Detik)
+        // 3. Logika Transisi Gerbang Mekanis (Tepat 3.5 Detik)
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const intro = document.getElementById('intro-container');
@@ -315,7 +320,7 @@
         window.addEventListener('offline', updateNetworkStatus);
         updateNetworkStatus();
 
-        // 5. Mesin Waktu Terkoreksi Otomatis
+        // 5. Mesin Jam Terkoreksi Otomatis
         function updateClock() {
             const localNow = new Date();
             const correctedTime = new Date(localNow.getTime() + timeOffsetMilliseconds);
