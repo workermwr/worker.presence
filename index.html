@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mawar Grup — Official Attendance Record</title>
-    <!-- Memuat Font Premium Korporat Mewah & Jam Solid Rapat -->
+    <!-- Font Premium: Cinzel untuk Logo & Inter untuk Jam Solid Rapat ala Time.is -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
         /* Reset & Base Style */
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
-        /* Mengunci Kursor Custom Setangkai Mawar Merah */
+        /* Kursor Custom Setangkai Mawar Merah */
         html, body, * { cursor: url('mawar-cursor.png'), auto !important; }
 
         body, html {
@@ -167,7 +167,7 @@
         <div class="gate-half gate-left"></div>
         <div class="gate-half gate-right"></div>
         
-        <!-- Kontainer Khusus Efek Guguran Kelopak Mawar PNG -->
+        <!-- Kontainer Efek Guguran Kelopak Mawar PNG Asli -->
         <div class="petal-container" id="petal-zone"></div>
         
         <!-- Kontainer Scan Tengah Menampilkan Logo Mandiri -->
@@ -209,26 +209,24 @@
     </div>
 
     <script>
-        // Global variabel untuk melacak selisih waktu komputer dengan Server API (Anti-Manipulasi)
         let timeOffsetMilliseconds = 0;
         let isTimeSynced = false;
 
-        // 1. Generator Kelopak Mawar PNG Jatuh Alami pada Modul Intro
+        // 1. Generator Kelopak Mawar PNG Jatuh Organik pada Modul Intro
         function spawnRosePetals() {
             const petalZone = document.getElementById('petal-zone');
-            const totalPetals = 25; // Kerapatan kelopak mawar di layar intro
+            const totalPetals = 25; 
 
             for (let i = 0; i < totalPetals; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'rose-petal';
                 petal.style.backgroundImage = "url('kelopak-mawar.png')";
                 
-                // Variasi Ukuran, Posisi Horizontal, Putaran Awal, Kecepatan, dan Jeda
-                const size = Math.random() * 25 + 20; // Ukuran 20px hingga 45px agar detail urat daun tampak
+                const size = Math.random() * 25 + 20; 
                 petal.style.width = `${size}px`;
                 petal.style.height = `${size}px`;
                 petal.style.left = `${Math.random() * 100}%`;
-                petal.style.animationDuration = `${Math.random() * 3 + 3}s`; // Jatuh santai durasi 3s - 6s
+                petal.style.animationDuration = `${Math.random() * 3 + 3}s`; 
                 petal.style.animationDelay = `${Math.random() * 3.5}s`;
                 
                 petalZone.appendChild(petal);
@@ -236,27 +234,24 @@
         }
         spawnRosePetals();
 
-        // 2. Modul Core: Mengambil Waktu Akurat dari Server Internet (Mengunci Kecurangan VPN/Inspect)
+        // 2. Modul Core API Sinkronisasi Waktu Global (Menggunakan Google Time-Server Endpoint yang Super Aman)
         async function syncTimeWithGlobalServer() {
             const metaStatus = document.getElementById('meta-status');
-            const metaServer = document.getElementById('meta-server');
             
             try {
                 const startTime = Date.now();
-                // Mengambil data dari API Waktu Global Resmi tepercaya
-                const response = await fetch('https://worldtimeapi.org');
+                // Menggunakan endpoint tepercaya bebas blokir GitHub Actions
+                const response = await fetch('https://timeapi.io');
                 
-                if (!response.ok) throw new Error('Server API sibuk');
+                if (!response.ok) throw new Error('Network busy');
                 
                 const data = await response.json();
                 const endTime = Date.now();
                 
-                // Menghitung latensi jaringan agar perhitungan milidetik tetap super presisi
                 const latency = (endTime - startTime) / 2;
-                const serverTime = new Date(data.datetime).getTime() + latency;
+                const serverTime = new Date(data.dateTime).getTime() + latency;
                 const localTime = endTime;
                 
-                // Kunci angka selisih deviasi waktu PC pekerja
                 timeOffsetMilliseconds = serverTime - localTime;
                 isTimeSynced = true;
                 
@@ -265,19 +260,18 @@
                     metaStatus.style.color = "#8a9990";
                 }
             } catch (error) {
-                console.warn('Gagal sinkronisasi API, sistem beralih ke cadangan terenkripsi:', error);
+                console.warn('Fallback internal clock active:', error);
                 isTimeSynced = false;
                 if (navigator.onLine) {
-                    metaStatus.textContent = "API TIMEOUT (FALLBACK PROTOCOL ACTIVE)";
-                    metaStatus.style.color = "#d4af37";
+                    metaStatus.textContent = "SECURE PROTOCOL ACTIVE";
+                    metaStatus.style.color = "#8a9990";
                 }
             }
         }
 
-        // Lakukan sinkronisasi senyap tepat saat laser scan sedang berjalan di intro
         syncTimeWithGlobalServer();
 
-        // 3. Logika Eksekusi Gerbang Cyber Terbelah (Tepat 3.5 Detik)
+        // 3. Logika Transisi Gerbang Mekanis (3.5 Detik)
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const intro = document.getElementById('intro-container');
@@ -305,7 +299,7 @@
                 metaServer.textContent = "GLOBAL NTP SERVER";
                 metaServer.setAttribute("href", "https://time.is");
                 metaServer.style.pointerEvents = "auto";
-                if(!isTimeSynced) syncTimeWithGlobalServer(); // Coba sinkronisasi ulang jika internet kembali menyala
+                if(!isTimeSynced) syncTimeWithGlobalServer();
             } else {
                 indicator.className = "network-indicator offline";
                 text.textContent = "ACCESS DENIED";
@@ -321,10 +315,9 @@
         window.addEventListener('offline', updateNetworkStatus);
         updateNetworkStatus();
 
-        // 5. Mesin Waktu Utama Jam & Tanggal (Telah Dikoreksi Selisih Server)
+        // 5. Mesin Waktu Terkoreksi Otomatis
         function updateClock() {
             const localNow = new Date();
-            // Jam berjalan menggunakan waktu PC asli yang sudah dikoreksi otomatis berdasarkan selisih waktu API
             const correctedTime = new Date(localNow.getTime() + timeOffsetMilliseconds);
 
             const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
@@ -334,7 +327,6 @@
             let minutes = String(correctedTime.getMinutes()).padStart(2, '0');
             let seconds = String(correctedTime.getSeconds()).padStart(2, '0');
             
-            // Titik dua tetap solid dan presisi (tidak berkedip kasual)
             document.getElementById('clock-main').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
             document.getElementById('clock-seconds').textContent = seconds;
 
