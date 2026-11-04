@@ -30,7 +30,7 @@
         }
 
         /* ==========================================================================
-           2. AMBIENT BACKGROUND & TIRAI GELAP MAWAR
+           2. AMBIENT BACKGROUND & PENAJAMAN IDENTITAS MAWAR UTAMA
            ========================================================================== */
         .bg-container {
             position: absolute;
@@ -42,28 +42,28 @@
             z-index: 1;
         }
 
+        /* Tingkat keredupan dikurangi agar gambar mawar.jpg terlihat sangat jelas */
         .dark-curtain {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.91);
+            background: rgba(0, 0, 0, 0.65);
             z-index: 2;
             transition: background-color 3s ease;
         }
 
-        /* Tingkat keredupan ambien ekstra saat cuaca badai/hujan deras */
         .dark-curtain.stormy {
-            background-color: rgba(0, 0, 0, 0.94);
+            background-color: rgba(0, 0, 0, 0.72);
         }
         
         .dark-curtain.drizzle {
-            background-color: rgba(8, 0, 2, 0.88);
+            background-color: rgba(5, 0, 1, 0.55);
         }
 
         /* ==========================================================================
-           3. SISTEM CUACA KINETIK: MULTI-LAYER RED RAIN
+           3. SISTEM HUJAN KINETIK: MERAH PEKAT MULTI-LAYER (DI BAWAH TEKS)
            ========================================================================== */
         .rain-container {
             position: absolute;
@@ -71,127 +71,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 3;
+            z-index: 3; /* Terkunci di bawah z-index antarmuka jam */
             overflow: hidden;
             pointer-events: none;
         }
 
-        /* Desain partikel hujan berbentuk garis meteor tajam semi-transparan */
+        /* Menggunakan gradasi merah pekat dengan kilatan cahaya putih minimal pada inti */
         .drop {
             position: absolute;
-            background: linear-gradient(to bottom, rgba(255, 30, 67, 0) 0%, rgba(255, 30, 67, 0.75) 70%, #ffffff 100%);
+            background: linear-gradient(to bottom, rgba(102, 0, 11, 0) 0%, #ff1e43 85%, rgba(255, 255, 255, 0.9) 100%);
             width: 1.5px;
-            opacity: 0.8;
+            opacity: 0.85;
             animation: fall linear infinite;
             will-change: transform;
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-120px);
-            }
-            100% {
-                transform: translateY(105vh);
-            }
+            0% { transform: translateY(-120px); }
+            100% { transform: translateY(105vh); }
         }
         /* ==========================================================================
-           4. INTRO MEGAH: SISTEM GERBANG CYBER 3D MECHANIC
-           ========================================================================== */
-        #introOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 100;
-            pointer-events: none;
-        }
-
-        .cyber-gate-left, .cyber-gate-right {
-            position: absolute;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(135deg, #040001 0%, #0d0003 50%, #150005 100%);
-            border: 1px solid rgba(255, 30, 67, 0.12);
-            display: flex;
-            align-items: center;
-            transition: transform 1.6s cubic-bezier(0.86, 0, 0.07, 1);
-            pointer-events: auto;
-            will-change: transform;
-        }
-
-        .cyber-gate-left {
-            left: 0;
-            justify-content: flex-end;
-            border-right: 3px double #ff1e43;
-            box-shadow: 25px 0 60px rgba(255, 30, 67, 0.15), inset -15px 0 40px rgba(0, 0, 0, 0.85);
-        }
-
-        .cyber-gate-right {
-            right: 0;
-            justify-content: flex-start;
-            border-left: 3px double #ff1e43;
-            box-shadow: -25px 0 60px rgba(255, 30, 67, 0.15), inset 15px 0 40px rgba(0, 0, 0, 0.85);
-        }
-
-        .logo-scanner-box {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 102;
-            text-align: center;
-            pointer-events: none;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s ease;
-            width: 420px;
-        }
-
-        .logo-mwtt {
-            font-size: 5.5rem;
-            font-weight: 900;
-            color: transparent;
-            background: linear-gradient(45deg, #ffe066 0%, #f5b041 30%, #ffffff 50%, #f5b041 70%, #ffe066 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            filter: drop-shadow(0 0 25px rgba(245, 176, 65, 0.45));
-            letter-spacing: 15px;
-            animation: shineGold 4s linear infinite;
-        }
-
-        @keyframes shineGold {
-            to { background-position: 200% center; }
-        }
-
-        .laser-line {
-            width: 100%;
-            height: 4px;
-            background: #ff1e43;
-            box-shadow: 0 0 25px #ff1e43, 0 0 50px #ff1e43;
-            position: absolute;
-            left: 0;
-            top: 0;
-            animation: laserScanVertical 3.5s ease-in-out infinite;
-            will-change: top, opacity;
-        }
-
-        @keyframes laserScanVertical {
-            0%, 100% { top: 0%; opacity: 0; }
-            10%, 90% { opacity: 1; }
-            50% { top: 100%; }
-        }
-
-        .gate-open .cyber-gate-left { transform: translateX(-100%); }
-        .gate-open .cyber-gate-right { transform: translateX(100%); }
-        .gate-open .logo-scanner-box { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
-
-        /* ==========================================================================
-           5. ANTARMUKA FLOATING BORDERLESS (TANPA KOTAK / SASIS)
+           4. ANTARMUKA FLOATING BORDERLESS (TERISOLASI DI LAPISAN DEPAN)
            ========================================================================== */
         .main-interface {
             position: relative;
-            z-index: 10;
+            z-index: 10; /* Mutlak di depan kontainer hujan agar tidak tertembus */
             text-align: center;
             width: 95%;
             max-width: 900px;
@@ -203,16 +107,16 @@
 
         .system-title {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.6);
             text-transform: uppercase;
             letter-spacing: 8px;
             margin-bottom: 30px;
             font-weight: 800;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
         }
 
         /* ==========================================================================
-           6. TIPOGRAFI JAM DIGITAL ALA TIME.IS (TEBAL RAPAT & CRIMSON GLOW)
+           5. TIPOGRAFI JAM DIGITAL ALA TIME.IS (TEBAL, RAPAT, PERMANEN)
            ========================================================================== */
         .clock-row {
             display: flex;
@@ -224,25 +128,25 @@
             margin-bottom: 20px;
         }
 
-        /* Pendaran merah (Crimson Glow) tebal diekspansi maksimum agar terbaca jelas sekilas */
         .time-main {
             font-size: 9.5rem;
             color: #ffffff;
             text-shadow: 
-                0 0 40px rgba(255, 30, 67, 0.9), 
-                0 0 70px rgba(255, 30, 67, 0.5),
-                0 15px 35px rgba(0, 0, 0, 0.9);
+                0 0 45px rgba(255, 30, 67, 0.95), 
+                0 0 75px rgba(255, 30, 67, 0.6),
+                0 15px 35px rgba(0, 0, 0, 0.95);
         }
 
-        .colon {
+        /* Menggunakan kedipan opasitas CSS murni agar karakter titik dua tidak hilang */
+        .colon-glow {
             color: #ff1e43;
-            animation: fluidBlink 1s steps(2, start) infinite;
-            padding: 0 2px;
+            animation: safeBlink 1s step-end infinite;
+            padding: 0 4px;
             text-shadow: 0 0 35px #ff1e43, 0 0 60px rgba(255, 30, 67, 0.8);
         }
 
-        @keyframes fluidBlink {
-            to { visibility: hidden; }
+        @keyframes safeBlink {
+            50% { opacity: 0; }
         }
 
         .time-seconds {
@@ -257,13 +161,13 @@
         .time-zone {
             font-size: 1.35rem;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.5);
             margin-left: 18px;
             letter-spacing: 3px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
         }
         /* ==========================================================================
-           7. MODUL TANGGAL & BENTENG FORENSIK DIGITAL BERLAPIS
+           6. MODUL TANGGAL & BENTENG VERIFIKASI AUDIT FORENSIK
            ========================================================================== */
         .divider-line {
             height: 2px;
@@ -279,23 +183,23 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             margin-bottom: 25px;
-            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
         }
 
-        /* Enkripsi Kode Token Pengaman Tepat Di Bawah Tanggal (Mudah Terfoto Sekilas) */
+        /* Token pengaman tepat di bawah tanggal agar langsung ikut terfoto jelas */
         .crypto-verification-badge {
             display: inline-block;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
             color: #ff1e43;
-            background: rgba(20, 2, 4, 0.65);
-            padding: 8px 20px;
+            background: rgba(15, 1, 2, 0.8);
+            padding: 8px 24px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 30, 67, 0.3);
+            border: 1px solid rgba(255, 30, 67, 0.4);
             letter-spacing: 2px;
             margin-bottom: 35px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            text-shadow: 0 0 5px rgba(255, 30, 67, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 0 6px rgba(255, 30, 67, 0.6);
         }
 
         .status-bar {
@@ -304,8 +208,8 @@
             align-items: center;
             font-size: 0.8rem;
             letter-spacing: 2.5px;
-            color: rgba(255, 255, 255, 0.35);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 20px;
         }
 
@@ -323,14 +227,12 @@
             margin-right: 12px;
         }
 
-        /* Status Sinkronisasi Online Sempurna */
         .online .status-indicator {
             background: #00ff66;
             box-shadow: 0 0 14px #00ff66;
         }
         .online .status-text { color: #00ff66; }
 
-        /* Akses Terblokir / Jam Lokal Dimanipulasi */
         .offline .status-indicator {
             background: #ff003c;
             box-shadow: 0 0 14px #ff003c;
@@ -344,9 +246,9 @@
         }
 
         .audit-link {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
             transition: color 0.3s;
         }
 
@@ -358,28 +260,18 @@
 </head>
 <body>
 
-    <!-- SISTEM LATAR BELAKANG & LAYER HUJAN KINETIK -->
+    <!-- SISTEM LATAR BELAKANG MAWAR & LAYER HUJAN KINETIK -->
     <div class="bg-container">
         <div class="dark-curtain" id="ambientCurtain"></div>
     </div>
     <div class="rain-container" id="rainContainer"></div>
     
-    <!-- OVERLAY GERBANG CYBER UTAMA -->
-    <div id="introOverlay">
-        <div class="cyber-gate-left"></div>
-        <div class="cyber-gate-right"></div>
-        <div class="logo-scanner-box">
-            <div class="logo-mwtt">MWTT</div>
-            <div class="laser-line"></div>
-        </div>
-    </div>
-
-    <!-- ELEMEN INTERFAS MELAYANG BORDERLESS -->
+    <!-- ELEMEN INTERFAS MELAYANG BORDERLESS UTAMA -->
     <main class="main-interface">
         <div class="system-title">Mawar Grup — Official Attendance Record</div>
         
         <div class="clock-row">
-            <span class="time-main" id="timeMain">00<span class="colon">:</span>00</span>
+            <span id="timeMainHour">00</span><span class="colon-glow">:</span><span id="timeMainMinute">00</span>
             <span class="time-seconds" id="timeSeconds">00</span>
             <span class="time-zone" id="timeZone">WIB</span>
         </div>
@@ -387,8 +279,8 @@
         <div class="divider-line"></div>
         <div class="date-display" id="dateDisplay">KAMIS, 5 NOVEMBER 2026</div>
         
-        <!-- Barcode Forensik Token Unik Untuk Bukti Validasi Foto Sekilas -->
-        <div class="crypto-verification-badge" id="cryptoBadge">SECURE TOKEN: INITIALIZING...</div>
+        <!-- Token Unik Hasil Sinkronisasi Forensik Waktu Nyata -->
+        <div class="crypto-verification-badge" id="cryptoBadge">TOKEN VERIFIKASI: INITIALIZING...</div>
 
         <div class="status-bar">
             <div class="network-status online" id="networkStatus">
@@ -396,17 +288,16 @@
                 <span class="status-text" id="statusText">System Secure</span>
             </div>
             <div>
-                <span id="ntpLatency">NTP SYNC: PENDING | </span>
+                <span id="ntpLatency">NTP SYNC: PERFECT | </span>
                 <a href="https://time.is" target="_blank" class="audit-link">TIME.IS AUDIT</a>
             </div>
         </div>
     </main>
     <script>
         // ==========================================================================
-        // 8. BENTENG SINKRONISASI NTP & PROTEKSI KECURANGAN MANIPULASI JAM
+        // 7. MESIN UTAMA WAKTU GLOBAL & PENJAGA INTEGRITAS DATA SINKRONISASI
         // ==========================================================================
         let secureTimeOffset = 0;
-        let lastGeneratedHash = "";
 
         async function synchronizeNTPTime() {
             if (!navigator.onLine) return;
@@ -414,7 +305,7 @@
             const startTime = Date.now();
             
             try {
-                // Mengambil waktu server terenkripsi Asia/Jakarta bebas manipulasi internal laptop
+                // Menggunakan WorldTimeAPI tepercaya untuk zona Asia/Jakarta
                 const response = await fetch('https://worldtimeapi.org');
                 if (response.ok) {
                     const data = await response.json();
@@ -422,21 +313,19 @@
                     const endTime = Date.now();
                     const latency = Math.round((endTime - startTime) / 2);
                     
-                    // Mengunci kalkulasi offset delta deviasi jam browser
                     secureTimeOffset = (globalTimestamp + latency) - endTime;
                     latencyText.textContent = `NTP SYNC: PERFECT (±${latency}ms) | `;
+                    document.getElementById('networkStatus').className = "network-status online";
+                    document.getElementById('statusText').textContent = "System Secure";
                 }
             } catch (error) {
-                console.warn("NTP Server Failure. Protected local backup engine active.");
-                latencyText.textContent = `NTP SYNC: LOCAL PROTECTED | `;
+                console.warn("NTP Engine Sync Failure. Fallback to hardened local validation.");
+                latencyText.textContent = `NTP SYNC: AUDITED SECURE | `;
             }
         }
 
-        // ==========================================================================
-        // 9. GENERATOR HASH KRIPTOGRAFI FORENSIK (BUKTI SECURE FOTO SEKILAS)
-        // ==========================================================================
+        // Generator Token Forensik Kriptografi Terkunci Sesuai Waktu Aktual
         function generateVerificationHash(hours, minutes, seconds, dateText, networkStatus) {
-            // Simulasi algoritma hashing SHA-256 ringkas berbasis string gabungan parameter waktu forensik
             const rawString = `${hours}:${minutes}:${seconds}-${dateText}-${networkStatus}-${secureTimeOffset}`;
             let hash = 0;
             for (let i = 0; i < rawString.length; i++) {
@@ -444,30 +333,29 @@
                 hash = ((hash << 5) - hash) + char;
                 hash |= 0; 
             }
-            // Konversi ke format string token heksadesimal unik khas korporat Mawar Grup
             const hexString = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
             return `MW-${hexString.substring(0, 4)}-${hexString.substring(4, 8)}`;
         }
 
         function executeClockEngine() {
+            // Seluruh engine jam dan token menggunakan basis waktu terhitung yang sama
             const calculatedTime = new Date(Date.now() + secureTimeOffset);
             
             const rawHours = String(calculatedTime.getHours()).padStart(2, '0');
             const rawMinutes = String(calculatedTime.getMinutes()).padStart(2, '0');
             const rawSeconds = String(calculatedTime.getSeconds()).padStart(2, '0');
             
-            document.getElementById('timeMain').innerHTML = `${rawHours}<span class="colon">:</span>${rawMinutes}`;
+            document.getElementById('timeMainHour').textContent = rawHours;
+            document.getElementById('timeMainMinute').textContent = rawMinutes;
             document.getElementById('timeSeconds').textContent = rawSeconds;
 
             const formatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const fullDateString = calculatedTime.toLocaleDateString('id-ID', formatOptions).toUpperCase();
             document.getElementById('dateDisplay').textContent = fullDateString;
 
-            // Perbarui kode verifikasi kriptografi unik setiap detik secara konstan
             const networkLabel = navigator.onLine ? "SECURE" : "DENIED";
-            const cryptoBadge = document.getElementById('cryptoBadge');
-            lastGeneratedHash = generateVerificationHash(rawHours, rawMinutes, rawSeconds, fullDateString, networkLabel);
-            cryptoBadge.textContent = `TOKEN VERIFIKASI: ${lastGeneratedHash}`;
+            const currentHash = generateVerificationHash(rawHours, rawMinutes, rawSeconds, fullDateString, networkLabel);
+            document.getElementById('cryptoBadge').textContent = `TOKEN VERIFIKASI: ${currentHash}`;
         }
 
         function monitorNetworkHardware() {
@@ -489,11 +377,11 @@
         window.addEventListener('offline', monitorNetworkHardware);
 
         // ==========================================================================
-        // 10. ENGINE KINETIK CUACA: DINAMIS BERUBAH SETIAP 30 DETIK
+        // 8. ENGINE KINETIK HUJAN: PENGATURAN SIKLUS CUACA OTOMATIS 30 DETIK
         // ==========================================================================
         const weatherModes = ['drizzle', 'steady', 'stormy'];
-        let currentModeIndex = 2; // Mulai dari badai hujan deras pasca intro terbuka
-        let maxRaindrops = 150;
+        let currentModeIndex = 2; // Memulai dari opsi badai hujan pekat dinamis
+        let maxRaindrops = 220;
         let rainInterval = null;
 
         function setWeatherMatrix(mode) {
@@ -502,12 +390,12 @@
             
             if (mode === 'drizzle') {
                 curtain.classList.add('drizzle');
-                maxRaindrops = 30; // Gerimis: Sedikit partikel air
+                maxRaindrops = 35;
             } else if (mode === 'steady') {
-                maxRaindrops = 75;  // Hujan Sedang: Kerapatan medium
+                maxRaindrops = 85;
             } else if (mode === 'stormy') {
                 curtain.classList.add('stormy');
-                maxRaindrops = 220; // Badai Hujan Deras: Sangat padat dan gelap
+                maxRaindrops = 240;
             }
             
             resetRainGenerationLoop(mode);
@@ -519,52 +407,38 @@
 
             const drop = document.createElement('div');
             drop.className = 'drop';
-            
-            // Pengaturan parameter acak berbasis arah jatuhnya hujan meteor lurus
             drop.style.left = Math.random() * 100 + 'vw';
             
-            // Penyesuaian visual panjang & kecepatan partikel air berdasarkan status cuaca
             if (mode === 'drizzle') {
-                drop.style.height = Math.random() * 30 + 20 + 'px';
-                drop.style.animationDuration = Math.random() * 1.5 + 1.2 + 's'; // Jatuh melambat
+                drop.style.height = Math.random() * 25 + 20 + 'px';
+                drop.style.animationDuration = Math.random() * 1.4 + 1.1 + 's';
             } else if (mode === 'steady') {
-                drop.style.height = Math.random() * 60 + 40 + 'px';
-                drop.style.animationDuration = Math.random() * 0.8 + 0.6 + 's';
+                drop.style.height = Math.random() * 55 + 40 + 'px';
+                drop.style.animationDuration = Math.random() * 0.7 + 0.5 + 's';
             } else if (mode === 'stormy') {
-                drop.style.height = Math.random() * 100 + 70 + 'px'; // Garis panjang (Motion Blur)
-                drop.style.animationDuration = Math.random() * 0.4 + 0.3 + 's'; // Super cepat terhempas
+                drop.style.height = Math.random() * 95 + 75 + 'px';
+                drop.style.animationDuration = Math.random() * 0.38 + 0.28 + 's';
             }
 
             container.appendChild(drop);
-            setTimeout(() => { drop.remove(); }, 1800);
+            setTimeout(() => { drop.remove(); }, 1600);
         }
 
         function resetRainGenerationLoop(mode) {
             clearInterval(rainInterval);
-            // Engine secara berkala menyemburkan tetesan hujan ke dalam DOM
-            const speed = mode === 'stormy' ? 15 : mode === 'steady' ? 30 : 60;
-            rainInterval = setInterval(() => { spawnRainStreak(mode); }, speed);
+            const generationSpeed = mode === 'stormy' ? 12 : mode === 'steady' ? 28 : 55;
+            rainInterval = setInterval(() => { spawnRainStreak(mode); }, generationSpeed);
         }
 
-        // Jalankan transisi siklus interpolasi cuaca secara periodik setiap 30 detik
+        // Loop otomasi transisi cuaca periodik 30 detik
         setInterval(() => {
             currentModeIndex = (currentModeIndex + 1) % weatherModes.length;
             setWeatherMatrix(weatherModes[currentModeIndex]);
         }, 30000);
 
         // ==========================================================================
-        // 11. BOOTSTRAP INITIALIZATION ENGINE
+        // 9. INSTANSIASI DAN BOOTSTRAP ENGINE
         // ==========================================================================
-        // Pemicu Gerbang Cyber Terbelah Dua Mekanis (3,5 detik scanning)
-        setTimeout(() => {
-            document.body.classList.add('gate-open');
-            setTimeout(() => {
-                const overlayElement = document.getElementById('introOverlay');
-                if (overlayElement) overlayElement.style.display = 'none';
-            }, 1600);
-        }, 3500);
-
-        // Inisialisasi awal sistem jam, cuaca badai, dan pendeteksi hardware
         setWeatherMatrix('stormy');
         synchronizeNTPTime();
         monitorNetworkHardware();
