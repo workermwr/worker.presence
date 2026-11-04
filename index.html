@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chronograph Haute Horlogerie — True iOS Glass</title>
+    <title>Chronograph Haute Horlogerie — Liquid Glass Edition</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,8 +11,8 @@
         }
 
         body {
-            /* Latar belakang gradasi merah mawar gelap sinematik untuk memunculkan efek kaca */
-            background: linear-gradient(135deg, #050001 0%, #1a0003 35%, #380208 70%, #0d0002 100%);
+            /* Latar belakang gradasi merah mawar gelap sinematik */
+            background: linear-gradient(135deg, #050001 0%, #1a0003 35%, #380208 70%, #0d0002 100%) !important;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
             height: 100vh;
@@ -28,7 +28,7 @@
             position: absolute;
             width: 60vw;
             height: 60vh;
-            background: radial-gradient(circle, rgba(189, 30, 44, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+            background: radial-gradient(circle, rgba(189, 30, 44, 0.35) 0%, rgba(0, 0, 0, 0) 70%) !important;
             top: 20%;
             left: 20%;
             z-index: 1;
@@ -36,7 +36,7 @@
             filter: blur(80px);
         }
 
-        /* Panel Kaca iOS Premium dengan Kontras Tinggi */
+        /* Panel Kaca iOS Premium Frosted Glass */
         .clock-display-wrapper {
             position: relative;
             z-index: 2;
@@ -49,16 +49,14 @@
             justify-content: center;
             align-items: center;
             
-            /* Formula Efek Kaca Frosted Glass Transparan ala Apple */
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            background: rgba(255, 255, 255, 0.06) !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
             
-            /* Garis tepi kaca dan bayangan tebal agar terlihat melayang */
             border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.85), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.3) !important;
             
             animation: iOSFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -80,7 +78,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 12px;
-            color: #ff453a; /* Merah iOS Terang */
+            color: #ff453a; 
             margin-bottom: 4.5vh;
             display: block;
             text-shadow: 0 2px 8px rgba(255, 69, 58, 0.4);
@@ -94,20 +92,31 @@
             margin-bottom: 4.5vh;
         }
 
-        /* Angka Jam Putih iOS Minimalis */
+        /* EFEK LIQUID GLASS: Putih Kaca Cair Transparan dengan Kilau Reflektif Bergerak */
         .time-row {
             font-size: 22vh;
             font-weight: 200; 
             letter-spacing: -2px;
-            color: #ffffff;
             font-variant-numeric: tabular-nums;
-            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.25)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
+            
+            /* Dasar Kaca Cair */
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(240,240,240,0.6) 40%, rgba(200,200,200,0.3) 45%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.95) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            /* Efek Pembiasan Cahaya di Dalam Kaca (Glossy Shadow) */
+            filter: drop-shadow(0 2px 2px rgba(255,255,255,0.7)) 
+                    drop-shadow(0px 12px 20px rgba(0, 0, 0, 0.65));
+            
+            /* Animasi aliran cahaya cairan */
+            animation: liquidShimmer 8s linear infinite;
         }
 
         .seconds-row {
             font-size: 5vh;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.55); 
+            color: rgba(255, 255, 255, 0.45); 
             letter-spacing: 3px;
             margin-top: 1.8vh;
             font-variant-numeric: tabular-nums;
@@ -125,6 +134,12 @@
             display: inline-block;
         }
 
+        /* Pergerakan efek cairan reflektif */
+        @keyframes liquidShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
         @keyframes iOSFadeIn {
             0% { opacity: 0; transform: scale(0.96); }
             100% { opacity: 1; transform: scale(1); }
@@ -133,10 +148,8 @@
 </head>
 <body>
 
-    <!-- Pendaran Cahaya Merah Mawar di Belakang Kaca -->
     <div class="ambient-glow"></div>
 
-    <!-- Tampilan Utama Kaca iOS -->
     <div class="clock-display-wrapper">
         <div class="welcome-cursive">Welcome back, Abdul</div>
         <span class="status-pill">Absolute Precision Broadcast</span>
