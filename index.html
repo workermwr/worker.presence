@@ -11,7 +11,6 @@
         }
 
         body {
-            /* Latar belakang gradasi merah mawar gelap sinematik */
             background: linear-gradient(135deg, #050001 0%, #1a0003 35%, #380208 70%, #0d0002 100%) !important;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
@@ -23,7 +22,6 @@
             position: relative;
         }
 
-        /* Pendaran cahaya mawar tambahan di latar belakang */
         .ambient-glow {
             position: absolute;
             width: 60vw;
@@ -36,7 +34,6 @@
             filter: blur(80px);
         }
 
-        /* Panel Kaca iOS Premium Frosted Glass */
         .clock-display-wrapper {
             position: relative;
             z-index: 2;
@@ -49,19 +46,18 @@
             justify-content: center;
             align-items: center;
             
-            background: rgba(255, 255, 255, 0.06) !important;
+            background: rgba(255, 255, 255, 0.05) !important;
             backdrop-filter: blur(40px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
             
             border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.18) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.85), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+                        inset 0 1px 2px rgba(255, 255, 255, 0.25) !important;
             
             animation: iOSFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Tulisan sambung mewah premium */
         .welcome-cursive {
             font-family: 'Georgia', 'Playfair Display', cursive, serif;
             font-style: italic;
@@ -79,7 +75,7 @@
             text-transform: uppercase;
             letter-spacing: 12px;
             color: #ff453a; 
-            margin-bottom: 4.5vh;
+            margin-bottom: 3.5vh;
             display: block;
             text-shadow: 0 2px 8px rgba(255, 69, 58, 0.4);
         }
@@ -88,37 +84,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            line-height: 0.85;
-            margin-bottom: 4.5vh;
+            width: 100%;
+            margin-bottom: 3.5vh;
         }
 
-        /* EFEK LIQUID GLASS: Putih Kaca Cair Transparan dengan Kilau Reflektif Bergerak */
-        .time-row {
-            font-size: 22vh;
-            font-weight: 200; 
+        /* STRUKTUR BARU: Memaksa Efek Kaca Cair Menggunakan Metode SVG */
+        .liquid-glass-svg {
+            width: 100%;
+            height: 22vh;
+        }
+
+        .liquid-text {
+            font-size: 21vh;
+            font-weight: 200;
             letter-spacing: -2px;
             font-variant-numeric: tabular-nums;
-            
-            /* Dasar Kaca Cair */
-            background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(240,240,240,0.6) 40%, rgba(200,200,200,0.3) 45%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.95) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            
-            /* Efek Pembiasan Cahaya di Dalam Kaca (Glossy Shadow) */
-            filter: drop-shadow(0 2px 2px rgba(255,255,255,0.7)) 
-                    drop-shadow(0px 12px 20px rgba(0, 0, 0, 0.65));
-            
-            /* Animasi aliran cahaya cairan */
-            animation: liquidShimmer 8s linear infinite;
+            text-anchor: middle;
+            fill: url(#liquid-gradient);
+            filter: drop-shadow(0 2px 3px rgba(255, 255, 255, 0.6)) drop-shadow(0 15px 20px rgba(0, 0, 0, 0.7));
         }
 
         .seconds-row {
             font-size: 5vh;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.45); 
+            color: rgba(255, 255, 255, 0.55); 
             letter-spacing: 3px;
-            margin-top: 1.8vh;
+            margin-top: 1vh;
             font-variant-numeric: tabular-nums;
         }
 
@@ -132,12 +123,6 @@
             padding-top: 2.5vh;
             width: 85%;
             display: inline-block;
-        }
-
-        /* Pergerakan efek cairan reflektif */
-        @keyframes liquidShimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
         }
 
         @keyframes iOSFadeIn {
@@ -155,7 +140,25 @@
         <span class="status-pill">Absolute Precision Broadcast</span>
         
         <div class="time-box">
-            <div id="hm-clock" class="time-row">00:00</div>
+            <!-- SVG Kontainer untuk menjaga kilau kaca cair tetap aktif -->
+            <svg class="liquid-glass-svg">
+                <defs>
+                    <!-- Gradasi reflektif logam kaca cair dengan animasi pergeseran -->
+                    <linearGradient id="liquid-gradient" x1="0%" y1="0%" x2="200%" y2="0%">
+                        <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
+                        <stop offset="25%" stop-color="rgba(230,230,230,0.5)"/>
+                        <stop offset="50%" stop-color="rgba(160,160,160,0.2)"/>
+                        <stop offset="55%" stop-color="rgba(255,255,255,0.85)"/>
+                        <stop offset="75%" stop-color="rgba(240,240,240,0.6)"/>
+                        <stop offset="100%" stop-color="rgba(255,255,255,0.95)"/>
+                        
+                        <animate attributeName="x1" from="0%" to="-100%" dur="7s" repeatCount="indefinite" />
+                        <animate attributeName="x2" from="200%" to="100%" dur="7s" repeatCount="indefinite" />
+                    </linearGradient>
+                </defs>
+                <text id="hm-clock" x="50%" y="85%" class="liquid-text">00:00</text>
+            </svg>
+            
             <div id="s-clock" class="seconds-row">00 SEC</div>
         </div>
         
