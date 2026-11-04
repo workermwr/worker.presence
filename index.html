@@ -22,7 +22,6 @@
             position: relative;
         }
 
-        /* MEMANGGIL GAMBAR MAWAR HITAM MISTERIUS YANG ANDA UNGGAH MANUAL */
         .rose-background {
             position: absolute;
             top: 0;
@@ -31,8 +30,7 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            /* Lapisan gelap pekat + memanggil file gambar mawar.jpg */
-            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0.98) 85%), 
+            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.4) 0%, rgba(5, 5, 5, 0.98) 85%), 
                               url('mawar.jpg');
             background-size: cover;
             background-position: center;
@@ -56,7 +54,7 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 12px;
-            color: #ffffff;
+            color: #e0e0e0;
             margin-bottom: 12px;
         }
 
@@ -77,19 +75,21 @@
             margin-bottom: 6vh;
         }
 
+        /* PERUBAHAN WARNA: Mengurangi intensitas putih menjadi abu-abu metalik dengan glow crimson misterius */
         #clock-hm {
             font-size: 24vh;
             font-weight: 200;
             letter-spacing: -2px;
-            color: #ffffff;
+            color: #d1d1d1; /* Mengubah putih solid menjadi abu-abu terang premium */
             font-variant-numeric: tabular-nums;
-            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.9));
+            /* Efek pendaran merah gelap di sekeliling angka agar tetap kontras dan terbaca tajam */
+            filter: drop-shadow(0 0 15px rgba(189, 30, 44, 0.45)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95));
         }
 
         #clock-s {
             font-size: 5vh;
             font-weight: 300;
-            color: #555555; 
+            color: #444444; 
             letter-spacing: 4px;
             margin-top: 2vh;
             font-variant-numeric: tabular-nums;
@@ -98,7 +98,7 @@
         #date {
             font-size: 3.2vh; 
             font-weight: 500;
-            color: #e0e0e0;
+            color: #b5b5b5;
             letter-spacing: 4px;
             text-transform: uppercase;
             border-top: 2px solid #bd1e2c; 
