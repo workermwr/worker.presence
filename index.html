@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mawar Grup — Official Attendance Record</title>
+    <!-- Memuat Font Premium Korporat Mewah -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@700;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         /* Reset & Base Style */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
         }
 
@@ -28,6 +32,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         /* Latar Belakang Mawar Premium */
@@ -51,7 +56,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #0c0204 0%, #020000 100%);
+            background: radial-gradient(circle at center, #0f0204 0%, #010000 100%);
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -59,77 +64,104 @@
             align-items: center;
             opacity: 1;
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
         }
 
-        /* Kontainer Glitch & Laser */
+        /* Kontainer Kelopak Mawar Berguguran */
+        .petal-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+        }
+
+        /* Kelopak Mawar Individual */
+        .rose-petal {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, #ff1a40 0%, #800016 70%, #3a0007 100%);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.8;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px) translateX(0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(105vh) translateX(150px) rotate(720deg) scale(0.6); opacity: 0; }
+        }
+
+        /* Kontainer Logo M & Laser */
         .megah-scan-box {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
+            z-index: 999;
         }
 
-        /* Logo M Bergaya Logam Crimson */
+        /* Logo M Premium Serif Formil (Cinzel Font) */
         .logo-m-megah {
-            font-size: 190px;
+            font-family: 'Cinzel', serif;
+            font-size: 220px;
             font-weight: 900;
-            color: #110204;
+            color: #160205;
             position: relative;
-            letter-spacing: -5px;
             line-height: 1;
-            text-shadow: 
-                0 0 2px rgba(255, 0, 51, 0.3),
-                -1px -1px 0px rgba(255,255,255,0.05),
-                1px 1px 0px rgba(0,0,0,0.9);
+            text-shadow: 0 0 4px rgba(255, 0, 51, 0.4), -1px -1px 1px rgba(255,255,255,0.08), 2px 2px 4px rgba(0,0,0,0.95);
             animation: logo-reveal 3.5s ease-in-out forwards;
         }
 
         @keyframes logo-reveal {
-            0% { color: #0a0102; filter: brightness(0.5) blur(10px); }
-            40% { color: #1a0306; filter: brightness(1) blur(0px); text-shadow: 0 0 30px rgba(255, 0, 51, 0.4); }
-            70% { color: #2d050a; text-shadow: 0 0 50px rgba(255, 0, 51, 0.8), 0 0 10px rgba(255,255,255,0.2); }
-            100% { color: #1c0205; text-shadow: 0 0 25px rgba(255, 0, 51, 0.5); }
+            0% { color: #080102; filter: brightness(0.3) blur(12px); transform: scale(0.9); }
+            45% { color: #220307; filter: brightness(1.2) blur(0px); text-shadow: 0 0 40px rgba(255, 0, 51, 0.6); transform: scale(1.02); }
+            75% { color: #3d070f; text-shadow: 0 0 60px rgba(255, 0, 51, 0.9), 0 0 15px rgba(255,255,255,0.2); }
+            100% { color: #230306; text-shadow: 0 0 30px rgba(255, 0, 51, 0.55); transform: scale(1); }
         }
 
         /* Garis Laser Horizontal Super Tajam */
         .laser-line-megah {
             position: absolute;
-            left: -10%;
-            width: 120%;
+            left: -15%;
+            width: 130%;
             height: 3px;
             background: linear-gradient(90deg, transparent, #ff0033 20%, #ffffff 50%, #ff0033 80%, transparent);
-            box-shadow: 0 0 20px #ff0033, 0 0 40px #ff0033, 0 0 80px #ff0033;
+            box-shadow: 0 0 25px #ff0033, 0 0 50px #ff0033, 0 0 100px #ff0033;
             animation: laser-scan-intense 1.75s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
         }
 
         @keyframes laser-scan-intense {
-            0% { top: 5%; opacity: 0.5; transform: scaleX(0.9); }
+            0% { top: 5%; opacity: 0.4; transform: scaleX(0.85); }
             50% { opacity: 1; transform: scaleX(1.05); }
-            100% { top: 95%; opacity: 0.5; transform: scaleX(0.9); }
+            100% { top: 95%; opacity: 0.4; transform: scaleX(0.85); }
         }
 
         /* Teks Subtitle Korporat */
         .intro-subtitle {
-            font-size: 11px;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 10px;
-            color: #666;
-            margin-top: 10px;
+            letter-spacing: 12px;
+            color: #555;
+            margin-top: 15px;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(12px);
             animation: text-fade-up 2.5s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
             animation-delay: 0.8s;
-            text-shadow: 0 0 8px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9);
+            z-index: 999;
         }
 
-        @keyframes text-fade-up {
-            to { opacity: 1; transform: translateY(0); color: #b5b5b5; }
-        }
+        @keyframes text-fade-up { to { opacity: 1; transform: translateY(0); color: #c5c5c5; } }
 
-        /* Efek Kilatan Awal Saat Web Dimuat */
+        /* Efek Kilatan Awal */
         .flash-bang {
             position: absolute;
             width: 100%;
@@ -138,13 +170,10 @@
             opacity: 0;
             z-index: 1000;
             pointer-events: none;
-            animation: flash 0.6s ease-out forwards;
+            animation: flash 0.7s ease-out forwards;
         }
 
-        @keyframes flash {
-            0% { opacity: 0.7; }
-            100% { opacity: 0; }
-        }
+        @keyframes flash { 0% { opacity: 0.6; } 100% { opacity: 0; } }
 
         /* ==================== ANTARMUKA UTAMA ==================== */
         .main-interface {
@@ -159,136 +188,36 @@
             transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .main-interface.visible {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        /* Header Korporat */
-        .corporate-header {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 7px;
-            color: #888888;
-            margin-bottom: 35px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-        }
-
-        /* Status Jaringan */
-        .network-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: rgba(15, 0, 0, 0.6);
-            border: 1px solid #2a0005;
-            border-radius: 3px;
-            font-size: 10px;
-            letter-spacing: 2px;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-        }
-
-        .online .status-dot {
-            background-color: #00ff66;
-            box-shadow: 0 0 8px #00ff66;
-        }
+        .main-interface.visible { opacity: 1; transform: scale(1) translateY(0); }
+        .corporate-header { font-size: 13px; text-transform: uppercase; letter-spacing: 7px; color: #888888; margin-bottom: 35px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .network-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(15, 0, 0, 0.6); border: 1px solid #2a0005; border-radius: 3px; font-size: 10px; letter-spacing: 2px; }
+        .status-dot { width: 7px; height: 7px; border-radius: 50%; }
+        .online .status-dot { background-color: #00ff66; box-shadow: 0 0 8px #00ff66; }
         .online { color: #8a9990; }
-
-        .offline .status-dot {
-            background-color: #ff0033;
-            animation: fast-blink 0.4s infinite alternate;
-        }
-        .offline {
-            color: #ff3344;
-            border-color: #660011;
-            box-shadow: 0 0 15px rgba(255, 0, 51, 0.1);
-        }
-
-        @keyframes fast-blink {
-            0% { opacity: 0.2; box-shadow: 0 0 0px #ff0033; }
-            100% { opacity: 1; box-shadow: 0 0 10px #ff0033; }
-        }
+        .offline .status-dot { background-color: #ff0033; animation: fast-blink 0.4s infinite alternate; }
+        .offline { color: #ff3344; border-color: #660011; box-shadow: 0 0 15px rgba(255, 0, 51, 0.1); }
+        @keyframes fast-blink { 0% { opacity: 0.2; box-shadow: 0 0 0px #ff0033; } 100% { opacity: 1; box-shadow: 0 0 10px #ff0033; } }
 
         /* Tampilan Jam Baris Horizontal */
-        .clock-row {
-            display: flex;
-            justify-content: center;
-            align-items: baseline;
-            font-variant-numeric: tabular-nums;
-            margin-bottom: 25px;
-        }
-
-        /* Angka Utama (Platinum + Crimson Glow Tajam) */
-        .time-main {
-            font-size: 115px;
-            font-weight: 300;
-            color: #eaeeef;
-            letter-spacing: -2px;
-            text-shadow: 0 0 25px rgba(255, 0, 51, 0.35), 0 0 2px rgba(255, 255, 255, 0.9);
-        }
-
-        .colon {
-            animation: slow-blink 1s infinite steps(1, start);
-            padding: 0 4px;
-            color: #d1d5d8;
-        }
-
-        @keyframes slow-blink {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 1; }
-        }
-
-        /* Detik (Merah Mawar, Lebih Kecil & Tipis) */
-        .time-seconds {
-            font-size: 58px;
-            font-weight: 200;
-            color: #cc1e3d;
-            margin-left: 15px;
-            text-shadow: 0 0 12px rgba(204, 30, 61, 0.4);
-        }
-
-        /* Zona Waktu */
-        .time-zone {
-            font-size: 24px;
-            font-weight: 400;
-            color: #555555;
-            margin-left: 20px;
-            letter-spacing: 2px;
-        }
-
-        /* Garis Pembatas Merah Tegas */
-        .divider-line {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #800016 15%, #ff0033 50%, #800016 85%, transparent);
-            box-shadow: 0 0 12px rgba(255, 0, 51, 0.6);
-            margin-bottom: 30px;
-        }
-
-        /* Bagian Tanggal (Besar & Tebal) */
-        .date-display {
-            font-size: 34px;
-            font-weight: 700;
-            letter-spacing: 7px;
-            color: #d4d4d4;
-            text-transform: uppercase;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
-        }
+        .clock-row { display: flex; justify-content: center; align-items: baseline; font-variant-numeric: tabular-nums; margin-bottom: 25px; }
+        .time-main { font-family: 'Orbitron', sans-serif; font-size: 115px; font-weight: 400; color: #eaeeef; letter-spacing: 2px; text-shadow: 0 0 25px rgba(255, 0, 51, 0.4), 0 0 2px rgba(255, 255, 255, 0.9); }
+        .colon { animation: slow-blink 1s infinite steps(1, start); padding: 0 4px; color: #d1d5d8; }
+        @keyframes slow-blink { 0%, 100% { opacity: 0.1; } 50% { opacity: 1; } }
+        .time-seconds { font-family: 'Orbitron', sans-serif; font-size: 58px; font-weight: 400; color: #cc1e3d; margin-left: 15px; text-shadow: 0 0 12px rgba(204, 30, 61, 0.4); }
+        .time-zone { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 700; color: #555555; margin-left: 20px; letter-spacing: 2px; }
+        .divider-line { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #800016 15%, #ff0033 50%, #800016 85%, transparent); box-shadow: 0 0 12px rgba(255, 0, 51, 0.6); margin-bottom: 30px; }
+        .date-display { font-size: 34px; font-weight: 700; letter-spacing: 7px; color: #d4d4d4; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.6); }
     </style>
 </head>
 <body>
     <div class="background-overlay"></div>
+
     <!-- Modul Intro Sinematik Premium Megah -->
     <div id="intro-container">
         <div class="flash-bang"></div>
+        <!-- Kontainer Kelopak Mawar Berguguran -->
+        <div class="petal-container" id="petal-zone"></div>
+        
         <div class="megah-scan-box">
             <div class="laser-line-megah"></div>
             <div class="logo-m-megah">M</div>
@@ -320,6 +249,30 @@
     </div>
 
     <script>
+        // Generator Kelopak Mawar Berguguran Real-Time
+        function createRosePetals() {
+            const petalZone = document.getElementById('petal-zone');
+            const totalPetals = 35; // Jumlah kelopak mawar di layar
+
+            for (let i = 0; i < totalPetals; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'rose-petal';
+                
+                // Variasi Ukuran, Posisi, Jeda, dan Kecepatan Jatuh Acak
+                const size = Math.random() * 15 + 10; // 10px - 25px
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.animationDuration = `${Math.random() * 2.5 + 2.5}s`; // 2.5s - 5s
+                petal.style.animationDelay = `${Math.random() * 3.5}s`;
+                
+                petalZone.appendChild(petal);
+            }
+        }
+
+        // Jalankan Pembuat Kelopak Mawar saat Halaman Dimuat
+        createRosePetals();
+
         // Logika Transisi Intro Sinematik Pas 3.5 Detik
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
@@ -330,8 +283,8 @@
                 setTimeout(() => {
                     intro.style.display = 'none';
                     mainUi.classList.add('visible');
-                }, 1200); // Waktu memudar transisi yang halus
-            }, 3500); // Tepat berjalan 3,5 detik
+                }, 1200); 
+            }, 3500); 
         });
 
         // Detektor Status Jaringan Real-Time
@@ -366,11 +319,9 @@
             document.getElementById('clock-main').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
             document.getElementById('clock-seconds').textContent = seconds;
 
-            // Membaca Zona Waktu Otomatis
             const tzString = now.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
             document.getElementById('clock-zone').textContent = tzString;
 
-            // Format Tanggal Korporat
             let dayName = days[now.getDay()];
             let dayNum = String(now.getDate()).padStart(2, '0');
             let monthName = months[now.getMonth()];
