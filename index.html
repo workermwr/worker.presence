@@ -1,362 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mawar Grup — Enterprise Chronograph Dashboard</title>
+    <title>Mawar Grup — Official Attendance Record</title>
     <style>
-        :root {
-            --bg-primary: #050505;
-            --brand-red: #bd1e2c;
-            --text-primary: #ffffff;
-            --text-muted: #d6d6d6;
-            --text-dark: #444444;
-            --status-green: #30d158;
-            --status-red: #ff453a;
-        }
-
+        /* Reset & Base Style */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
         }
 
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        body, html {
+            width: 100%;
+            height: 100%;
             overflow: hidden;
-            position: relative;
+            background-color: #050000;
+            color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* ==================== 🎬 MODUL INTRO SINEMATIK MEGAH ==================== */
-        #cinema-intro-overlay {
+        /* Latar Belakang Mawar Premium */
+        .background-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #030303;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(5, 0, 0, 0.95)),
+                url('mawar.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: 1;
         }
 
-        .intro-logo-box {
-            position: relative;
-            margin-bottom: 30px;
-            animation: logoPulse 2s ease-in-out infinite alternate;
-        }
-
-        .intro-monogram {
-            font-size: 15vh;
-            font-weight: 900;
-            color: transparent;
-            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.8);
-            letter-spacing: -2px;
-            text-shadow: 0 0 30px rgba(189, 30, 44, 0.4);
-        }
-
-        .laser-scanner {
-            position: absolute;
-            width: 120%;
-            height: 3px;
-            background-color: var(--brand-red);
-            box-shadow: 0 0 15px var(--brand-red), 0 0 30px var(--brand-red);
-            left: -10%;
-            top: 0;
-            animation: laserScan 2.5s ease-in-out infinite;
-        }
-
-        .intro-load-text {
-            font-size: 1.6vh;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            color: #888888;
-            animation: textFlicker 1.5s infinite;
-        }
-
-        @keyframes laserScan {
-            0% { top: 0%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
-        @keyframes logoPulse {
-            0% { transform: scale(0.97); filter: brightness(0.8); }
-            100% { transform: scale(1.02); filter: brightness(1.2); }
-        }
-        @keyframes textFlicker {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; color: #ffffff; }
-        }
-
-        /* ==================== 🕒 FRAMEWORK UTAMA JAM ==================== */
-        .rose-infrastructure-bg {
-            position: absolute;
+        /* Modul Intro Sinematik (3.5 Detik) */
+        #intro-container {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.4) 0%, rgba(5, 5, 5, 0.98) 85%), 
-                              url('mawar.jpg');
-            background-size: cover;
-            background-position: center;
+            background: #030000;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
         }
 
-        .workspace-master-panel {
+        .laser-scan-box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-m {
+            font-size: 140px;
+            font-weight: 900;
+            color: #111;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            position: relative;
+            letter-spacing: -5px;
+        }
+
+        /* Efek Laser Scan */
+        .laser-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #ff0033;
+            box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033;
+            animation: scan 1.75s ease-in-out infinite alternate;
+        }
+
+        @keyframes scan {
+            0% { top: 10%; opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { top: 90%; opacity: 0.3; }
+        }
+
+        /* Konten Utama */
+        .main-interface {
             position: relative;
             z-index: 2;
-            text-align: center;
             width: 100%;
-            max-width: 85vw;
-            padding: 50px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            max-width: 1100px;
+            padding: 40px;
+            text-align: center;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 2s cubic-bezier(0.16, 1, 0.3, 1), transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.98);
+            transition: opacity 1.5s cubic-bezier(0.1, 0.8, 0.25, 1), transform 1.5s cubic-bezier(0.1, 0.8, 0.25, 1);
         }
 
-        .workspace-master-panel.reveal-active {
+        .main-interface.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
         }
 
-        .header-branding-group {
-            margin-bottom: 5vh;
-        }
-
+        /* Header Korporat */
         .corporate-header {
-            font-size: 3vh;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 14px;
-            color: #e5e5e5;
-            margin-bottom: 6px;
-        }
-
-        .corporate-sub {
-            font-size: 1.5vh;
-            font-weight: 600;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 7px;
-            color: var(--brand-red); 
-        }
-
-        .chronograph-stream-container {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            justify-content: center;
-            width: 100%;
-            margin-bottom: 6vh;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .primary-time-digits {
-            font-size: 24vh;
-            font-weight: 200;
-            letter-spacing: -2px;
-            color: var(--text-muted);
-            line-height: 1;
-            filter: drop-shadow(0 0 15px rgba(189, 30, 44, 0.4)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
-        }
-
-        .digital-colon {
-            animation: hardwareBlink 1s step-start infinite;
-            font-weight: 200;
-        }
-
-        @keyframes hardwareBlink {
-            50% { opacity: 0.15; }
-        }
-
-        .auxiliary-seconds-digits {
-            font-size: 8vh;
-            font-weight: 200;
-            color: var(--brand-red);
-            margin-left: 25px;
-            letter-spacing: 1px;
-            line-height: 1;
-            align-self: flex-end;
-            padding-bottom: 2vh;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        .timezone-badge {
-            font-size: 2.2vh;
-            font-weight: 400;
             color: #888888;
-            letter-spacing: 4px;
-            margin-left: 15px;
-            text-transform: uppercase;
-            align-self: flex-end;
-            padding-bottom: 2vh;
-        }
-
-        .metadata-calendar-block {
-            width: 65%;
-            border-top: 2px solid var(--brand-red);
-            padding-top: 3vh;
-            margin-bottom: 3.5vh;
-            display: inline-block;
-        }
-
-        #date-display {
-            font-size: 3.5vh; 
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .system-telemetry-status {
+            margin-bottom: 30px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 12px;
-            font-size: 1.4vh;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            transition: color 0.4s ease;
+            align-items: center;
+            gap: 15px;
         }
 
-        .system-telemetry-status.online-mode { color: #888888; }
-        .system-telemetry-status.offline-mode { color: var(--status-red); text-shadow: 0 0 10px rgba(255, 69, 58, 0.3); }
+        /* Status Jaringan */
+        .network-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(15, 0, 0, 0.6);
+            border: 1px solid #2a0005;
+            border-radius: 3px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
 
-        .telemetry-pulse-node {
-            width: 8px;
-            height: 8px;
+        .status-dot {
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+            transition: background-color 0.3s ease;
         }
 
-        .online-node {
-            background-color: var(--status-green);
-            box-shadow: 0 0 8px var(--status-green);
-            animation: telemetryPulseGreen 2.5s infinite alternate;
+        /* Status Online */
+        .online .status-dot {
+            background-color: #00ff66;
+            box-shadow: 0 0 8px #00ff66;
+        }
+        .online { color: #8a9990; }
+
+        /* Status Offline (Kedip Cepat) */
+        .offline .status-dot {
+            background-color: #ff0033;
+            animation: fast-blink 0.4s infinite alternate;
+        }
+        .offline {
+            color: #ff3344;
+            border-color: #660011;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.1);
         }
 
-        .offline-node {
-            background-color: var(--status-red);
-            box-shadow: 0 0 8px var(--status-red);
-            animation: telemetryPulseRed 1s infinite alternate;
+        @keyframes fast-blink {
+            0% { opacity: 0.2; box-shadow: 0 0 0px #ff0033; }
+            100% { opacity: 1; box-shadow: 0 0 10px #ff0033; }
         }
 
-        @keyframes telemetryPulseGreen {
-            0% { transform: scale(0.9); opacity: 0.5; box-shadow: 0 0 4px var(--status-green); }
-            100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 12px var(--status-green); }
+        /* Tampilan Jam Baris Horizontal tunggal */
+        .clock-row {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 20px;
         }
 
-        @keyframes telemetryPulseRed {
-            0% { transform: scale(0.8); opacity: 0.4; box-shadow: 0 0 4px var(--status-red); }
-            100% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 16px var(--status-red); }
+        /* Angka Utama (Platinum + Crimson Glow) */
+        .time-main {
+            font-size: 110px;
+            font-weight: 300;
+            color: #e5e9ec;
+            letter-spacing: -2px;
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Titik Dua Berkedip */
+        .colon {
+            animation: slow-blink 1s infinite steps(1, start);
+            padding: 0 4px;
+            color: #d1d5d8;
+        }
+
+        @keyframes slow-blink {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 1; }
+        }
+
+        /* Detik (Merah Mawar, Lebih Kecil & Tipis) */
+        .time-seconds {
+            font-size: 55px;
+            font-weight: 200;
+            color: #b31936;
+            margin-left: 15px;
+            text-shadow: 0 0 10px rgba(179, 25, 54, 0.3);
+        }
+
+        /* Zona Waktu */
+        .time-zone {
+            font-size: 22px;
+            font-weight: 400;
+            color: #666666;
+            margin-left: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* Garis Merah Tegas */
+        .divider-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #800016 15%, #ff0033 50%, #800016 85%, transparent);
+            box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+            margin-bottom: 25px;
+        }
+
+        /* Bagian Tanggal (Besar & Tebal) */
+        .date-display {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: #cccccc;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
 
-    <!-- ==================== 🎬 HTML LAYAR INTRO ==================== -->
-    <div id="cinema-intro-overlay">
-        <div class="intro-logo-box">
-            <div class="intro-monogram">M</div>
-            <div class="laser-scanner"></div>
+    <div class="background-overlay"></div>
+
+    <!-- Modul Intro Sinematik -->
+    <div id="intro-container">
+        <div class="laser-scan-box">
+            <div class="laser-line"></div>
+            <div class="logo-m">M</div>
         </div>
-        <div class="intro-load-text">CONNECTING TO SECURE MAWAR NETWORK...</div>
     </div>
 
-    <!-- Framework Aplikasi Utama -->
-    <div class="rose-infrastructure-bg"></div>
+    <!-- Antarmuka Utama -->
+    <div class="main-interface" id="main-ui">
+        <div class="corporate-header">
+            <span>Mawar Grup — Official Attendance Record</span>
+            <div id="net-indicator" class="network-indicator online">
+                <div class="status-dot"></div>
+                <span id="net-text">SYSTEM SECURE</span>
+            </div>
+        </div>
 
-    <div id="main-panel" class="workspace-master-panel">
-        <div class="header-branding-group">
-            <div class="corporate-header">Mawar Grup</div>
-            <div class="corporate-sub">Official Attendance Record</div>
+        <!-- Baris Jam Horizontal Tunggal -->
+        <div class="clock-row">
+            <span class="time-main" id="clock-main">00<span class="colon">:</span>00</span>
+            <span class="time-seconds" id="clock-seconds">00</span>
+            <span class="time-zone" id="clock-zone">WIB</span>
         </div>
-        
-        <div class="chronograph-stream-container">
-            <div id="main-time" class="primary-time-digits">00<span class="digital-colon">:</span>00</div>
-            <div id="seconds-stream" class="auxiliary-seconds-digits">00</div>
-            <div id="timezone-stream" class="timezone-badge">WIB</div>
-        </div>
-        
-        <div class="metadata-calendar-block">
-            <div id="date-display">Loading System...</div>
-        </div>
-        
-        <div id="network-status-panel" class="system-telemetry-status online-mode">
-            <div id="network-dot" class="telemetry-pulse-node online-node"></div>
-            <span id="network-text">System Secure & Active</span>
-        </div>
+
+        <div class="divider-line"></div>
+
+        <!-- Tanggal Besar & Tebal -->
+        <div class="date-display" id="date-display">KAMIS, 01 JANUARI 1970</div>
     </div>
 
     <script>
-        (function() {
-            'use strict';
-            
-            function executeChronographUpdate() {
-                const currentTimeObj = new Date();
-(function() {
-    'use strict';
-    
-    function executeChronographUpdate() {
-        const currentTimeObj = new Date();
-        
-        let hoursStr = String(currentTimeObj.getHours()).padStart(2, '0');
-        let minutesStr = String(currentTimeObj.getMinutes()).padStart(2, '0');
-        let secondsStr = String(currentTimeObj.getSeconds()).padStart(2, '0');
-        
-        const calculatedZone = currentTimeObj.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
-        
-        // REVISI TOTAL: Menggunakan string biasa agar aman dari masalah teks putus di server browser
-        const colonHtml = '<span class="digital-colon">:</span>';
-        document.getElementById('main-time').innerHTML = hoursStr + colonHtml + minutesStr;
-        document.getElementById('seconds-stream').textContent = secondsStr;
-        document.getElementById('timezone-stream').textContent = calculatedZone;
-        
-        const calendarOptions = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-        document.getElementById('date-display').textContent = currentTimeObj.toLocaleDateString('en-US', calendarOptions);
-        
-        const panel = document.getElementById('network-status-panel');
-        const dot = document.getElementById('network-dot');
-        const text = document.getElementById('network-text');
-        
-        if (navigator.onLine) {
-            panel.className = "system-telemetry-status online-mode";
-            dot.className = "telemetry-pulse-node online-node";
-            text.textContent = "System Secure & Active";
-        } else {
-            panel.className = "system-telemetry-status offline-mode";
-            dot.className = "telemetry-pulse-node offline-node";
-            text.textContent = "Access Denied • Offline Detected";
+        // Logika Transisi Intro Sinematik (3.5 Detik)
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const intro = document.getElementById('intro-container');
+                const mainUi = document.getElementById('main-ui');
+                
+                intro.style.opacity = '0';
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    mainUi.classList.add('visible');
+                }, 800); // Sinkronisasi durasi efek fade-out
+            }, 3500); // Pas 3.5 Detik
+        });
+
+        // Detektor Status Jaringan Real-Time
+        function updateNetworkStatus() {
+            const indicator = document.getElementById('net-indicator');
+            const text = document.getElementById('net-text');
+
+            if (navigator.onLine) {
+                indicator.className = "network-indicator online";
+                text.textContent = "SYSTEM SECURE";
+            } else {
+                indicator.className = "network-indicator offline";
+                text.textContent = "ACCESS DENIED";
+            }
         }
-    }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        setInterval(executeChronographUpdate, 1000);
-        executeChronographUpdate();
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        updateNetworkStatus(); // Cek inisiasi awal
 
-        setTimeout(() => {
-            const introOverlay = document.getElementById('cinema-intro-overlay');
-            const mainPanel = document.getElementById('main-panel');
+        // Sistem Pembaruan Waktu Jam & Tanggal
+        function updateClock() {
+            const now = new Date();
+
+            // Pilihan nama hari dan bulan bahasa Indonesia formal
+            const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
+            const months = ['JANUARI', 'FEBRUARI', 'MARET', 'APRIL', 'MEI', 'JUNI', 'JULI', 'AGUSTUS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DESEMBER'];
+
+            let hours = String(now.getHours()).padStart(2, '0');
+            let minutes = String(now.getMinutes()).padStart(2, '0');
+            let seconds = String(now.getSeconds()).padStart(2, '0');
             
-            if (introOverlay) introOverlay.style.opacity = '0';
-            if (mainPanel) mainPanel.classList.add('reveal-active');
-        }, 3500);
-    });
-})();
+            // Format Jam:Menit dengan titik dua terpisah untuk animasi css
+            document.getElementById('clock-main').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
+            document.getElementById('clock-seconds').textContent = seconds;
+
+            // Dapatkan Kode Singkatan Zona Waktu
+            const tzString = now.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
+            document.getElementById('clock-zone').textContent = tzString;
+
+            // Format Tanggal
+            let dayName = days[now.getDay()];
+            let dayNum = String(now.getDate()).padStart(2, '0');
+            let monthName = months[now.getMonth()];
+            let year = now.getFullYear();
+
+            document.getElementById('date-display').textContent = `${dayName}, ${dayNum} ${monthName} ${year}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Jalankan langsung tanpa jeda 1 detik pertama
+    </script>
+</body>
+</html>
