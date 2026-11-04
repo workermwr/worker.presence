@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Mawar Grup — Official Enterprise Clock</title>
+    <title>Mawar Grup — Attendance Timepiece</title>
     <style>
         * {
             box-sizing: border-box;
@@ -22,6 +22,7 @@
             position: relative;
         }
 
+        /* Memanggil gambar mawar hitam misterius yang sudah Anda unggah */
         .rose-background {
             position: absolute;
             top: 0;
@@ -30,7 +31,7 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.4) 0%, rgba(5, 5, 5, 0.98) 85%), 
+            background-image: radial-gradient(circle at center, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0.98) 85%), 
                               url('mawar.jpg');
             background-size: cover;
             background-position: center;
@@ -43,28 +44,24 @@
             width: 100%;
             max-width: 80vw;
             padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
         .corporate-header {
-            font-size: 2.8vh;
+            font-size: 3vh;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 12px;
             color: #e0e0e0;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .corporate-sub {
             font-size: 1.6vh;
-            font-weight: 400;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 6px;
-            color: #bd1e2c; 
-            margin-bottom: 6vh;
+            color: #bd1e2c; /* Merah Mawar Grup */
+            margin-bottom: 5vh;
         }
 
         .time-container {
@@ -72,38 +69,40 @@
             flex-direction: column;
             align-items: center;
             line-height: 0.85;
-            margin-bottom: 6vh;
+            margin-bottom: 5vh;
         }
 
-        /* PERUBAHAN WARNA: Mengurangi intensitas putih menjadi abu-abu metalik dengan glow crimson misterius */
+        /* Dibuat abu-abu platinum tajam dengan glow merah mawar */
         #clock-hm {
             font-size: 24vh;
-            font-weight: 200;
-            letter-spacing: -2px;
-            color: #d1d1d1; /* Mengubah putih solid menjadi abu-abu terang premium */
-            font-variant-numeric: tabular-nums;
-            /* Efek pendaran merah gelap di sekeliling angka agar tetap kontras dan terbaca tajam */
-            filter: drop-shadow(0 0 15px rgba(189, 30, 44, 0.45)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95));
-        }
-
-        #clock-s {
-            font-size: 5vh;
             font-weight: 300;
-            color: #444444; 
-            letter-spacing: 4px;
-            margin-top: 2vh;
+            letter-spacing: -2px;
+            color: #d6d6d6; 
             font-variant-numeric: tabular-nums;
+            filter: drop-shadow(0 0 15px rgba(189, 30, 44, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.9));
         }
 
-        #date {
-            font-size: 3.2vh; 
+        /* PERUBAHAN: Detik diperjelas agar sah saat di-screenshot */
+        #clock-s {
+            font-size: 5.5vh;
             font-weight: 500;
-            color: #b5b5b5;
+            color: #ffffff; /* Diubah ke putih terang */
             letter-spacing: 4px;
+            margin-top: 2.5vh;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* Tanggal besar, tebal, dan sangat terbaca */
+        #date {
+            font-size: 3.5vh; 
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 3px;
             text-transform: uppercase;
             border-top: 2px solid #bd1e2c; 
-            padding-top: 3vh;
-            width: 60%;
+            padding-top: 2.5vh;
+            width: 65%;
             display: inline-block;
         }
     </style>
@@ -114,29 +113,34 @@
 
     <div class="workspace-panel">
         <div class="corporate-header">Mawar Grup</div>
-        <div class="corporate-sub">Official Workspace</div>
+        <div class="corporate-sub">Official Attendance Record</div>
         
         <div class="time-container">
             <div id="clock-hm">00:00</div>
-            <div id="clock-s">00 SEC</div>
+            <div id="clock-s">00 SEC • LOCAL TIME</div>
         </div>
         
-        <div id="date">Loading...</div>
+        <div id="date">Loading System...</div>
     </div>
 
     <script>
         function updateClock() {
             const now = new Date();
+            
             let hours = String(now.getHours()).padStart(2, '0');
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
             
+            // Mendapatkan inisial zona waktu resmi perangkat (misal: WIB, WITA, WIT)
+            const timeZoneString = now.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
+            
             document.getElementById('clock-hm').textContent = `${hours}:${minutes}`;
-            document.getElementById('clock-s').textContent = `${seconds} SEC`;
+            document.getElementById('clock-s').textContent = `${seconds} SEC • ${timeZoneString}`;
             
             const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
         }
+
         setInterval(updateClock, 1000);
         updateClock();
     </script>
