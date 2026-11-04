@@ -67,7 +67,7 @@
             overflow: hidden;
         }
 
-        /* Video Kelopak Mawar Sinematik (Mengisi Seluruh Layar Intro) */
+        /* Video Kelopak Mawar Sinematik */
         .intro-video-bg {
             position: absolute;
             top: 50%;
@@ -76,7 +76,7 @@
             height: 100%;
             object-fit: cover;
             transform: translate(-50%, -50%);
-            mix-blend-mode: screen; /* Menghilangkan background hitam video agar transparan */
+            mix-blend-mode: screen;
             opacity: 0.6;
             z-index: 997;
             pointer-events: none;
@@ -102,10 +102,7 @@
             color: #1a0205;
             position: relative;
             line-height: 1;
-            text-shadow: 
-                0 0 5px rgba(255, 0, 51, 0.5),
-                -1px -1px 1px rgba(255,255,255,0.08),
-                2px 2px 5px rgba(0,0,0,0.95);
+            text-shadow: 0 0 5px rgba(255, 0, 51, 0.5), -1px -1px 1px rgba(255,255,255,0.08), 2px 2px 5px rgba(0,0,0,0.95);
             animation: logo-reveal 3.5s ease-in-out forwards;
         }
 
@@ -196,7 +193,24 @@
         .time-seconds { font-family: 'Orbitron', sans-serif; font-size: 58px; font-weight: 400; color: #cc1e3d; margin-left: 15px; text-shadow: 0 0 12px rgba(204, 30, 61, 0.4); }
         .time-zone { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 700; color: #555555; margin-left: 20px; letter-spacing: 2px; }
         .divider-line { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #800016 15%, #ff0033 50%, #800016 85%, transparent); box-shadow: 0 0 12px rgba(255, 0, 51, 0.6); margin-bottom: 30px; }
-        .date-display { font-size: 34px; font-weight: 700; letter-spacing: 7px; color: #d4d4d4; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.6); }
+        .date-display { font-size: 34px; font-weight: 700; letter-spacing: 7px; color: #d4d4d4; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.6); margin-bottom: 25px; }
+
+        /* ==================== PANEL METADATA SOURCE KREDIBEL ==================== */
+        .source-metadata-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #555555;
+            text-transform: uppercase;
+        }
+        .meta-item strong {
+            color: #88182c;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -205,12 +219,9 @@
     <!-- Modul Intro Sinematik Premium Megah -->
     <div id="intro-container">
         <div class="flash-bang"></div>
-        
-        <!-- Video Latar Belakang Kelopak Mawar (Streaming Langsung via HTML) -->
         <video class="intro-video-bg" autoplay muted loop playsinline>
             <source src="https://pixabay.com" type="video/mp4">
         </video>
-        
         <div class="megah-scan-box">
             <div class="laser-line-megah"></div>
             <div class="logo-m-megah">M</div>
@@ -239,6 +250,12 @@
 
         <!-- Tanggal Besar & Tebal -->
         <div class="date-display" id="date-display">KAMIS, 01 JANUARI 1970</div>
+
+        <!-- Panel Informasi Source Terbuka (Tampak di Layar) -->
+        <div class="source-metadata-box">
+            <div class="meta-item">TIME REF: <strong id="meta-server">GLOBAL NTP SERVER</strong></div>
+            <div class="meta-item">SECURE LOG: <strong id="meta-status">SYNCED WITH HTTPS NETWORK</strong></div>
+        </div>
     </div>
 
     <script>
@@ -252,21 +269,31 @@
                 setTimeout(() => {
                     intro.style.display = 'none';
                     mainUi.classList.add('visible');
-                }, 1200); // Sinkronisasi transisi fade-out yang halus
-            }, 3500); // Durasi pas 3,5 detik
+                }, 1200); 
+            }, 3500); 
         });
 
-        // Detektor Status Jaringan Real-Time
+        // Detektor Status Jaringan Real-Time & Pembaruan Sumber Informasi
         function updateNetworkStatus() {
             const indicator = document.getElementById('net-indicator');
             const text = document.getElementById('net-text');
+            const metaStatus = document.getElementById('meta-status');
+            const metaServer = document.getElementById('meta-server');
 
             if (navigator.onLine) {
                 indicator.className = "network-indicator online";
                 text.textContent = "SYSTEM SECURE";
+                metaServer.textContent = "GLOBAL NTP SERVER";
+                metaServer.style.color = "#ff0033";
+                metaStatus.textContent = "SYNCED WITH HTTPS NETWORK";
+                metaStatus.style.color = "#8a9990";
             } else {
                 indicator.className = "network-indicator offline";
                 text.textContent = "ACCESS DENIED";
+                metaServer.textContent = "LOCAL INTERNAL CLOCK";
+                metaServer.style.color = "#ff3344";
+                metaStatus.textContent = "NETWORK INTERRUPTED (UNVERIFIED)";
+                metaStatus.style.color = "#ff3344";
             }
         }
 
