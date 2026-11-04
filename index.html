@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chronograph Haute Horlogerie — Liquid Glass Edition</title>
+    <title>Chronograph Haute Horlogerie — Luxury Edition</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,7 +11,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #050001 0%, #1a0003 35%, #380208 70%, #0d0002 100%) !important;
+            background-color: #030303;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
             height: 100vh;
@@ -22,18 +22,23 @@
             position: relative;
         }
 
-        .ambient-glow {
+        /* FOTO MAWAR ASLI BERGAYA DARK PHOTOGRAPHY (DITANAM LANGSUNG KE KODE) */
+        .rose-full-background {
             position: absolute;
-            width: 60vw;
-            height: 60vh;
-            background: radial-gradient(circle, rgba(189, 30, 44, 0.35) 0%, rgba(0, 0, 0, 0) 70%) !important;
-            top: 20%;
-            left: 20%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
             pointer-events: none;
-            filter: blur(80px);
+            /* Lapisan gradasi gelap + Foto mawar merah makro asli */
+            background-image: radial-gradient(circle at center, rgba(3, 3, 3, 0.3) 0%, rgba(3, 3, 3, 0.9) 85%), 
+                              url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAHCA4QDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9U6KKKKACMainjQp0U6gBKKU0UAFJS0UAJRSmigBtLS0UAJRRmigBKWikoAWkop1ACUUpooASilNFACUUZooAKKWigBKBRTqAEoozRQAmaWkpaACkpaKACkpaKAEopTRQAlFLRQA2lpTRQAlLSUtACUUoooASlop1ACUUUUAFJS0UAJSUtFACUtJRQAtFFFACUUU6gBKKKWgBKSnUUANpaKKAEopaKAEpaSkoAWiiigBKKU0UANpaKWgBtLRRQA2lp1FACUUUUAFFFFABRRmigD/9k=');
+            background-size: cover;
+            background-position: center;
         }
 
+        /* Panel Kaca iOS Nyata dengan Peningkatan Kontras Komponen */
         .clock-display-wrapper {
             position: relative;
             z-index: 2;
@@ -46,14 +51,15 @@
             justify-content: center;
             align-items: center;
             
-            background: rgba(255, 255, 255, 0.05) !important;
-            backdrop-filter: blur(40px) saturate(180%) !important;
-            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            /* Formula Efek Kaca Frosted Glass Transparan ala Apple */
+            background: rgba(255, 255, 255, 0.06) !important;
+            backdrop-filter: blur(35px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(35px) saturate(180%) !important;
             
             border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.85), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.25) !important;
+                        inset 0 1px 2px rgba(255, 255, 255, 0.3) !important;
             
             animation: iOSFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -88,12 +94,12 @@
             margin-bottom: 3.5vh;
         }
 
-        /* STRUKTUR BARU: Memaksa Efek Kaca Cair Menggunakan Metode SVG */
         .liquid-glass-svg {
             width: 100%;
             height: 22vh;
         }
 
+        /* EFEK LIQUID GLASS PADA ANGKA JAM */
         .liquid-text {
             font-size: 21vh;
             font-weight: 200;
@@ -133,17 +139,16 @@
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
+    <!-- Latar Belakang Mawar Asli (Anti-Gagal Memuat) -->
+    <div class="rose-full-background"></div>
 
     <div class="clock-display-wrapper">
         <div class="welcome-cursive">Welcome back, Abdul</div>
         <span class="status-pill">Absolute Precision Broadcast</span>
         
         <div class="time-box">
-            <!-- SVG Kontainer untuk menjaga kilau kaca cair tetap aktif -->
             <svg class="liquid-glass-svg">
                 <defs>
-                    <!-- Gradasi reflektif logam kaca cair dengan animasi pergeseran -->
                     <linearGradient id="liquid-gradient" x1="0%" y1="0%" x2="200%" y2="0%">
                         <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
                         <stop offset="25%" stop-color="rgba(230,230,230,0.5)"/>
@@ -151,9 +156,8 @@
                         <stop offset="55%" stop-color="rgba(255,255,255,0.85)"/>
                         <stop offset="75%" stop-color="rgba(240,240,240,0.6)"/>
                         <stop offset="100%" stop-color="rgba(255,255,255,0.95)"/>
-                        
-                        <animate attributeName="x1" from="0%" to="-100%" dur="7s" repeatCount="indefinite" />
-                        <animate attributeName="x2" from="200%" to="100%" dur="7s" repeatCount="indefinite" />
+                        <animate attributeName="x1" from="0%" to="-100%" dur="8s" repeatCount="indefinite" />
+                        <animate attributeName="x2" from="200%" to="100%" dur="8s" repeatCount="indefinite" />
                     </linearGradient>
                 </defs>
                 <text id="hm-clock" x="50%" y="85%" class="liquid-text">00:00</text>
@@ -168,7 +172,6 @@
     <script>
         function updateClock() {
             const now = new Date();
-            
             let hours = String(now.getHours()).padStart(2, '0');
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
@@ -179,7 +182,6 @@
             const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
         }
-
         setInterval(updateClock, 1000);
         updateClock();
     </script>
