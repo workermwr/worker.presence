@@ -35,7 +35,7 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* Latar Belakang Mawar Premium */
+        /* Latar Belakang Mawar Premium Utama */
         .background-overlay {
             position: fixed;
             top: 0;
@@ -56,7 +56,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #0f0204 0%, #010000 100%);
+            background: #020000;
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -67,32 +67,19 @@
             overflow: hidden;
         }
 
-        /* Kontainer Kelopak Mawar Berguguran */
-        .petal-container {
+        /* Video Kelopak Mawar Sinematik (Mengisi Seluruh Layar Intro) */
+        .intro-video-bg {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 50%;
+            left: 50%;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen; /* Menghilangkan background hitam video agar transparan */
+            opacity: 0.6;
+            z-index: 997;
             pointer-events: none;
-            z-index: 998;
-        }
-
-        /* Kelopak Mawar Individual */
-        .rose-petal {
-            position: absolute;
-            background: radial-gradient(circle at 30% 30%, #ff1a40 0%, #800016 70%, #3a0007 100%);
-            border-radius: 50% 0 50% 50%;
-            opacity: 0.8;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-50px) translateX(0) rotate(0deg) scale(1); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(105vh) translateX(150px) rotate(720deg) scale(0.6); opacity: 0; }
         }
 
         /* Kontainer Logo M & Laser */
@@ -112,18 +99,21 @@
             font-family: 'Cinzel', serif;
             font-size: 220px;
             font-weight: 900;
-            color: #160205;
+            color: #1a0205;
             position: relative;
             line-height: 1;
-            text-shadow: 0 0 4px rgba(255, 0, 51, 0.4), -1px -1px 1px rgba(255,255,255,0.08), 2px 2px 4px rgba(0,0,0,0.95);
+            text-shadow: 
+                0 0 5px rgba(255, 0, 51, 0.5),
+                -1px -1px 1px rgba(255,255,255,0.08),
+                2px 2px 5px rgba(0,0,0,0.95);
             animation: logo-reveal 3.5s ease-in-out forwards;
         }
 
         @keyframes logo-reveal {
             0% { color: #080102; filter: brightness(0.3) blur(12px); transform: scale(0.9); }
-            45% { color: #220307; filter: brightness(1.2) blur(0px); text-shadow: 0 0 40px rgba(255, 0, 51, 0.6); transform: scale(1.02); }
-            75% { color: #3d070f; text-shadow: 0 0 60px rgba(255, 0, 51, 0.9), 0 0 15px rgba(255,255,255,0.2); }
-            100% { color: #230306; text-shadow: 0 0 30px rgba(255, 0, 51, 0.55); transform: scale(1); }
+            45% { color: #2a0309; filter: brightness(1.2) blur(0px); text-shadow: 0 0 45px rgba(255, 0, 51, 0.7); transform: scale(1.02); }
+            75% { color: #4a0813; text-shadow: 0 0 65px rgba(255, 0, 51, 0.95), 0 0 15px rgba(255,255,255,0.2); }
+            100% { color: #280307; text-shadow: 0 0 35px rgba(255, 0, 51, 0.6); transform: scale(1); }
         }
 
         /* Garis Laser Horizontal Super Tajam */
@@ -196,7 +186,7 @@
         .online { color: #8a9990; }
         .offline .status-dot { background-color: #ff0033; animation: fast-blink 0.4s infinite alternate; }
         .offline { color: #ff3344; border-color: #660011; box-shadow: 0 0 15px rgba(255, 0, 51, 0.1); }
-        @keyframes fast-blink { 0% { opacity: 0.2; box-shadow: 0 0 0px #ff0033; } 100% { opacity: 1; box-shadow: 0 0 10px #ff0033; } }
+        @keyframes fast-blink { 0% { opacity: 0.2; box-shadow: 0 0px #ff0033; } 100% { opacity: 1; box-shadow: 0 0 10px #ff0033; } }
 
         /* Tampilan Jam Baris Horizontal */
         .clock-row { display: flex; justify-content: center; align-items: baseline; font-variant-numeric: tabular-nums; margin-bottom: 25px; }
@@ -215,8 +205,11 @@
     <!-- Modul Intro Sinematik Premium Megah -->
     <div id="intro-container">
         <div class="flash-bang"></div>
-        <!-- Kontainer Kelopak Mawar Berguguran -->
-        <div class="petal-container" id="petal-zone"></div>
+        
+        <!-- Video Latar Belakang Kelopak Mawar (Streaming Langsung via HTML) -->
+        <video class="intro-video-bg" autoplay muted loop playsinline>
+            <source src="https://pixabay.com" type="video/mp4">
+        </video>
         
         <div class="megah-scan-box">
             <div class="laser-line-megah"></div>
@@ -249,30 +242,6 @@
     </div>
 
     <script>
-        // Generator Kelopak Mawar Berguguran Real-Time
-        function createRosePetals() {
-            const petalZone = document.getElementById('petal-zone');
-            const totalPetals = 35; // Jumlah kelopak mawar di layar
-
-            for (let i = 0; i < totalPetals; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'rose-petal';
-                
-                // Variasi Ukuran, Posisi, Jeda, dan Kecepatan Jatuh Acak
-                const size = Math.random() * 15 + 10; // 10px - 25px
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size}px`;
-                petal.style.left = `${Math.random() * 100}%`;
-                petal.style.animationDuration = `${Math.random() * 2.5 + 2.5}s`; // 2.5s - 5s
-                petal.style.animationDelay = `${Math.random() * 3.5}s`;
-                
-                petalZone.appendChild(petal);
-            }
-        }
-
-        // Jalankan Pembuat Kelopak Mawar saat Halaman Dimuat
-        createRosePetals();
-
         // Logika Transisi Intro Sinematik Pas 3.5 Detik
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
@@ -283,8 +252,8 @@
                 setTimeout(() => {
                     intro.style.display = 'none';
                     mainUi.classList.add('visible');
-                }, 1200); 
-            }, 3500); 
+                }, 1200); // Sinkronisasi transisi fade-out yang halus
+            }, 3500); // Durasi pas 3,5 detik
         });
 
         // Detektor Status Jaringan Real-Time
