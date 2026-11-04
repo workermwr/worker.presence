@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chronograph Haute Horlogerie — Luxury Timepiece</title>
+    <title>Chronograph Haute Horlogerie — iOS Glass Edition</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,130 +11,140 @@
         }
 
         body {
-            background-color: #030303;
+            background-color: #000000;
             color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Memindahkan jam ke sisi kanan untuk tata letak modern */
+            justify-content: center;
             overflow: hidden;
             position: relative;
         }
 
-        /* Foto Mawar Berada di Sisi Kiri dengan Efek Fade ke Gelap */
-        .rose-side-background {
+        /* Background mawar hitam-merah estetik */
+        .rose-full-background {
             position: absolute;
             top: 0;
             left: 0;
-            width: 60%;
+            width: 100%;
             height: 100%;
-            background-image: linear-gradient(90deg, rgba(3, 3, 3, 0.2) 0%, rgba(3, 3, 3, 0.95) 85%, #030303 100%), 
+            background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 90%), 
                               url('https://wikimedia.org');
             background-size: cover;
-            background-position: left center;
+            background-position: center;
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Kontainer Utama di Sisi Kiri yang Mewah */
+        /* Panel Kaca Mewah ala iOS Lockscreen (Glassmorphism) */
         .clock-display-wrapper {
             position: relative;
             z-index: 2;
-            padding-right: 8%; /* Jarak dari pinggir kanan layar */
-            text-align: right; /* Rata kanan agar artistik */
-            animation: cubicFadeIn 2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            width: 100%;
+            max-width: 45vw;
+            padding: 5vh 4vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            /* Efek Kaca Frosted Glass */
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(25px) saturate(120%);
+            -webkit-backdrop-filter: blur(25px) saturate(120%);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            
+            animation: iOSFadeIn 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Tulisan Sambung Cursive Mewah untuk Menyambut Abdul */
+        /* Tulisan sambung premium dengan warna champagne elegan */
         .welcome-cursive {
             font-family: 'Georgia', 'Playfair Display', cursive, serif;
             font-style: italic;
-            font-size: 3.8rem; /* Font sambung berukuran besar */
+            font-size: 5.5vh;
             font-weight: 300;
-            color: #f7e7c4; /* Warna putih gading champagne */
-            margin-bottom: -15px; /* Merapatkan jarak dengan teks bawah */
+            color: rgba(247, 231, 196, 0.95); 
+            margin-bottom: 0.5vh;
             letter-spacing: 1px;
-            text-transform: none; /* Menjaga bentuk huruf sambung alami */
-            opacity: 0.95;
-            text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         .status-pill {
-            font-size: 0.75rem;
+            font-size: 1.3vh;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 10px;
-            color: #bd1e2c;
-            margin-bottom: 40px;
+            color: rgba(235, 30, 51, 0.85); /* Merah iOS tipis */
+            margin-bottom: 3.5vh;
             display: block;
-            text-shadow: 0 0 10px rgba(189, 30, 44, 0.3);
         }
 
-        /* Struktur Waktu Bertumpuk yang Berani dan Tidak Standar */
         .time-box {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            line-height: 0.8;
-            margin-bottom: 40px;
+            align-items: center;
+            line-height: 0.85;
+            margin-bottom: 3.5vh;
         }
 
+        /* Warna Putih Transparan Ikonis iOS dengan Pendaran Glow Lembut */
         .time-row {
-            font-size: 13rem; /* Sangat besar dan dominan */
-            font-weight: 100;
-            letter-spacing: -6px;
+            font-size: 20vh;
+            font-weight: 200; /* Tipis minimalis khas Apple */
+            letter-spacing: -2px;
+            color: rgba(255, 255, 255, 0.92);
             font-variant-numeric: tabular-nums;
-            background: linear-gradient(180deg, #ffe596 0%, #d4af37 40%, #aa7c11 75%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 15px 30px rgba(0, 0, 0, 0.95));
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.25), 
+                        0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .seconds-row {
-            font-size: 5rem;
-            font-weight: 200;
-            color: #8a7333; /* Emas redup untuk pembeda detik */
-            letter-spacing: 2px;
-            margin-top: 10px;
+            font-size: 4.5vh;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5); /* Detik redup transparan */
+            letter-spacing: 3px;
+            margin-top: 1.5vh;
             font-variant-numeric: tabular-nums;
         }
 
         #date {
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: #737373;
-            letter-spacing: 6px;
+            font-size: 1.8vh;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.65);
+            letter-spacing: 5px;
             text-transform: uppercase;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2vh;
+            width: 80%;
             display: inline-block;
         }
 
-        @keyframes cubicFadeIn {
-            0% { opacity: 0; transform: translateX(30px); filter: blur(4px); }
-            100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+        @keyframes iOSFadeIn {
+            0% { opacity: 0; transform: scale(0.95); blur(10px); }
+            100% { opacity: 1; transform: scale(1); blur(0); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Foto Mawar Fokus di Sisi Kiri Layar -->
-    <div class="rose-side-background"></div>
+    <div class="rose-full-background"></div>
 
-    <!-- Tampilan Jam Desain Asimetris -->
+    <!-- Tampilan Utama dengan Efek Kaca iOS -->
     <div class="clock-display-wrapper">
-        <!-- Tulisan Sambung Cursive -->
         <div class="welcome-cursive">Welcome back, Abdul</div>
         <span class="status-pill">Absolute Precision Broadcast</span>
         
-        <!-- Jam dan Menit di Atas, Detik Mengalir di Bawahnya -->
         <div class="time-box">
             <div id="hm-clock" class="time-row">00:00</div>
             <div id="s-clock" class="seconds-row">00 SEC</div>
         </div>
         
-        <div id="date">Loading...</div>
+        <div id="date">Loading Timepiece...</div>
     </div>
 
     <script>
@@ -145,7 +155,6 @@
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
             
-            // Format waktu terpisah agar tata letak tidak kaku bersambung datar
             document.getElementById('hm-clock').textContent = `${hours}:${minutes}`;
             document.getElementById('s-clock').textContent = `${seconds} SEC`;
             
