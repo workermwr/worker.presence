@@ -6,26 +6,6 @@
     <title>Mawar Grup — Official Attendance Record</title>
     <style>
         /* Reset & Base Style */
-        <style>
-    /* Reset & Base Style */
-    
-    /* --- TEMPEL KODE KURSOR MAWAR DI SINI --- */
-    html, body {
-        cursor: url('mawar-cursor.png'), auto; 
-    }
-    * {
-        cursor: url('mawar-cursor.png'), auto !important;
-    }
-    /* ---------------------------------------- */
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        user-select: none;
-    }
-
         * {
             margin: 0;
             padding: 0;
@@ -34,11 +14,16 @@
             user-select: none;
         }
 
+        /* Mengunci Kursor Custom Setangkai Mawar Merah */
+        html, body, * {
+            cursor: url('mawar-cursor.png'), auto !important;
+        }
+
         body, html {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #050000;
+            background-color: #030000;
             color: #e5e5e5;
             display: flex;
             justify-content: center;
@@ -53,64 +38,115 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(rgba(0, 0, 0, 0.85), rgba(5, 0, 0, 0.95)),
+                linear-gradient(rgba(0, 0, 0, 0.88), rgba(3, 0, 0, 0.98)),
                 url('mawar.jpg') no-repeat center center;
             background-size: cover;
             z-index: 1;
         }
 
-        /* Modul Intro Sinematik (3.5 Detik) */
+        /* ==================== INTRO SINEMATIK MEGAH ==================== */
         #intro-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #030000;
+            background: radial-gradient(circle at center, #0c0204 0%, #020000 100%);
             z-index: 999;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             opacity: 1;
-            transition: opacity 0.8s ease-in-out;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .laser-scan-box {
+        /* Kontainer Glitch & Laser */
+        .megah-scan-box {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 280px;
+            height: 280px;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 20px;
         }
 
-        .logo-m {
-            font-size: 140px;
+        /* Logo M Bergaya Logam Crimson */
+        .logo-m-megah {
+            font-size: 190px;
             font-weight: 900;
-            color: #111;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            color: #110204;
             position: relative;
             letter-spacing: -5px;
+            line-height: 1;
+            text-shadow: 
+                0 0 2px rgba(255, 0, 51, 0.3),
+                -1px -1px 0px rgba(255,255,255,0.05),
+                1px 1px 0px rgba(0,0,0,0.9);
+            animation: logo-reveal 3.5s ease-in-out forwards;
         }
 
-        /* Efek Laser Scan */
-        .laser-line {
+        @keyframes logo-reveal {
+            0% { color: #0a0102; filter: brightness(0.5) blur(10px); }
+            40% { color: #1a0306; filter: brightness(1) blur(0px); text-shadow: 0 0 30px rgba(255, 0, 51, 0.4); }
+            70% { color: #2d050a; text-shadow: 0 0 50px rgba(255, 0, 51, 0.8), 0 0 10px rgba(255,255,255,0.2); }
+            100% { color: #1c0205; text-shadow: 0 0 25px rgba(255, 0, 51, 0.5); }
+        }
+
+        /* Garis Laser Horizontal Super Tajam */
+        .laser-line-megah {
             position: absolute;
-            left: 0;
+            left: -10%;
+            width: 120%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0033 20%, #ffffff 50%, #ff0033 80%, transparent);
+            box-shadow: 0 0 20px #ff0033, 0 0 40px #ff0033, 0 0 80px #ff0033;
+            animation: laser-scan-intense 1.75s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+        }
+
+        @keyframes laser-scan-intense {
+            0% { top: 5%; opacity: 0.5; transform: scaleX(0.9); }
+            50% { opacity: 1; transform: scaleX(1.05); }
+            100% { top: 95%; opacity: 0.5; transform: scaleX(0.9); }
+        }
+
+        /* Teks Subtitle Korporat */
+        .intro-subtitle {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            color: #666;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: text-fade-up 2.5s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+            animation-delay: 0.8s;
+            text-shadow: 0 0 8px rgba(0,0,0,0.8);
+        }
+
+        @keyframes text-fade-up {
+            to { opacity: 1; transform: translateY(0); color: #b5b5b5; }
+        }
+
+        /* Efek Kilatan Awal Saat Web Dimuat */
+        .flash-bang {
+            position: absolute;
             width: 100%;
-            height: 4px;
+            height: 100%;
             background: #ff0033;
-            box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033;
-            animation: scan 1.75s ease-in-out infinite alternate;
+            opacity: 0;
+            z-index: 1000;
+            pointer-events: none;
+            animation: flash 0.6s ease-out forwards;
         }
 
-        @keyframes scan {
-            0% { top: 10%; opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { top: 90%; opacity: 0.3; }
+        @keyframes flash {
+            0% { opacity: 0.7; }
+            100% { opacity: 0; }
         }
 
-        /* Konten Utama */
+        /* ==================== ANTARMUKA UTAMA ==================== */
         .main-interface {
             position: relative;
             z-index: 2;
@@ -119,13 +155,13 @@
             padding: 40px;
             text-align: center;
             opacity: 0;
-            transform: scale(0.98);
-            transition: opacity 1.5s cubic-bezier(0.1, 0.8, 0.25, 1), transform 1.5s cubic-bezier(0.1, 0.8, 0.25, 1);
+            transform: scale(0.97) translateY(5px);
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .main-interface.visible {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) translateY(0);
         }
 
         /* Header Korporat */
@@ -134,7 +170,7 @@
             text-transform: uppercase;
             letter-spacing: 7px;
             color: #888888;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -152,24 +188,20 @@
             border-radius: 3px;
             font-size: 10px;
             letter-spacing: 2px;
-            transition: all 0.3s ease;
         }
 
         .status-dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            transition: background-color 0.3s ease;
         }
 
-        /* Status Online */
         .online .status-dot {
             background-color: #00ff66;
             box-shadow: 0 0 8px #00ff66;
         }
         .online { color: #8a9990; }
 
-        /* Status Offline (Kedip Cepat) */
         .offline .status-dot {
             background-color: #ff0033;
             animation: fast-blink 0.4s infinite alternate;
@@ -185,25 +217,24 @@
             100% { opacity: 1; box-shadow: 0 0 10px #ff0033; }
         }
 
-        /* Tampilan Jam Baris Horizontal tunggal */
+        /* Tampilan Jam Baris Horizontal */
         .clock-row {
             display: flex;
             justify-content: center;
             align-items: baseline;
             font-variant-numeric: tabular-nums;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        /* Angka Utama (Platinum + Crimson Glow) */
+        /* Angka Utama (Platinum + Crimson Glow Tajam) */
         .time-main {
-            font-size: 110px;
+            font-size: 115px;
             font-weight: 300;
-            color: #e5e9ec;
+            color: #eaeeef;
             letter-spacing: -2px;
-            text-shadow: 0 0 20px rgba(220, 20, 60, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 25px rgba(255, 0, 51, 0.35), 0 0 2px rgba(255, 255, 255, 0.9);
         }
 
-        /* Titik Dua Berkedip */
         .colon {
             animation: slow-blink 1s infinite steps(1, start);
             padding: 0 4px;
@@ -217,52 +248,52 @@
 
         /* Detik (Merah Mawar, Lebih Kecil & Tipis) */
         .time-seconds {
-            font-size: 55px;
+            font-size: 58px;
             font-weight: 200;
-            color: #b31936;
+            color: #cc1e3d;
             margin-left: 15px;
-            text-shadow: 0 0 10px rgba(179, 25, 54, 0.3);
+            text-shadow: 0 0 12px rgba(204, 30, 61, 0.4);
         }
 
         /* Zona Waktu */
         .time-zone {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 400;
-            color: #666666;
+            color: #555555;
             margin-left: 20px;
             letter-spacing: 2px;
         }
 
-        /* Garis Merah Tegas */
+        /* Garis Pembatas Merah Tegas */
         .divider-line {
             width: 100%;
             height: 2px;
             background: linear-gradient(90deg, transparent, #800016 15%, #ff0033 50%, #800016 85%, transparent);
-            box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
-            margin-bottom: 25px;
+            box-shadow: 0 0 12px rgba(255, 0, 51, 0.6);
+            margin-bottom: 30px;
         }
 
         /* Bagian Tanggal (Besar & Tebal) */
         .date-display {
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 700;
-            letter-spacing: 6px;
-            color: #cccccc;
+            letter-spacing: 7px;
+            color: #d4d4d4;
             text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
         }
     </style>
 </head>
 <body>
-
     <div class="background-overlay"></div>
-
-    <!-- Modul Intro Sinematik -->
+    <!-- Modul Intro Sinematik Premium Megah -->
     <div id="intro-container">
-        <div class="laser-scan-box">
-            <div class="laser-line"></div>
-            <div class="logo-m">M</div>
+        <div class="flash-bang"></div>
+        <div class="megah-scan-box">
+            <div class="laser-line-megah"></div>
+            <div class="logo-m-megah">M</div>
         </div>
+        <div class="intro-subtitle">Mawar Grup Secure System</div>
     </div>
 
     <!-- Antarmuka Utama -->
@@ -289,7 +320,7 @@
     </div>
 
     <script>
-        // Logika Transisi Intro Sinematik (3.5 Detik)
+        // Logika Transisi Intro Sinematik Pas 3.5 Detik
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const intro = document.getElementById('intro-container');
@@ -299,8 +330,8 @@
                 setTimeout(() => {
                     intro.style.display = 'none';
                     mainUi.classList.add('visible');
-                }, 800); // Sinkronisasi durasi efek fade-out
-            }, 3500); // Pas 3.5 Detik
+                }, 1200); // Waktu memudar transisi yang halus
+            }, 3500); // Tepat berjalan 3,5 detik
         });
 
         // Detektor Status Jaringan Real-Time
@@ -319,13 +350,12 @@
 
         window.addEventListener('online', updateNetworkStatus);
         window.addEventListener('offline', updateNetworkStatus);
-        updateNetworkStatus(); // Cek inisiasi awal
+        updateNetworkStatus();
 
         // Sistem Pembaruan Waktu Jam & Tanggal
         function updateClock() {
             const now = new Date();
 
-            // Pilihan nama hari dan bulan bahasa Indonesia formal
             const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
             const months = ['JANUARI', 'FEBRUARI', 'MARET', 'APRIL', 'MEI', 'JUNI', 'JULI', 'AGUSTUS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DESEMBER'];
 
@@ -333,15 +363,14 @@
             let minutes = String(now.getMinutes()).padStart(2, '0');
             let seconds = String(now.getSeconds()).padStart(2, '0');
             
-            // Format Jam:Menit dengan titik dua terpisah untuk animasi css
             document.getElementById('clock-main').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
             document.getElementById('clock-seconds').textContent = seconds;
 
-            // Dapatkan Kode Singkatan Zona Waktu
+            // Membaca Zona Waktu Otomatis
             const tzString = now.toLocaleDateString('id-ID', { timeZoneName: 'short' }).split(' ').pop();
             document.getElementById('clock-zone').textContent = tzString;
 
-            // Format Tanggal
+            // Format Tanggal Korporat
             let dayName = days[now.getDay()];
             let dayNum = String(now.getDate()).padStart(2, '0');
             let monthName = months[now.getMonth()];
@@ -351,7 +380,7 @@
         }
 
         setInterval(updateClock, 1000);
-        updateClock(); // Jalankan langsung tanpa jeda 1 detik pertama
+        updateClock();
     </script>
 </body>
 </html>
