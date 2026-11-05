@@ -562,13 +562,13 @@
         // ==========================================================================
         initializeSystemData();
         monitorNetworkHardware();
-        
         setInterval(spawnWindBlownDrizzle, 50);
         setInterval(executeClockEngine, 1000);
-        executeClockEngine();
+        executeClockEngine(); 
         
-        // Aktifkan sistem sensor pembekuan elemen setelah seluruh teks awal ter-render sempurna
-        setTimeout(activateAntiTamperGuard, 800);
+        // Jeda ditingkatkan menjadi 2.5 detik (2500) agar inisiasi teks awal selesai total
+        setTimeout(activateAntiTamperGuard, 2500);
+
     </script>
 </body>
 </html>
