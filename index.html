@@ -30,7 +30,45 @@
         }
 
         /* ==========================================================================
-           2. AMBIENT BACKGROUND & PENAJAMAN IDENTITAS MAWAR UTAMA
+           2. LAYAR BLOKIR MOBIL / DESKTOP MODE HP (EXCLUSIVITY SECURITY GATE)
+           ========================================================================== */
+        #mobileBlockOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #030001;
+            z-index: 99999; /* Berada di atas seluruh elemen apa pun */
+            display: none; /* Muncul otomatis lewat deteksi JavaScript */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .block-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ff003c;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 0, 60, 0.6);
+        }
+
+        .block-desc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #888;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        /* ==========================================================================
+           3. AMBIENT BACKGROUND & PENAJAMAN IDENTITAS MAWAR UTAMA
            ========================================================================== */
         .bg-container {
             position: absolute;
@@ -42,7 +80,6 @@
             z-index: 1;
         }
 
-        /* Tirai kegelapan dikunci stabil pada mode gerimis yang jernih agar mawar sangat menonjol */
         .dark-curtain {
             position: absolute;
             top: 0;
@@ -55,7 +92,7 @@
         }
 
         /* ==========================================================================
-           3. SISTEM GERIMIS KINETIK: PEKAT & DINAMIS TERTIUP ANGIN ANATOMIS
+           4. SISTEM GERIMIS KINETIK: PEKAT & DINAMIS TERTIUP ANGIN ANATOMIS
            ========================================================================== */
         .rain-container {
             position: absolute;
@@ -82,7 +119,7 @@
             100% { transform: translateY(105vh) translateX(var(--wind-drift, 0px)); }
         }
         /* ==========================================================================
-           4. ANTARMUKA FLOATING BORDERLESS (TERISOLASI DI LAPISAN DEPAN)
+           5. ANTARMUKA FLOATING BORDERLESS (TERISOLASI DI LAPISAN DEPAN)
            ========================================================================== */
         .main-interface {
             position: relative;
@@ -107,7 +144,7 @@
         }
 
         /* ==========================================================================
-           5. PENYETELAN JAM KEMBAR RAKSASA ALA TIME.IS (MUTLAK ANTI-BUG TEKS KECIL)
+           6. PENYETELAN JAM KEMBAR RAKSASA ALA TIME.IS (MUTLAK ANTI-BUG TEKS KECIL)
            ========================================================================== */
         .clock-row {
             display: flex;
@@ -160,7 +197,7 @@
         }
 
         /* ==========================================================================
-           6. MODUL TANGGAL & BENTENG PENATAAN LETAK LOKASI BAR BARU
+           7. MODUL TANGGAL & BENTENG PENATAAN LETAK LOKASI BAR BARU
            ========================================================================== */
         .divider-line {
             height: 2px;
@@ -223,7 +260,6 @@
         }
         .offline .status-text { color: #ff003c; }
 
-        /* Tampilan nama kota dinamis di bar status */
         .location-badge {
             font-weight: 900;
             color: #ffffff;
@@ -267,7 +303,17 @@
 </head>
 <body>
 
-    <!-- SISTEM LATAR BELAKANG MAWAR & LAYER HUJAN KINETIK -->
+    <!-- TAMENG PROTEKSI ULTRA: BLOKIR PERANGKAT GENGGAM / MOBILE & TABLET DETECTOR -->
+    <div id="mobileBlockOverlay">
+        <div class="block-title">Access Denied</div>
+        <div class="block-desc">
+            SISTEM ABSENSI MAWAR GRUP BERSIFAT EKSKLUSIF.<br>
+            [SECURITY ERROR]: PERANGKAT MOBILE ATAU TABLET TERDETEKSI.<br>
+            AKSES DIREDUKSI. HARAP GUNAKAN PC, LAPTOP, ATAU WORKSTATION WINDOWS.
+        </div>
+    </div>
+
+    <!-- SISTEM LATAR BELAKANG MAWAR & LAYER HUJAN KINETIK GERIMIS -->
     <div class="bg-container">
         <div class="dark-curtain" id="ambientCurtain"></div>
     </div>
@@ -308,17 +354,44 @@
     </main>
     <script>
         // ==========================================================================
-        // 7. ENGINE UTAMA SINKRONISASI NTP WAKTU GLOBAL & SINKRONISASI DATA
+        // 7. TAMENG PROTEKSI HARDWARE: BLOKIR TOTAL AKSES HP & DESKTOP MODE HP
+        // ==========================================================================
+        function enforceHardwareExclusivity() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const overlay = document.getElementById('mobileBlockOverlay');
+            
+            // Penguji 1: Sniffer Berbasis Sistem Operasi Seluler/Tablet
+            const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|windows phone/i.test(userAgent);
+            
+            // Penguji 2: Deteksi Fitur Perangkat Keras Genggam (Touch Points & Orientasi)
+            // Sistem Desktop Mode di HP tidak bisa memalsukan maxTouchPoints perangkat asli
+            const hasTouchHardware = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+            const isSmallScreen = window.screen.width <= 1024 || window.innerWidth <= 1024;
+            
+            // Eksekusi Pemblokiran Mutlak jika salah satu indikator seluler terpenuhi
+            if (isMobileUA || (hasTouchHardware && isSmallScreen)) {
+                if (overlay) {
+                    overlay.style.display = 'flex';
+                }
+                // Matikan seluruh proses render engine di latar belakang demi menghemat memori
+                throw new Error("[SECURITY ACCESS DENIED]: Perangkat tidak didukung.");
+            }
+        }
+
+        // Jalankan pemeriksaan gerbang eksklusivitas hardware sebelum memuat data lainnya
+        enforceHardwareExclusivity();
+
+        // ==========================================================================
+        // 8. MESIN UTAMA WAKTU GLOBAL & SINKRONISASI DATA GEOLOKASI IP
         // ==========================================================================
         let secureTimeOffset = 0;
-        let currentUserCity = "JAKARTA"; // Fallback default korporat Mawar Grup
+        let currentUserCity = "JAKARTA"; 
 
         async function initializeSystemData() {
             if (!navigator.onLine) return;
             const latencyText = document.getElementById('ntpLatency');
             const startTime = Date.now();
             
-            // 1. Eksekusi Pelacakan Geolokasi IP Publik Ringkas
             try {
                 const geoResponse = await fetch('https://ipapi.co');
                 if (geoResponse.ok) {
@@ -329,11 +402,10 @@
                     }
                 }
             } catch (e) {
-                console.warn("Gagal melacak IP lokasi, menggunakan parameter Jakarta.");
+                console.warn("Gagal melacak lokasi IP, otomatis terkunci ke Jakarta.");
                 document.getElementById('userLocation').textContent = "JAKARTA";
             }
 
-            // 2. Eksekusi Sinkronisasi Waktu NTP Server Jakarta
             try {
                 const response = await fetch('https://worldtimeapi.org');
                 if (response.ok) {
@@ -346,12 +418,11 @@
                     latencyText.textContent = `NTP SYNC: PERFECT (±${latency}ms) | `;
                 }
             } catch (error) {
-                console.warn("NTP Engine Sync Failure. Fallback to hardened local validation.");
+                console.warn("NTP Engine Sync Failure. Protected local validation active.");
                 latencyText.textContent = `NTP SYNC: AUDITED SECURE | `;
             }
         }
 
-        // Generator Token Forensik Kriptografi (Kombinasi Waktu + Kota Terkunci)
         function generateVerificationHash(hours, minutes, seconds, dateText, networkStatus, city) {
             const rawString = `${hours}:${minutes}:${seconds}-${dateText}-${networkStatus}-${city}-${secureTimeOffset}`;
             let hash = 0;
@@ -371,7 +442,6 @@
             const rawMinutes = String(calculatedTime.getMinutes()).padStart(2, '0');
             const rawSeconds = String(calculatedTime.getSeconds()).padStart(2, '0');
             
-            // Perbarui komponen jam kembar raksasa secara serentak
             document.getElementById('timeMainHour').textContent = rawHours;
             document.getElementById('timeMainMinute').textContent = rawMinutes;
             document.getElementById('timeSeconds').textContent = rawSeconds;
@@ -404,9 +474,9 @@
         window.addEventListener('offline', monitorNetworkHardware);
 
         // ==========================================================================
-        // 8. ENGINE KINETIK GERIMIS: EFEK TIUPAN ANGIN ACAK (MIRING & LURUS)
+        // 9. ENGINE KINETIK GERIMIS: EFEK TIUPAN ANGIN ACAK (MIRING & LURUS)
         // ==========================================================================
-        const maxRaindrops = 35; // Dikunci stabil pada mode gerimis tipis estetis
+        const maxRaindrops = 35; 
 
         function spawnWindBlownDrizzle() {
             const container = document.getElementById('rainContainer');
@@ -415,25 +485,22 @@
             const drop = document.createElement('div');
             drop.className = 'drop';
             
-            // Sebaran awal jatuh acak di atas layar
             drop.style.left = Math.random() * 100 + 'vw';
             drop.style.height = Math.random() * 25 + 20 + 'px';
             drop.style.animationDuration = Math.random() * 1.3 + 1.0 + 's';
             
-            // Logika Tiupan Angin Acak: 60% miring (kanan/kiri), 40% lurus sempurna
             const r = Math.random();
             let driftX = 0;
             let angle = 0;
             
             if (r < 0.3) {
-                driftX = Math.random() * 60 + 40; // Miring ke kanan
+                driftX = Math.random() * 60 + 40; 
                 angle = Math.random() * 12 + 8;
             } else if (r < 0.6) {
-                driftX = -(Math.random() * 60 + 40); // Miring ke kiri
+                driftX = -(Math.random() * 60 + 40); 
                 angle = -(Math.random() * 12 + 8);
             }
             
-            // Terapkan pergeseran koordinat horizontal dan rotasi visual partikel air
             drop.style.setProperty('--wind-drift', `${driftX}px`);
             drop.style.transform = `rotate(${angle}deg)`;
 
@@ -442,12 +509,11 @@
         }
 
         // ==========================================================================
-        // 9. INITIALIZATION BOOTSTRAP ENGINE
+        // 10. INSTANSIASI ENGINE JALUR UTAMA
         // ==========================================================================
         initializeSystemData();
         monitorNetworkHardware();
         
-        // Jalankan loop generator gerimis angin konstan dan loop jam
         setInterval(spawnWindBlownDrizzle, 50);
         setInterval(executeClockEngine, 1000);
         executeClockEngine();
